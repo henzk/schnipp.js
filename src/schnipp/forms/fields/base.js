@@ -43,7 +43,7 @@ schnipp.forms.fields.base = function(field_descriptor, field_data) {
     };
     
     self.render_valid = function() {
-        self.elems.input.css('border','1px solid green');
+        /*self.elems.input.css('border','1px solid green');*/
         self.elems.errorlist.remove();
     };
     
@@ -58,7 +58,7 @@ schnipp.forms.fields.base = function(field_descriptor, field_data) {
             });
         }
         
-        self.elems.input.css('border', '1px solid red');
+        /*self.elems.input.css('border', '1px solid red');*/
     }
     
     self.do_validate = function() {

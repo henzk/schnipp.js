@@ -13,18 +13,6 @@ schnipp.forms.render_field = function(field_descriptor, rendered_field, errorlis
     return outer;
 };
 
-/*
-TODO is this needed?
-*/
-schnipp.forms.renderer = function(schema, data) {
-    var res = $('<div></div>');
-    for (var i = 0; i < schema.fields.length; i++) {
-        var field_schema = schema.fields[i];
-        var field = schnipp.forms.fields[field_schema.type](field_schema, data[field_schema.name]);
-        res.append(field.render());
-    }
-    return res;
-};
 
 /*
 the schnippform
@@ -34,19 +22,41 @@ schnipp.forms.form = function(schema, data) {
     var self = {};
     
     self.schema = schema;
-    self.data = data;
+    self.data = data || {};
     self.fields = {};
+    self.field_schemata = {};
+    
     
     /* render the form */
     self.render = function() {
-        var res = $('<div id="form_' + self.schema.name + '"></div>');
-        for (var i = 0; i < self.schema.fields.length; i++) {
+
+        self.fields = {};
+        self.field_schemata = {};
+        for (var i = 0; i < schema.fields.length; i++) {
             var field_schema = schema.fields[i];
-            var field = schnipp.forms.fields[field_schema.type](field_schema, data[field_schema.name]);
+            var field = schnipp.forms.fields[field_schema.type](field_schema, self.data[field_schema.name]);
+            self.field_schemata[field_schema.name] = field_schema;
             self.fields[field_schema.name] = field;
-            res.append(field.render());
+        }
+
+        if (self.schema['fields_display'] != undefined) {
+            var res = $('<div></div>');
+            for (var i = 0; i < schema.fields_display.length; i++) {
+                var entry = schema.fields_display[i];
+                var field_schema = self.field_schemata[entry];
+                var field = self.fields[field_schema.name];
+                res.append(field.render());
+            }
+        } else {
+            var res = $('<div></div>');
+            for (var i = 0; i < schema.fields.length; i++) {
+                var field_schema = schema.fields[i];
+                var field = self.fields[field_schema.name];
+                res.append(field.render());
+            }
         }
         return res;
+    
     };
     
     /* extract current data */

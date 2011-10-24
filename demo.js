@@ -58,6 +58,71 @@ $(function() {
                     ['red', 'red'],
                 ],
             },
+            {
+                label: 'Form1',
+                type: 'form',
+                name: 'form1',
+                default_value: {},
+                fields: [
+                    {
+                        label: 'Float1',
+                        type: 'floatingpoint',
+                        name: 'float1',
+                        default_value: 25.1
+                    },
+                    {
+                        label: 'Check1',
+                        type: 'checkbox',
+                        name: 'check1',
+                        default_value: true
+                    },
+                    {
+                        label: 'Select1',
+                        type: 'select',
+                        name: 'select1',
+                        default_value: 'blue',
+                        options: [
+                            ['blue', 'blue'],
+                            ['green', 'green'],
+                            ['red', 'red'],
+                        ],
+                    },
+                    {
+                        label: 'Form1',
+                        type: 'form',
+                        name: 'form1',
+                        default_value: {},
+                        fields: [
+                            {
+                                label: 'Float1',
+                                type: 'floatingpoint',
+                                name: 'float1',
+                                default_value: 25.1
+                            },
+                            {
+                                label: 'Check1',
+                                type: 'checkbox',
+                                name: 'check1',
+                                default_value: true
+                            },
+                            {
+                                label: 'Select1',
+                                type: 'select',
+                                name: 'select1',
+                                default_value: 'blue',
+                                options: [
+                                    ['blue', 'blue'],
+                                    ['green', 'green'],
+                                    ['red', 'red'],
+                                ],
+                            }
+                        ],
+                    }
+                ],
+            }
+        ],
+        fields_display2: [
+            'test1', 'test2', 'test3', 'color1', 'int1', 'float1', 'check1', 'select1'
         ]
     };
     
