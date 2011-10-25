@@ -121,8 +121,20 @@ $(function() {
                 ],
             }
         ],
-        fields_display2: [
-            'test1', 'test2', 'test3', 'color1', 'int1', 'float1', 'check1', 'select1'
+        fields_display: [
+            ['test2', 'test1'], 'test3', 'color1', 'int1', 'float1', 'check1', 'select1', 'form1'
+        ],
+        fieldsets: [
+            {
+                classes: ['collapse'],
+                label: 'Main Settings',
+                fields_display: [['test2', 'test1'], ['test3', 'color1']]
+            },
+            {
+                classes: ['collapse'],
+                label: 'Not so important',
+                fields_display: ['int1', 'float1', 'check1', 'select1', 'form1']
+            }
         ]
     };
     
@@ -137,8 +149,10 @@ $(function() {
     
     form.initialize();
     
-    var submitrow = $('<div><span class="label">&nbsp;</span></div>');
+    var submitrow = $('<div></div>');
     submitrow.append(submit);
+    submit.css('float', 'right');
     $('#content').append(submitrow);
+    submit.button();
 
 });

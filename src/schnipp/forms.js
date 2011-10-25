@@ -25,7 +25,65 @@ schnipp.forms.form = function(schema, data) {
     self.data = data || {};
     self.fields = {};
     self.field_schemata = {};
+    self.view = null;
     
+    self.render_fieldset = function(fieldset) {
+
+        var classes = fieldset.classes.join(' ');
+        if (classes) {
+            classes = ' class="' + classes + '"';
+        }
+        var res = $('<div' + classes + '></div>');
+        var holder = res;
+        if (fieldset.label) {
+            res.append($('<h3 class="ui-widget-header ui-corner-top">' + fieldset.label + '</h3>'));
+            holder = $('<div class="ui-widget-content ui-corner-bottom"></div>');
+            res.append(holder);
+        }
+        holder.append(self.render_fields(fieldset.fields_display));
+
+        return res;
+    };
+    
+    self.render_fieldsets = function(fieldsets) {
+
+        var res = $('<div></div>');
+        for (var i = 0; i < fieldsets.length; i++) {
+            var fieldset = fieldsets[i];
+            res.append(self.render_fieldset(fieldset));
+        }
+
+        return res;
+    };
+
+    
+    self.render_fields = function(field_tree) {
+        var res = $('<div></div>');
+        for (var i = 0; i < field_tree.length; i++) {
+            var entry = field_tree[i];
+            if ($.isArray(entry)) {
+                var row = $('<div class="form_row"></div>');
+                for (var j = 0; j < entry.length; j++) {
+                    var col = entry[j];
+                    var field_schema = self.field_schemata[col];
+                    var field = self.fields[field_schema.name];
+                    var rendered = field.render();
+                    rendered.css({
+                        'display': 'inline-block',
+                        'float': 'left'
+                    });
+                    row.append(rendered);
+                }
+                res.append(row);
+                res.append($('<div style="clear:both"></div>'));
+            } else {
+                var field_schema = self.field_schemata[entry];
+                var field = self.fields[field_schema.name];
+                res.append(field.render());
+            }
+        }
+        return res;
+    };
     
     /* render the form */
     self.render = function() {
@@ -38,23 +96,22 @@ schnipp.forms.form = function(schema, data) {
             self.field_schemata[field_schema.name] = field_schema;
             self.fields[field_schema.name] = field;
         }
-
-        if (self.schema['fields_display'] != undefined) {
-            var res = $('<div></div>');
-            for (var i = 0; i < schema.fields_display.length; i++) {
-                var entry = schema.fields_display[i];
-                var field_schema = self.field_schemata[entry];
-                var field = self.fields[field_schema.name];
-                res.append(field.render());
-            }
+        var res = null;
+        
+        if (self.schema['fieldsets'] != undefined) {
+            res = self.render_fieldsets(schema.fieldsets);
+        } else if (self.schema['fields_display'] != undefined) {
+            res = self.render_fields(schema.fields_display);
         } else {
-            var res = $('<div></div>');
+            res = $('<div></div>');
             for (var i = 0; i < schema.fields.length; i++) {
                 var field_schema = schema.fields[i];
                 var field = self.fields[field_schema.name];
                 res.append(field.render());
             }
         }
+        res.addClass('ui-widget');
+        self.view = res;
         return res;
     
     };
@@ -92,11 +149,19 @@ schnipp.forms.form = function(schema, data) {
     
     /* initialize the form after rendering it */
     self.initialize = function(data) {
+        /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = schema.fields[i];
             var field = self.fields[field_schema.name];
             field.initialize();
         }
+        /* form funkyness */
+        self.view.children('.collapse').children('h3').click(function() {
+            var self = $(this);
+            self.parent().children('div').slideToggle();
+        });
+        self.view.children('.collapse').children('div').hide();
+        
     };
     
     /* iterate the fields - pass in a function */
