@@ -4,9 +4,7 @@ schnipp.forms.fields.form = function(field_descriptor, field_data) {
     self.form = schnipp.forms.form(field_descriptor, field_data);
     
     self.render = function() {
-        var holder = $('<div class="nestedform"><h5>' + self.field_descriptor.label + '</h5></div>');
-        holder.append(self.form.render());
-        return holder;
+        return self.form.render();
     };
     
     self.set_data = function(data) {

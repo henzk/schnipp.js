@@ -1,6 +1,7 @@
 $(function() {
     var schema = {
         name: 'form1',
+        label: 'This is a form',
         fields: [
             {
                 label: 'Test1',

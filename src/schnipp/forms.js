@@ -90,24 +90,27 @@ schnipp.forms.form = function(schema, data) {
 
         self.fields = {};
         self.field_schemata = {};
-        for (var i = 0; i < schema.fields.length; i++) {
-            var field_schema = schema.fields[i];
+        for (var i = 0; i < self.schema.fields.length; i++) {
+            var field_schema = self.schema.fields[i];
             var field = schnipp.forms.fields[field_schema.type](field_schema, self.data[field_schema.name]);
             self.field_schemata[field_schema.name] = field_schema;
             self.fields[field_schema.name] = field;
         }
-        var res = null;
+        var res = $('<div></div>');
+        res.append($('<h3 class="ui-widget-header ui-corner-top">' + self.schema.label + '</h3>'));
+        var holder = $('<div class="ui-widget-content ui-corner-bottom"></div>');
+        res.append(holder);
+        
         
         if (self.schema['fieldsets'] != undefined) {
-            res = self.render_fieldsets(schema.fieldsets);
+            holder.append(self.render_fieldsets(schema.fieldsets));
         } else if (self.schema['fields_display'] != undefined) {
-            res = self.render_fields(schema.fields_display);
+            holder.append(self.render_fields(schema.fields_display));
         } else {
-            res = $('<div></div>');
             for (var i = 0; i < schema.fields.length; i++) {
                 var field_schema = schema.fields[i];
                 var field = self.fields[field_schema.name];
-                res.append(field.render());
+                holder.append(field.render());
             }
         }
         res.addClass('ui-widget');
@@ -156,11 +159,13 @@ schnipp.forms.form = function(schema, data) {
             field.initialize();
         }
         /* form funkyness */
-        self.view.children('.collapse').children('h3').click(function() {
+        self.view.children('div').children('div').children('.collapse').children('h3').click(function() {
             var self = $(this);
+            self.parent().toggleClass('collapsed')
             self.parent().children('div').slideToggle();
         });
-        self.view.children('.collapse').children('div').hide();
+        self.view.children('div').children('div').children('.collapse').children('div').hide();
+        self.view.children('div').children('div').children('.collapse').addClass('collapsed');
         
     };
     
