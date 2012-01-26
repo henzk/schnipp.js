@@ -7,9 +7,12 @@
     <script type="text/javascript" src="dependencies/jqueryui/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="dependencies/jqueryui/js/jquery-ui-1.8.16.min.js"></script>
     <script type="text/javascript" src="dependencies/cP_v0.91/colorPicker.js"></script>
+    <script type="text/javascript" src="dependencies/underscore.js"></script>
 
     <!-- schnipplib -->
     <script type="text/javascript" src="src/schnipp.js"></script>
+    <script type="text/javascript" src="src/schnipp/frames.js"></script>
+    
     <script type="text/javascript" src="src/schnipp/forms.js"></script>
     <script type="text/javascript" src="src/schnipp/forms/fields.js"></script>
     <script type="text/javascript" src="src/schnipp/forms/fields/base.js"></script>
@@ -72,9 +75,33 @@
         .ui-widget-content {
             padding:5px;
             }
+            
+        a {
+            cursor:pointer;
+        }
+        .schn_frame {
+            
+            background:white;
+            border: 2px solid #ddd;
+            position: absolute;
+            left: 100px;
+            top:50px;
+        }
+        .schn_titlebar {
+            border:1px solid #ddd;
+            padding-left:10px;
+            padding-right:10px;
+        }
+        .schn_content {
+            padding:10px;
+        }
+        .schn_close {
+            float:right;
+            
+        }
     </style>
 </head>
 <body>
     <div id="content"></div>
 </body>
-
+</html>
