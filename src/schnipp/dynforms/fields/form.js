@@ -1,7 +1,7 @@
-schnipp.forms.fields.form = function(field_descriptor, field_data) {
-    var self = schnipp.forms.fields.base(field_descriptor, field_data);
+schnipp.dynforms.fields.form = function(field_descriptor, field_data) {
+    var self = schnipp.dynforms.fields.base(field_descriptor, field_data);
     
-    self.form = schnipp.forms.form(field_descriptor, field_data);
+    self.form = schnipp.dynforms.form(field_descriptor, field_data);
     
     self.render = function() {
         return self.form.render();

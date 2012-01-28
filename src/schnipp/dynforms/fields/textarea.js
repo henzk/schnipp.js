@@ -1,5 +1,5 @@
-schnipp.forms.fields.textarea = function(field_descriptor, field_data) {
-    var self = schnipp.forms.fields.text(field_descriptor, field_data);
+schnipp.dynforms.fields.textarea = function(field_descriptor, field_data) {
+    var self = schnipp.dynforms.fields.text(field_descriptor, field_data);
     
     self.elems.input = $(
         '<textarea name="' + 

@@ -1,4 +1,4 @@
-schnipp.forms.fields.base = function(field_descriptor, field_data) {
+schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     var self = {};
     self.field_descriptor = field_descriptor;
     self.field_data = field_data || self.field_descriptor.default_value;
@@ -12,7 +12,7 @@ schnipp.forms.fields.base = function(field_descriptor, field_data) {
     };
     
     self.render = function() {
-        self.elems.holder = schnipp.forms.render_field(
+        self.elems.holder = schnipp.dynforms.render_field(
             self.field_descriptor, 
             self.elems.input,
             self.elems.errorlist

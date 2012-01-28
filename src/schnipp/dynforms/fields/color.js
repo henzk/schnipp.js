@@ -1,5 +1,5 @@
-schnipp.forms.fields.color = function(field_descriptor, field_data) {
-    var self = schnipp.forms.fields.text(field_descriptor, field_data);
+schnipp.dynforms.fields.color = function(field_descriptor, field_data) {
+    var self = schnipp.dynforms.fields.text(field_descriptor, field_data);
     
     self.initialize = function() {
         self.elems.input.click(function(e) {

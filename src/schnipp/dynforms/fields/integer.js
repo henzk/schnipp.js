@@ -1,5 +1,5 @@
-schnipp.forms.fields.integer = function(field_descriptor, field_data) {
-    var self = schnipp.forms.fields.text(field_descriptor, field_data);
+schnipp.dynforms.fields.integer = function(field_descriptor, field_data) {
+    var self = schnipp.dynforms.fields.text(field_descriptor, field_data);
 
     self.super_get_data = self.get_data;
     self.get_data = function() {

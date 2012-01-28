@@ -139,7 +139,7 @@ $(function() {
         ]
     };
     
-    var form = schnipp.forms.form(schema, {});
+    var form = schnipp.dynforms.form(schema, {});
     var submit = $('<input type="submit" value="submit"></submit>');
     submit.click(function() {
         console.log(form.get_data());

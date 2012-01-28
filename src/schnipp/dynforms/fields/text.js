@@ -1,5 +1,5 @@
-schnipp.forms.fields.text = function(field_descriptor, field_data) {
-    var self = schnipp.forms.fields.base(field_descriptor, field_data);
+schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
+    var self = schnipp.dynforms.fields.base(field_descriptor, field_data);
     
     self.elems.input = $(
         '<input type="text" name="' + 

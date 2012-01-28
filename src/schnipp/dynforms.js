@@ -1,12 +1,12 @@
 /*
 schnipp forms - rockit
 */
-schnipp.forms = {};
+schnipp.dynforms = {};
 
 /*
 renders a field in a container div with label and stuff
 */
-schnipp.forms.render_field = function(field_descriptor, rendered_field, errorlist) {
+schnipp.dynforms.render_field = function(field_descriptor, rendered_field, errorlist) {
     var outer = $('<div><span class="label">' + field_descriptor.label + ' : </span></div>');
     //outer.prepend(errorlist);
     outer.append(rendered_field);
@@ -18,7 +18,7 @@ schnipp.forms.render_field = function(field_descriptor, rendered_field, errorlis
 the schnippform
 give me a schema and some data - i will be your form
 */
-schnipp.forms.form = function(schema, data) {
+schnipp.dynforms.form = function(schema, data) {
     var self = {};
     
     self.schema = schema;
@@ -92,7 +92,7 @@ schnipp.forms.form = function(schema, data) {
         self.field_schemata = {};
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i];
-            var field = schnipp.forms.fields[field_schema.type](field_schema, self.data[field_schema.name]);
+            var field = schnipp.dynforms.fields[field_schema.type](field_schema, self.data[field_schema.name]);
             self.field_schemata[field_schema.name] = field_schema;
             self.fields[field_schema.name] = field;
         }
