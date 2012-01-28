@@ -26,8 +26,7 @@ schnipp.dialogs.dialog = function(parent, dialogname) {
     self.dom.dialog = null
     self.dom.content = null
     //event support
-    self.evts = {}
-    self.evts.fire = function() {}
+    self.evts = schnipp.events.event_support()
     //the controller
     self.ctrl = {}
     //the view
@@ -68,9 +67,9 @@ schnipp.dialogs.dialog = function(parent, dialogname) {
     
     //close and cleanup
     self.ctrl.close = function() {
-        self.evts.fire('pre_close')
+        self.evts.fire('pre_close', self)
         self.dom.dialog.remove()
-        self.evts.fire('post_close')
+        self.evts.fire('post_close', self)
         return self
     }
     
@@ -98,7 +97,7 @@ schnipp.dialogs.dialog = function(parent, dialogname) {
         self.view.set_title(title)
             
         schnipp.dialogs.enable_for(self.dom.content, self)
-        
+        schnipp.dialogs._bootstrapper.fire_and_unbind('bootstrap', self)
         return self
     }
     
