@@ -15,6 +15,10 @@ schnipp.forms.fields.form = function(field_descriptor, field_data) {
         return self.form.get_data();
     };
 
+    self.initialize = function() {
+        self.form.initialize();
+    };
+    
     return self;
 };
 
