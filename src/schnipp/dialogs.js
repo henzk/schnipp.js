@@ -20,6 +20,21 @@ schnipp.dialogs._conf = {
     }
 }
 
+schnipp.dialogs._component_types = {}
+
+schnipp.dialogs.get_component_of = function(dom_elem) {
+    var comp_elem = dom_elem.closest('[data-schnui]')
+    var comp = comp_elem.data('schnui-component')
+    if (comp) {
+        return comp
+    } else {
+        console.log("ERRORERROR!!!")
+        var parent_comp = schnipp.dialogs.get_component_of(comp_elem)
+        var comp_constructor = schnipp.dialogs._component_types[comp_elem.attr('data-schnui')]
+        return comp_constructor(parent, comp_elem.attr('data-schnui-name') || 'default')
+    }
+}
+
 //generic clickhandlers
 schnipp.dialogs._handlers = {}
 
@@ -28,12 +43,13 @@ schnipp.dialogs._handlers.create_dialog = function(parent) {
     return function() {
         var clicked_link = $(this)
         var href = clicked_link.attr('href')
-        $.get(
+        schnipp.net.get(
             href,
             function(data) {
                 var dialog = schnipp.dialogs.dialog(parent)
-                dialog.display()
+                dialog.render()
                 dialog.view.set_content($(data))
+                console.log(dialog)
             }
         )
         return false
@@ -45,7 +61,7 @@ schnipp.dialogs._handlers.set_dialog_content = function(current_dialog) {
     return function() {
         var clicked_link = $(this)
         var href = clicked_link.attr('href')
-        $.get(
+        schnipp.net.get(
             href,
             function(data) {
                 current_dialog.view.set_content($(data))
@@ -78,7 +94,7 @@ schnipp.dialogs._handlers.submit_to_new_dialog = function(parent) {
             form,
             function(data) {
                 var dialog = schnipp.dialogs.dialog(parent)
-                dialog.display()
+                dialog.render()
                 dialog.view.set_content($(data))
             }
         )
@@ -90,19 +106,26 @@ schnipp.dialogs.enable_for = function(elem, dialog) {
     if (!dialog)
         dialog = null
     //enable opening dialogs
-    elem.find(schnipp.dialogs._conf.selectors.dialog_opener).click(
-        schnipp.dialogs._handlers.create_dialog(self)
+    elem.find(schnipp.dialogs._conf.selectors.dialog_opener).unbind('click').click(
+        schnipp.dialogs._handlers.create_dialog(dialog)
     )
     //enable reloading in current dialog
-    elem.find(schnipp.dialogs._conf.selectors.dialog_setter).click(
+    elem.find(schnipp.dialogs._conf.selectors.dialog_setter).unbind('click').click(
         schnipp.dialogs._handlers.set_dialog_content(dialog)
     )
     //enable form posting to current dialog
-    elem.find(schnipp.dialogs._conf.selectors.dialog_submit_setter).submit(
+    elem.find(schnipp.dialogs._conf.selectors.dialog_submit_setter).unbind('submit').submit(
         schnipp.dialogs._handlers.submit_to_current_dialog(dialog)
     )
     //enable form posting to new dialog
-    elem.find(schnipp.dialogs._conf.selectors.dialog_submit_opener).submit(
+    elem.find(schnipp.dialogs._conf.selectors.dialog_submit_opener).unbind('submit').submit(
         schnipp.dialogs._handlers.submit_to_new_dialog(dialog)
     )
+    elem.find('[data-schnui]').each(function(index, comp_elem) {
+        comp_elem = $(comp_elem)
+        var comp_constructor = schnipp.dialogs._component_types[comp_elem.attr('data-schnui')]
+        var comp = comp_constructor(dialog, comp_elem.attr('data-schnui-name') || 'default')
+        comp.register_elems(comp_elem)
+        comp.ctrl.init_content()
+    })
 }

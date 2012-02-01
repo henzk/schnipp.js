@@ -1,10 +1,13 @@
 schnipp
 ============
 
-Experimental Javascript Form Library - DO NOT USE! IT WILL BREAK!!
+A few javascript components...
 
-It allows to create forms programatically - no html required.
-New form field types can be added easily.
+schnipp.dialogs - popup boxes
+
+schnipp.dynforms - dynamically create forms using a json description of form fields.
+Forms are added to the DOM programatically - no html required.
+New form field types incl. validation can be added easily.
 
 License
 ============

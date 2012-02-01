@@ -13,15 +13,13 @@ This is dialog 2<br>
 </form>
 
 <script>
-console.log('executing now!!')
-
-if (window.schnipp) 
+if (window.schnipp) {
     schnipp.dialogs.bootstrap(function(current_dialog) {
         console.log('bootstrapped')
         console.log('inside: ', current_dialog)
         console.log('parent: ', current_dialog.parent)
     })
-
+}
 </script>
 
 </div>

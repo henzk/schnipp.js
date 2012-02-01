@@ -17,7 +17,9 @@
     <script type="text/javascript" src="src/schnipp/net/post.js"></script>
     <script type="text/javascript" src="src/schnipp/net/get.js"></script>
     <script type="text/javascript" src="src/schnipp/dialogs.js"></script>
+    <script type="text/javascript" src="src/schnipp/dialogs/component.js"></script>
     <script type="text/javascript" src="src/schnipp/dialogs/dialog.js"></script>
+    <script type="text/javascript" src="src/schnipp/dialogs/tabber.js"></script>
     
     <script type="text/javascript" src="src/schnipp/dynforms.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields.js"></script>
@@ -124,7 +126,7 @@
         schnipp.dialogs.enable_for($(document.body))
         var dialog = schnipp.dialogs.dialog('mydialog', null)
 
-        dialog.display()
+        dialog.render()
             .view.set_content('Demo Dialog Content')
             .view.set_title('Demo Dialog')
             .view.resizable(false)
