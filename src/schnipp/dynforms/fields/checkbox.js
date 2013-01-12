@@ -3,7 +3,7 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     
     var _checked = self.field_data ? 'checked="checked"' : '';
     
-    self.elems.input = $(
+    self.dom.input = $(
         '<input type="checkbox" name="' + 
         self.field_descriptor.name + 
         '" ' + _checked + 
@@ -12,11 +12,11 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     );
 
     self.get_data = function() {
-        return self.elems.input.prop('checked');
+        return self.dom.input.prop('checked');
     };
     
     self.set_data = function(value) {
-        self.elems.input.prop('checked', value);
+        self.dom.input.prop('checked', value);
     };
 
     return self;
