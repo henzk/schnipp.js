@@ -15,6 +15,7 @@ schnipp.events.event_support = function() {
             self.cache[evt] = curr_elem
         }
         curr_elem.push(handler)
+        return self
     }
     
     self.unbind = function(evt, handler) {
@@ -25,6 +26,7 @@ schnipp.events.event_support = function() {
                 curr_elem.splice(index, 1)
             }
         })
+        return self
     }
     
     self.fire = function(evt, args) {
@@ -33,6 +35,7 @@ schnipp.events.event_support = function() {
         $.each(curr_elem, function(index, handler) {
             handler(args, evt)
         })
+        return self
     }
     
     self.fire_and_unbind = function(evt, args) {
@@ -41,8 +44,14 @@ schnipp.events.event_support = function() {
         $.each(curr_elem, function(index, handler) {
             handler(args, evt)
         })
-        delete self.cache[evt]
+        self.cache[evt] = []
+        return self
     }
+    
+    self.on = self.bind
+    self.off = self.unbind
+    self.trigger = self.fire
+    self.trigger_and_unbind = self.fire_and_unbind
     
     return self
 }
