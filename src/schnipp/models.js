@@ -1,0 +1,2 @@
+schnipp.models = {}
+
