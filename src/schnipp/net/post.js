@@ -1,6 +1,25 @@
-schnipp.net.post = $.post;
+schnipp.net.post = function (url, data, callback, type) {
+    // shift arguments if data argument was omitted
+    if ($.isFunction(data)) {
+        type = type || callback;
+        callback = data;
+        data = {};
+    }
+    schnipp.spinner.show()
+    return $.post(
+        url,
+        data,
+        function(data, textStatus, jqXHR) {
+            callback(data, textStatus, jqXHR)
+            $(document).trigger('dom-changed')
+            schnipp.spinner.hide()
+        },
+        type
+    ).error(schnipp.net.error_handler)
+}
 
 schnipp.net.post_form = function(form, on_success, on_error) {
+    schnipp.spinner.show()
     if (form.find(':file').length != 0) {
         schnipp.net._iframe_post(form, on_success, on_error);
         // important: DONT RETURN FALSE, OTHERWISE THE FORM WONT COMMIT
@@ -27,9 +46,19 @@ schnipp.net._ajax_post = function(form, on_success, on_error) {
         },*/
         function(response) {
            on_success(response)
+           schnipp.net._trigger_form_success_events(form)
+           schnipp.spinner.hide()
         },
         'text'
     )
+}
+
+schnipp.net._trigger_form_success_events = function(form) {
+    $(document).trigger('dom-changed')
+    $(document).trigger('reload_page')
+    var success_event = form.attr('data-form-success-event')
+    if (success_event != undefined)
+        $(document).trigger(success_event)
 }
 
 schnipp.net._iframe_seq = 1;
@@ -48,6 +77,8 @@ schnipp.net._iframe_post = function(form, on_success, on_error) {
         var a = $(iframe.contents().children()[0]) //Whats going on here?
         on_success(a.html())
         schnipp.net._unregister_iframe(iframe)
+        schnipp.net._trigger_form_success_events(form)
+        schnipp.spinner.hide()
     })
 }
 
