@@ -1,3 +1,11 @@
+/**
+ * choice field
+ *
+ * @param {object} field_descriptor field specific part of the form schema
+ * @param {object} field_data initial value for the field
+ * @constructor
+ * @extends schnipp.dynforms.fields.base
+ **/
 schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
     

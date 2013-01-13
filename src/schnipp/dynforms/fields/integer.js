@@ -1,3 +1,11 @@
+/**
+ * integer field
+ *
+ * @param {object} field_descriptor field specific part of the form schema
+ * @param {object} field_data initial value for the field
+ * @constructor
+ * @extends schnipp.dynforms.fields.text
+ **/
 schnipp.dynforms.fields.integer = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.text(field_descriptor, field_data);
 

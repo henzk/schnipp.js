@@ -1,3 +1,11 @@
+/**
+ * dynform field - allows nesting of forms
+ *
+ * @param {object} field_descriptor field specific part of the form schema
+ * @param {object} field_data initial value for the field
+ * @constructor
+ * @extends schnipp.dynforms.fields.base
+ **/
 schnipp.dynforms.fields.form = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.base(field_descriptor, field_data);
     
