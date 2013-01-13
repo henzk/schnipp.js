@@ -1,8 +1,8 @@
-/*
-the schnippdialog
-organizing your javascript spaghetti since January 2012 ;)
-*/
-
+/**
+ *  @namespace
+ *  @description
+ *  nestable dialog components
+ **/
 schnipp.dialogs = {}
 schnipp.dialogs._bootstrapper = schnipp.events.event_support()
 schnipp.dialogs.bootstrap = function(cb) {

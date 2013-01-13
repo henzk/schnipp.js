@@ -1,4 +1,6 @@
-/*
-write a new schnippfield NOW and place it there!
-*/
+/**
+ *  @namespace
+ *  @description
+ *  this module contains all the available field types
+ **/
 schnipp.dynforms.fields = {};
