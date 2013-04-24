@@ -234,6 +234,8 @@ schnipp.models.observable_list = function(options) {
                 element: element
             }
         )
+        // set parent when an item was inserted to a list
+        element.parent = self
         return self
     }
     
@@ -296,6 +298,16 @@ schnipp.models.observable_list = function(options) {
                 element: removed
             }
         )
+        
+        removed.events.fire('remove',
+            {
+                evt: 'remove',
+                src: removed,
+                index: index,
+                element: removed
+            }
+        )
+        
         return removed
     }
 
