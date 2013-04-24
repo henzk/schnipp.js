@@ -3,7 +3,11 @@ schnipp
 
 A few javascript components...
 
-schnipp.dialogs - popup boxes
+schnipp.events - basic event support.
+
+schnipp.models - a reusable model framework.
+
+schnipp.tree - a reusable tree framework with tree models and views-
 
 schnipp.dynforms - dynamically create forms using a json description of form fields.
 Forms are added to the DOM programatically - no html required.
