@@ -49,6 +49,12 @@ schnipp.models.entity = function(parent, attrs, options) {
                 self.get_data(),
                 function(data) {
                     if (data.status == 'success') {
+                        self.update(data.result)
+                        
+                        //if (self.parent != undefined) {
+                        //    self.parent.append(self)
+                        //}
+                        
                         if (onsuccess != undefined) {
                             onsuccess(self, data)
                         } else {
@@ -77,14 +83,19 @@ schnipp.models.entity = function(parent, attrs, options) {
     
     self.delete = function(onsuccess) {
         onsuccess = onsuccess || function() {}
-        drf.net.delete(self.get_url(), {}, function(data) {
+        
+        var delete_url = self.get_delete_url() || self.delete_url || self.get_url()
+        
+        drf.net.delete(delete_url, {}, function(data) {
+            
             if (self.parent) {
-                self.parent.fetch(function() {
-                    onsuccess(self, data)
-                })
-            } else {
-                onsuccess(self, data)
-            }
+                self.parent.remove(self.parent.index_of(self))
+                
+                //self.parent.fetch(function() {
+                //    onsuccess(self, data)
+                //})
+            } 
+            onsuccess(self, data)
             
         })
     }
