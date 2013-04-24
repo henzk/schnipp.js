@@ -1,3 +1,26 @@
+
+/*
+renders a field in a container div with label and stuff.
+*/
+schnipp.dynforms.render_field = function(field_descriptor, rendered_field, errorlist) {
+    
+    var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
+    
+    if (field_descriptor.label != undefined || field_descriptor.label != null) {
+        var label = '<label>' + field_descriptor.label + ' : </label>'
+        holder.append(label)
+    }
+    
+    holder.append(rendered_field)
+    
+    if (errorlist != undefined)
+        rendered_field.after(errorlist)
+    
+    return holder
+}
+
+
+
 /**
  * base class for dynform fields
  *
@@ -48,7 +71,10 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     self.clear = function() {
         self.dom.input.val('')
     }
-
+    
+    /**
+    *   Returns the field's internal data or an empty string instead of undefinied.
+    */
     self.get_field_data = function() {
         return self.field_data || ''
     }
