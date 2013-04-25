@@ -1,0 +1,13 @@
+
+
+.schnipp-dialog  {background:#fff; z-index:5; position:absolute; width:400px; display:none;
+    -webkit-box-shadow: 2px 2px 20px 1px #999999;
+-moz-box-shadow: 2px 2px 20px 1px #999999;
+box-shadow: 2px 2px 20px 1px #999999;
+}
+.schnipp-dialog-inner {position:relative;}
+.schnipp-dialog-close {position:absolute; right:22px; top:12px; font-size:12px; color: #646464; text-decoration:none; cursor:pointer;}
+.schnipp-dialog-header {}
+.schnipp-dialog-header.dialog-has-title {padding:12px; border-bottom: 1px solid #ddd;}
+.schnipp-dialog-content {padding:22px; }
+
