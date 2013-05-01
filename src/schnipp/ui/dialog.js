@@ -1,4 +1,8 @@
-
+/**
+ * @constructor
+ * @description
+ * The schnipp dialog.
+ **/
 schnipp.ui.Dialog = function() {
 
     var self = {}
@@ -17,7 +21,10 @@ schnipp.ui.Dialog = function() {
     self.dom.header = self.dom.main.find('.schnipp-dialog-header')
     self.dom.close = self.dom.main.find('.schnipp-dialog-close')
 
-    
+    /**
+     * The constructor containing the controler code binding events and appending
+     * the dialog dom node to document. 
+     **/
     self.init = function() {
         self.dom.close.click(self.close)
         self.dom.main.click(self.focus)
@@ -25,10 +32,15 @@ schnipp.ui.Dialog = function() {
         return self
     }
     
+    /**
+     * Sets the content of the dialog. Triggers a content-change event on the dialog instance.
+     *
+     * @param {string} content The content that is set.
+     **/
     self.set_content = function(content) {
         self.dom.content.empty()
         self.dom.content.append(content)
-        self.center()
+        self._center()
         self.events.fire('content-change', {
             evt: 'content-change',
             dialog: self,
@@ -36,7 +48,12 @@ schnipp.ui.Dialog = function() {
         })
     }  
       
-    
+    /**
+     * Sets the title of the dialog. 
+     * Triggers a title-change event on the dialog instance.
+     *
+     * @param {string} title The title that is set.
+     **/
     self.set_title = function(title) {
         self.dom.header.empty()
         self.dom.header.addClass('dialog-has-title')
@@ -48,9 +65,10 @@ schnipp.ui.Dialog = function() {
         })
     }  
     
-    
-    
-    
+    /**
+     * Shows the dialog if its display attribute is none. 
+     * Triggers a show event on the dialog instance.
+     **/    
     self.show = function() {
         self.events.trigger('show')
         self.dom.main.show()
@@ -60,7 +78,9 @@ schnipp.ui.Dialog = function() {
         })
     }
     
-    
+    /**
+     * Closes and destroys the dialog of the dialog. Triggers a closes event on the dialog instance.
+     **/
     self.close = function() {
         self.events.trigger('close')
         self.dom.main.remove()
@@ -70,10 +90,10 @@ schnipp.ui.Dialog = function() {
         })
     }
     
-    
-    // ----------------
-    
-    self.center = function() {
+    /**
+     * Private function to center the dialog. 
+     **/
+    self._center = function() {
         var top = self.dom.main.offset().top
         var left = self.dom.main.offset().left
         var width = self.dom.main.width()
@@ -87,7 +107,11 @@ schnipp.ui.Dialog = function() {
         
         self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px'})    
     }
-    
+
+    /**
+     * Sets the dialog on top (z-index) of all other dialogs. Triggers a focus event 
+     * on the dialog instance.
+     **/
     self.focus = function() {
         var zindexes = []
         $('.schnipp-dialog').each(function() {
