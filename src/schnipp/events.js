@@ -65,6 +65,7 @@ schnipp.events.event_support = function() {
     self.fire = function(evt, args) {
         if (self.cache[evt] == undefined) return
         var curr_elem = self.cache[evt]
+        args.evt = evt
         $.each(curr_elem, function(index, handler) {
             handler(args, evt)
         })
@@ -81,6 +82,7 @@ schnipp.events.event_support = function() {
     self.fire_and_unbind = function(evt, args) {
         if (self.cache[evt] == undefined) return
         var curr_elem = self.cache[evt].slice(0)
+        args.evt = evt
         $.each(curr_elem, function(index, handler) {
             handler(args, evt)
         })
