@@ -1,25 +1,25 @@
 
-schnipp.models.entity = function(parent, attrs, options) {
-    var self = schnipp.models.observable(attrs, options)
+schnipp.models.entity = function(name, parent, attrs) {
+    var self = schnipp.models.observable(attrs)
     self.parent = parent
-    self.get_url = function() {return self.parent.get_url() + ''}
-    
+    self.entity_type = name
+
+    self.get_url = function() {return self.parent.get_url()}
     self.create_url = null
+
     self.get_create_url = function() {
         if (self.create_url != undefined)
             return self.create_url
         else if (self.parent)
             return self.parent.get_url()
-        
     }
-    
-    
 
     /**
     *   Fetches the entity's data from the server via GET.
     */
     self.fetch = function(onsuccess) {
-        $.getJSON(
+    
+        schnipp.net.get(
             self.get_url(),
             function(data) {
                 if (data.status == 'success') {
@@ -28,10 +28,12 @@ schnipp.models.entity = function(parent, attrs, options) {
                     if (onsuccess != undefined) {
                         onsuccess(self)
                     }
+                    self.events.fire('post-fetch', {})
                 } else {
                     console.log(data.status, data.msg)
                 }
-            }
+            },
+            'json'
         )
     }
     
@@ -109,11 +111,9 @@ schnipp.models.entity = function(parent, attrs, options) {
 /*
 
 */
-schnipp.models.entity_type = function(name, modifier, options) {
-    var opts = options
+schnipp.models.entity_type = function(name, modifier) {
     return function(parent, attrs) {
-        var en = schnipp.models.entity(parent, attrs, opts)
-        en.entity_type = name
+        var en = schnipp.models.entity(name, parent, attrs)
         modifier(en)
         return en
     }
@@ -126,12 +126,11 @@ schnipp.models.entity_type = function(name, modifier, options) {
 /**
 *   Observable list with server side synchronization.
 */
-schnipp.models.entity_list = function(options) {
+schnipp.models.entity_list = function() {
 
-    var self = schnipp.models.observable_list(options)
-    
+    var self = schnipp.models.observable_list()
     self.element_type = null
-    
+
     // fetch url
     self.url = null
     self.get_url = function() {return self.url || self.options.url}
@@ -142,13 +141,9 @@ schnipp.models.entity_list = function(options) {
     */
     self.fetch = function(onsuccess) {
         var element_type = self.element_type || self.options.element_type
-        self.events.fire(
-            'pre-fetch', 
-            {
-                evt: 'pre-fetch',
-                elements: self.data
-            }
-        )
+        self.events.fire('pre-fetch', {
+            elements: self.data
+        })
 
         $.getJSON(
             self.get_url(),
@@ -162,13 +157,9 @@ schnipp.models.entity_list = function(options) {
                     if (onsuccess != undefined) {
                         onsuccess(self)
                     }
-                    self.events.fire(
-                        'post-fetch', 
-                        {
-                            evt: 'post-fetch',
-                            elements: self.data
-                        }
-                    )
+                    self.events.fire('post-fetch', {
+                        elements: self.data
+                    })
                 } else {
                     console.log(data.status, data.msg)
                 }
