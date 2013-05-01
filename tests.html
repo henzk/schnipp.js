@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+        <script type="text/javascript" src="dependencies/jquery-mockjax/jquery.mockjax.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+        <script>
+        //for phantomjs test runner
+        window.QUnit.config.done.push(function(obj) {
+            console.log("Tests passed: " + obj.passed);
+            console.log("Tests failed: " + obj.failed);
+            console.log("Total tests:  " + obj.total);
+            console.log("Runtime (ms): " + obj.runtime);
+            window.phantomComplete = true;
+            window.phantomResults = obj;
+        });
+        window.phantomAttached = true;
+        </script>
+        
+        <script type="text/javascript" src="src/schnipp.js"></script>
+        <script type="text/javascript" src="src/schnipp/events.js"></script>
+        <script type="text/javascript" src="src/schnipp/net.js"></script>
+        
+        
+        <script type="text/javascript" src="src/schnipp/models.js"></script>
+        <script type="text/javascript" src="src/schnipp/models/observable.js"></script>
+        <script type="text/javascript" src="src/schnipp/models/entity.js"></script>
+        
+        
+        <script type="text/javascript" src="src/schnipp/models/tests/observable_tests.js"></script>
+        <script type="text/javascript" src="src/schnipp/models/tests/entity_tests.js"></script>
+        
+    </head>
+    <body>
+        <h1 id="qunit-header">schnipp.js tests</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+        <div id="qunit-fixture">test markup, will be hidden</div>
+    </body>
+</html>
