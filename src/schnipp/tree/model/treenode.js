@@ -32,7 +32,7 @@ schnipp.tree.model.TreeNode = function(name, modifier) {
                     var tnode = self.tree_model.get_by_id(data.target_id)
                     
                     if (data.position == 'first-child') {
-                        console.log('FIRST', tnode, self)
+                        //console.log('FIRST', tnode, self)
                         // update parent and level
                         self.set('parent_id', tnode.id)
                         self.set('level', tnode.get('level') + 1)
@@ -43,7 +43,7 @@ schnipp.tree.model.TreeNode = function(name, modifier) {
                         var index = self.tree_model.index_of(tnode)
                         self.tree_model.data.splice(index + 1, 0, self) 
                     } else if (data.position == 'last-child') {
-                        console.log('LAST', tnode, self)
+                        //console.log('LAST', tnode, self)
                         // update parent and level
                         self.set('parent_id', tnode.id)
                         self.set('level', tnode.get('level') + 1)
@@ -57,10 +57,10 @@ schnipp.tree.model.TreeNode = function(name, modifier) {
                         } else {
                             var index = self.tree_model.index_of(last_child)
                         }
-                        console.log(last_child, tnode.get('name'), 'last_child')
+                        //console.log(last_child, tnode.get('name'), 'last_child')
                         self.tree_model.data.splice(index + 1, 0, self)                        
                     } else if (data.position == 'right') {
-                        console.log('RIGHT', tnode, self)
+                        //console.log('RIGHT', tnode, self)
                         // update parent and level
                         self.set('parent_id', tnode.get('parent_id'))
                         self.set('level', tnode.get('level'))
@@ -232,9 +232,6 @@ schnipp.tree.model.TreeNodeList = function() {
         }
         return Math.max.apply(Math, levels)
     }
-    
-    
-    
 
     return self
 }
