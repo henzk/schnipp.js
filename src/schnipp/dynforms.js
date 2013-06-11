@@ -13,12 +13,13 @@ schnipp.dynforms = {}
  * the schnippform - give it a schema and some data and it`ll be your form
  *
  * @param {schnipp.dynforms.schema} schema the schema of the form.
- * @param {data} data object in the format defined by schema
+ * @param {object} data initial form data in the format defined by schema(optional).
+ * @param {object} fieldtypes replacements and additional field types for <tt>schnipp.dynforms.fields</tt>(optional).
  **/
-schnipp.dynforms.form = function(schema, data) {
+schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     var self = {}
-
+    self.fieldtypes = $.extend({}, schnipp.dynforms.fields, fieldtypes)
     /**
      * @name schnipp.dynforms.form#schema
      * @type {schnipp.dynforms.schema} 
@@ -106,12 +107,21 @@ schnipp.dynforms.form = function(schema, data) {
     self.render = function() {
         self.fields = {}
         self.field_schemata = {}
+        /* instanciate fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
-            var field = schnipp.dynforms.fields[field_schema.type](field_schema, self.data[field_schema.name])
+            /* the field constructor gets the field`s schema, initial data,
+               and a reference to the dynform(necessary for nested fields
+               e.g. using schnipp.dynforms.fields.form). */
+            var field = self.fieldtypes[field_schema.type](
+                field_schema,
+                self.data[field_schema.name],
+                self
+            )
             self.field_schemata[field_schema.name] = field_schema
             self.fields[field_schema.name] = field
         }
+        /* generate view */
         var res = $('<form class="schnippforms-form"></form>')
         if (self.schema.label) {
              res.append($('<h3 class="schnippforms-form-label">' + self.schema.label + '</h3>'))
