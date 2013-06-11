@@ -7,11 +7,25 @@
  * @extends schnipp.dynforms.fields.integer
  **/
 schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.fields.integer(field_descriptor, field_data);
-
+    var self = schnipp.dynforms.fields.integer(field_descriptor, field_data)
+    self.field_descriptor = field_descriptor
     self.get_data = function() {
-        return parseFloat(self.super_get_data());
-    };
+        var data = self.super_get_data()
+        if (self.field_descriptor.float_separator !== undefined) {
+            data = data.replace(field_descriptor.float_separator, '.')
+        }
 
-    return self;
-};
+        return parseFloat(data)
+    }
+
+    var super_set_data = self.set_data
+    self.set_data = function(data) {
+        var data = '' + data
+        if (self.field_descriptor.float_separator !== undefined) {
+            data = data.replace('.', field_descriptor.float_separator)
+        }
+        super_set_data(data)
+    }
+
+    return self
+}
