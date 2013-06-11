@@ -120,12 +120,12 @@ schnipp.dynforms.form = function(schema, data) {
         res.append(holder)
 
         if (self.schema['fieldsets'] != undefined) {
-            holder.append(self.render_fieldsets(schema.fieldsets))
+            holder.append(self.render_fieldsets(self.schema.fieldsets))
         } else if (self.schema['fields_display'] != undefined) {
-            holder.append(self.render_fields(schema.fields_display))
+            holder.append(self.render_fields(self.schema.fields_display))
         } else {
-            for (var i = 0; i < schema.fields.length; i++) {
-                var field_schema = schema.fields[i]
+            for (var i = 0; i < self.schema.fields.length; i++) {
+                var field_schema = self.schema.fields[i]
                 var field = self.fields[field_schema.name]
                 holder.append(field.render())
             }
@@ -179,7 +179,7 @@ schnipp.dynforms.form = function(schema, data) {
     self.get_data = function() {
         var data = {}  
         for (var i = 0; i < self.schema.fields.length; i++) {
-            var field_schema = schema.fields[i]  
+            var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]  
             data[field_schema.name] = field.get_data()  
         }
@@ -199,7 +199,7 @@ schnipp.dynforms.form = function(schema, data) {
             fields: {}
         }  
         for (var i = 0; i < self.schema.fields.length; i++) {
-            var field_schema = schema.fields[i]  
+            var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]  
             var result = field.do_validate()  
             if (!result.valid) {
@@ -239,7 +239,7 @@ schnipp.dynforms.form = function(schema, data) {
     self.initialize = function(data) {
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
-            var field_schema = schema.fields[i]  
+            var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]  
             field.initialize()  
         }
@@ -261,7 +261,7 @@ schnipp.dynforms.form = function(schema, data) {
      **/
     self.iter_fields = function(visitor) {
         for (var i = 0; i < self.schema.fields.length; i++) {
-            var field_schema = schema.fields[i]
+            var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]
             visitor(i, field)
         }
@@ -275,7 +275,7 @@ schnipp.dynforms.form = function(schema, data) {
      **/
     self.get_field_schema = function(name) {
         for (var i = 0; i < self.schema.fields.length; i++) {
-            var field_schema = schema.fields[i]
+            var field_schema = self.schema.fields[i]
             if (field_schema.name == name)
                 return field_schema
         }
