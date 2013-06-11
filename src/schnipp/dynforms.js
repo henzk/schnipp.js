@@ -397,29 +397,3 @@ schnipp.dynforms.insert_form = function(target, formclass, instance) {
     $(target).append(form.render_with_submit('Speichern')) 
     form.initialize()   
 }
-
-
-/**
- *renders a field in a container div with label and stuff.
- *@param {object} field_descriptor the field`s schema
- **/
-schnipp.dynforms.render_field = function(field_descriptor, rendered_field, errorlist) {
-    
-    var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
-    
-    if (field_descriptor.label != undefined || field_descriptor.label != null) {
-        var label = '<label>' + field_descriptor.label + ' : </label>'
-        holder.append(label)
-    }
-    
-    holder.append(rendered_field)
-    
-    if (errorlist != undefined)
-        rendered_field.after(errorlist)
-    
-    return holder
-}
-
-
-
-

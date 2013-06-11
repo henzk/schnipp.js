@@ -1,26 +1,3 @@
-
-/*
-renders a field in a container div with label and stuff.
-*/
-schnipp.dynforms.render_field = function(field_descriptor, rendered_field, errorlist) {
-    
-    var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
-    
-    if (field_descriptor.label != undefined || field_descriptor.label != null) {
-        var label = '<label>' + field_descriptor.label + ' : </label>'
-        holder.append(label)
-    }
-    
-    holder.append(rendered_field)
-    
-    if (errorlist != undefined)
-        rendered_field.after(errorlist)
-    
-    return holder
-}
-
-
-
 /**
  * base class for dynform fields
  *
@@ -35,10 +12,30 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
 
     self.dom = {
         input: null,/* must be set in subclass */
+        holder: null, /* must be set in subclass */
         errorlist: $(
             '<ul class="errorlist"></ul>'
-        ),
-        holder: null
+        )
+    }
+
+    /**
+     * renders a field in a container with the field label
+     *
+     * @param {object} field_descriptor the field`s schema
+     * @param {object} rendered_field jquery nodelist of the rendered field view
+     * @param {object} errorlist optional jquery nodelist containing validation errors
+     * @name schnipp.dynforms.fields.base#render_container
+     **/
+    self.render_container = function(field_descriptor, rendered_field, errorlist) {
+        var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
+        if (field_descriptor.label !== undefined || field_descriptor.label !== null) {
+            var label = '<label>' + field_descriptor.label + ' : </label>'
+            holder.append(label)
+        }
+        holder.append(rendered_field)
+        if (errorlist !== undefined)
+            rendered_field.after(errorlist)
+        return holder
     }
 
     /**
@@ -47,7 +44,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
      * @name schnipp.dynforms.fields.base#render
      **/
     self.render = function() {
-        self.dom.holder = schnipp.dynforms.render_field(
+        self.dom.holder = self.render_container(
             self.field_descriptor, 
             self.dom.input
         ) 
@@ -71,7 +68,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     self.clear = function() {
         self.dom.input.val('')
     }
-    
+
     /**
     *   Returns the field's internal data or an empty string instead of undefinied.
     */
