@@ -44,10 +44,12 @@ schnipp.events.event_support = function() {
      * @name schnipp.events.event_support#unbind
      **/
     self.unbind = function(evt, handler) {
-        if (self.cache[evt] == undefined) return
+        if (self.cache[evt] === undefined) {
+            return self
+        }
         var curr_elem = self.cache[evt]
         $.each(curr_elem, function(index, value) {
-            if (value == handler) {
+            if (value === handler) {
                 curr_elem.splice(index, 1)
             }
         })
@@ -63,9 +65,12 @@ schnipp.events.event_support = function() {
      * @name schnipp.events.event_support#fire
      **/
     self.fire = function(evt, args) {
-        if (self.cache[evt] == undefined) return
+        if (self.cache[evt] === undefined) {
+            return self
+        }
+        var args = (args !== undefined) ? args : {}
         var curr_elem = self.cache[evt]
-        args.evt = evt
+        args.evt = evt //FIXME - remove this
         $.each(curr_elem, function(index, handler) {
             handler(args, evt)
         })
@@ -80,7 +85,9 @@ schnipp.events.event_support = function() {
      * @name schnipp.events.event_support#fire_and_unbind
      **/
     self.fire_and_unbind = function(evt, args) {
-        if (self.cache[evt] == undefined) return
+        if (self.cache[evt] === undefined) {
+            return self
+        }
         var curr_elem = self.cache[evt].slice(0)
         args.evt = evt
         $.each(curr_elem, function(index, handler) {
