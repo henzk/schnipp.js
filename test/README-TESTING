@@ -1,0 +1,39 @@
+Testing schnipp.js
+====================
+
+schnipp.js uses karma for running unit tests. Karma is based on node.js.
+
+Installation
+-------------------
+
+Install node.js
+'''''''''''''''''''''''
+
+If node.js is not already installed, please do so first.
+On Linux, it is recommended to use NVM::
+
+    wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+
+(This creates ~/.nvm and adds a line to your profile. See https://github.com/creationix/nvm)
+
+::
+    . ~/.nvm/nvm.sh
+    nvm install v.0.11.2
+    nvm alias default v0.11.2
+
+
+Install Karma
+''''''''''''''''''''''
+
+::
+    npm install -g karma
+
+
+Running the tests
+-------------------
+
+::
+    cd /path/to/schnipp.js/test
+    karma start karma.conf.js
+
+As soon as karma has started, connect at least one browser by visiting http://localhost:9876/
