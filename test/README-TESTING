@@ -27,7 +27,7 @@ Install Karma
 
 ::
     npm install -g karma
-
+    npm install -g istanbul #test coverage tool
 
 Running the tests
 -------------------
@@ -37,3 +37,7 @@ Running the tests
     karma start karma.conf.js
 
 As soon as karma has started, connect at least one browser by visiting http://localhost:9876/
+
+If for some reason the ``karma`` command is not available, try::
+
+    . ~/.nvm/nvm.sh
