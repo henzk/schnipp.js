@@ -12,7 +12,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
 
     self.dom = {
         input: null,/* must be set in subclass */
-        holder: null, /* must be set in subclass */
+        holder: null,
         errorlist: $(
             '<ul class="errorlist"></ul>'
         )
@@ -70,7 +70,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     }
 
     /**
-    *   Returns the field's internal data or an empty string instead of undefinied.
+    *   Returns the field's internal data or an empty string instead of undefined.
     */
     self.get_field_data = function() {
         return self.field_data || ''
@@ -79,7 +79,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     /**
      * set data of the field
      * @param {?} field data - format depends on the field type
-     * @name schnipp.dynforms.fields.base#do_validate
+     * @name schnipp.dynforms.fields.base#set_data
      **/
     self.set_data = function(value) {
         self.dom.input.val(value)
