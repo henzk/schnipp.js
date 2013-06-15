@@ -23,18 +23,15 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
      *
      * @param {object} field_descriptor the field`s schema
      * @param {object} rendered_field jquery nodelist of the rendered field view
-     * @param {object} errorlist optional jquery nodelist containing validation errors
      * @name schnipp.dynforms.fields.base#render_container
      **/
-    self.render_container = function(field_descriptor, rendered_field, errorlist) {
+    self.render_container = function(field_descriptor, rendered_field) {
         var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
-        if (field_descriptor.label !== undefined || field_descriptor.label !== null) {
+        if (field_descriptor.label !== undefined) {
             var label = '<label>' + field_descriptor.label + ' : </label>'
             holder.append(label)
         }
         holder.append(rendered_field)
-        if (errorlist !== undefined)
-            rendered_field.after(errorlist)
         return holder
     }
 
