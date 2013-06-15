@@ -6,9 +6,10 @@
  * @constructor
  **/
 schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
-    var self = {} 
-    self.field_descriptor = field_descriptor 
-    self.field_data = field_data || self.field_descriptor.default_value 
+    var self = {}
+    self.default_value = '' /* override this in subclass */
+    self.field_descriptor = field_descriptor
+    self.initial_data = field_data
 
     self.dom = {
         input: null,/* must be set in subclass */
@@ -49,7 +50,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     }
 
     /**
-     * get field data
+     * get current field data
      * @returns {?} field data - the format of the data depends on the
      * field type
      * @name schnipp.dynforms.fields.base#get_data
@@ -59,18 +60,38 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
     }
 
     /**
-     * remove field data
+     * reset field`s data to the default value
      * @name schnipp.dynforms.fields.base#clear
      **/
     self.clear = function() {
-        self.dom.input.val('')
+        self.set_data(self.get_default_data())
     }
 
     /**
-    *   Returns the field's internal data or an empty string instead of undefined.
-    */
-    self.get_field_data = function() {
-        return self.field_data || ''
+     * Returns the field's default data
+     *
+     * Default data is the value of 'default_value' in the field`s schema.
+     * If it is not set, field.default_value is used.
+     * @name schnipp.dynforms.fields.base#get_default_data
+     **/
+    self.get_default_data = function() {
+        if (self.field_descriptor.default_value !== undefined) {
+            return self.field_descriptor.default_value
+        } else {
+            return self.default_value
+        }
+    }
+
+    /**
+     * Returns the field's initial data or the default data if no initial data has been given.
+     * @name schnipp.dynforms.fields.base#get_initial_data
+     **/
+    self.get_initial_data = function() {
+        if (self.initial_data !== undefined) {
+            return self.initial_data
+        } else {
+            return self.get_default_data()
+        }
     }
 
     /**

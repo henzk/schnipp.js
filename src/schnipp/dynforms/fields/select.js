@@ -21,7 +21,7 @@ schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
     if (!self.field_descriptor.required) {
         self.dom.input.append($(
             '<option name="" ' + 
-            (('' == self.get_field_data()) ? _selected : '') + 
+            (('' == self.get_initial_data()) ? _selected : '') +
             '></option>'
         ))
     }
