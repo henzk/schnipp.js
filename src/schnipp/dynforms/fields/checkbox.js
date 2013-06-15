@@ -8,20 +8,21 @@
  **/
 schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
-    var _checked = self.field_data ? 'checked="checked"' : ''
+    self.default_value = false
+    var _checked = self.get_initial_data() ? 'checked="checked"' : ''
 
     self.dom.input = $(
-        '<input type="checkbox" name="' + 
-        self.field_descriptor.name + 
-        '" ' + _checked + 
-        '" class="fieldtype_' + self.field_descriptor.type + 
+        '<input type="checkbox" name="' +
+        self.field_descriptor.name +
+        '" ' + _checked +
+        '" class="fieldtype_' + self.field_descriptor.type +
         '"></input>'
     )
 
     self.get_data = function() {
         return self.dom.input.prop('checked')
     }
-    
+
     self.set_data = function(value) {
         self.dom.input.prop('checked', value)
     }
