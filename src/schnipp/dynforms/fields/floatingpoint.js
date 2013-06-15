@@ -8,7 +8,14 @@
  **/
 schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.integer(field_descriptor, field_data)
-    self.field_descriptor = field_descriptor
+
+    var super_render = self.render
+    self.render = function() {
+        var rendered = super_render()
+        self.set_data(self.get_initial_data())
+        return rendered
+    }
+
     self.get_data = function() {
         var data = self.super_get_data()
         if (self.field_descriptor.float_separator !== undefined) {
