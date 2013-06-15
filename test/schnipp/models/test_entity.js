@@ -2,6 +2,7 @@ module('schnipp.models.entity')
 
 var define_mockjax = function(url, result) {
     $.mockjax({
+        logging: false,
         url: url,
         responseTime: 750,
         responseText: {
