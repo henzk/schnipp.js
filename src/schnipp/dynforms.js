@@ -35,21 +35,16 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @param {object} fieldset obj
      **/
     self.render_fieldset = function(fieldset) {
-
-        var classes = fieldset.classes.join(' ')
-        if (classes) {
-            classes = ' class="' + classes + '"'
-        }
-        var res = $('<div' + classes + '></div>')
-        var holder = res
+        var classnames = fieldset.classes.join(' ')
+        var classes = ' class="schnippform-fieldset ' + classnames + '"'
+        var container = $('<div' + classes + '></div>')
+        var holder = $('<div></div>')
         if (fieldset.label) {
-            res.append($('<h3>' + fieldset.label + '</h3>'))
-            holder = $('<div></div>')
-            res.append(holder)
+            container.append($('<h3>' + fieldset.label + '</h3>').addClass('schnippform-fieldset-label'))
         }
         holder.append(self.render_fields(fieldset.fields_display))
-
-        return res
+        container.append(holder)
+        return container
     }
 
     /**
