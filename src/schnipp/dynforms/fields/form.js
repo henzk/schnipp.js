@@ -8,7 +8,7 @@
  * @extends schnipp.dynforms.fields.form
  **/
 schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dynform) {
-    var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
+    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
     self.form = schnipp.dynforms.form(field_descriptor, field_data, parent_dynform.fieldtypes)
 
@@ -16,7 +16,7 @@ schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dyn
         return self.form.render()
     }
 
-    self.set_data = function(data) {
+    self._set = function(data) {
         return self.form.set_data(data)
     }
 

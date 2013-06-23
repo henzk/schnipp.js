@@ -7,7 +7,7 @@
  * @extends schnipp.dynforms.fields.text
  **/
 schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
+    var self = schnipp.dynforms.primitive_field(field_descriptor, field_data)
 
     self.dom.input = $(
         '<input type="text" name="' +

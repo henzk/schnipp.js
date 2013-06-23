@@ -4,10 +4,10 @@
  * @param {object} field_descriptor field specific part of the form schema
  * @param {object} field_data initial value for the field
  * @constructor
- * @extends schnipp.dynforms.fields.base
+ * @extends schnipp.dynforms.fields.checkbox
  **/
 schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
+    var self = schnipp.dynforms.primitive_field(field_descriptor, field_data)
     self.default_value = false
     var _checked = self.get_initial_data() ? 'checked="checked"' : ''
 
@@ -23,7 +23,7 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
         return self.dom.input.prop('checked')
     }
 
-    self.set_data = function(value) {
+    self._set = function(value) {
         self.dom.input.prop('checked', value)
     }
 

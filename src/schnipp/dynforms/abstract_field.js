@@ -1,19 +1,19 @@
 /**
- * base class for dynform fields
+ * abstract base class for dynform fields
  *
  * @param {object} field_descriptor field specific part of the form schema
  * @param {object} field_data initial value for the field
  * @constructor
  **/
-schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
+schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     var self = {}
     self.default_value = '' /* override this in subclass */
     self.field_descriptor = field_descriptor
     self.initial_data = field_data
+    self.events = schnipp.events.event_support()
 
     self.dom = {
-        input: null,/* must be set in subclass */
-        holder: null,
+        main: null,
         errorlist: $(
             '<ul class="errorlist"></ul>'
         )
@@ -24,44 +24,65 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
      *
      * @param {object} field_descriptor the field`s schema
      * @param {object} rendered_field jquery nodelist of the rendered field view
-     * @name schnipp.dynforms.fields.base#render_container
+     * @returns {object} jquery nodelist containing rendered field view
+     * @name schnipp.dynforms.abstract_field#render_container
      **/
     self.render_container = function(field_descriptor, rendered_field) {
-        var holder = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
+        var main = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
         if (field_descriptor.label !== undefined) {
             var label = '<label>' + field_descriptor.label + ' : </label>'
-            holder.append(label)
+            main.append(label)
         }
-        holder.append(rendered_field)
-        return holder
+        main.append(rendered_field)
+        return main
+    }
+
+    /**
+     * render the input portion of the field
+     *
+     * @returns {object} jquery nodelist containing input portion of rendered field view
+     *
+     * must be implemented by subclass
+     *
+     * @name schnipp.dynforms.abstract_field#render_input
+     **/
+    self.render_input = function() {
+        throw {
+            message: "get_data not implemented by abstract base class!"
+        }
     }
 
     /**
      * render the form
      * @returns {object} jquery nodelist containing rendered field
-     * @name schnipp.dynforms.fields.base#render
+     * @name schnipp.dynforms.abstract_field#render
      **/
     self.render = function() {
-        self.dom.holder = self.render_container(
-            self.field_descriptor, 
-            self.dom.input
-        ) 
-        return self.dom.holder
+        self.dom.main = self.render_container(
+            self.field_descriptor,
+            self.render_input()
+        )
+        return self.dom.main
     }
 
     /**
      * get current field data
      * @returns {?} field data - the format of the data depends on the
      * field type
-     * @name schnipp.dynforms.fields.base#get_data
+     *
+     * must be implemented by subclass
+     *
+     * @name schnipp.dynforms.abstract_field#get_data
      **/
     self.get_data = function() {
-        return self.dom.input.val()
+        throw {
+            message: "get_data not implemented by abstract base class!"
+        }
     }
 
     /**
      * reset field`s data to the default value
-     * @name schnipp.dynforms.fields.base#clear
+     * @name schnipp.dynforms.abstract_field#clear
      **/
     self.clear = function() {
         self.set_data(self.get_default_data())
@@ -72,7 +93,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
      *
      * Default data is the value of 'default_value' in the field`s schema.
      * If it is not set, field.default_value is used.
-     * @name schnipp.dynforms.fields.base#get_default_data
+     * @name schnipp.dynforms.abstract_field#get_default_data
      **/
     self.get_default_data = function() {
         if (self.field_descriptor.default_value !== undefined) {
@@ -84,7 +105,7 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
 
     /**
      * Returns the field's initial data or the default data if no initial data has been given.
-     * @name schnipp.dynforms.fields.base#get_initial_data
+     * @name schnipp.dynforms.abstract_field#get_initial_data
      **/
     self.get_initial_data = function() {
         if (self.initial_data !== undefined) {
@@ -96,19 +117,38 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
 
     /**
      * set data of the field
+     * used internally by set_data to actually set the field
+     *
+     * must be implemented in subclass
+     *
      * @param {?} field data - format depends on the field type
-     * @name schnipp.dynforms.fields.base#set_data
+     * @name schnipp.dynforms.abstract_field#_set
+     **/
+    self._set = function(value) {
+        throw {
+            message: "_set not implemented by abstract base class!"
+        }
+    }
+
+    /**
+     * set data of the field
+     * @param {?} field data - format depends on the field type
+     * @name schnipp.dynforms.abstract_field#set_data
      **/
     self.set_data = function(value) {
-        self.dom.input.val(value)
+        self._set(value)
+        self.events.fire('changed', {
+            src: self,
+            value: value
+        })
     }
 
     /**
      * validates the field. Override this method in subclasses to add
-     * specific validation to fields. This implementation checks 
+     * specific validation to fields. This implementation checks
      * that required fields contain a value.
      * @returns {object} validation result
-     * @name schnipp.dynforms.fields.base#validate
+     * @name schnipp.dynforms.abstract_field#validate
      **/
     self.validate = function() {
         if (self.field_descriptor.required) {
@@ -126,41 +166,41 @@ schnipp.dynforms.fields.base = function(field_descriptor, field_data) {
 
     self.render_valid = function() {
         self.dom.errorlist.remove()
-        self.dom.holder.removeClass('error')
+        self.dom.main.removeClass('error')
     }
 
     self.render_errors = function(errors) {
-        if (self.dom.holder) {
-            self.dom.holder.append(self.dom.errorlist)
-            self.dom.errorlist.empty() 
+        if (self.dom.main) {
+            self.dom.main.append(self.dom.errorlist)
+            self.dom.errorlist.empty()
             $.each(errors, function(index, value) {
                 self.dom.errorlist.append($(
                     '<li>' + value + '</li>'
-                )) 
-            }) 
-            self.dom.holder.addClass('error')
+                ))
+            })
+            self.dom.main.addClass('error')
         }
     }
 
     /**
      * triggers field validation
      * @returns {object} validation result
-     * @name schnipp.dynforms.fields.base#do_validate
+     * @name schnipp.dynforms.abstract_field#do_validate
      **/
     self.do_validate = function() {
-        var validation_result = self.validate() 
+        var validation_result = self.validate()
         if (validation_result.valid) {
-            self.render_valid() 
+            self.render_valid()
         } else {
-            self.render_errors(validation_result.errors) 
+            self.render_errors(validation_result.errors)
         }
-        return validation_result 
+        return validation_result
     }
 
     /**
      * initialize the field - called after the field has been rendered
      * and placed into the DOM of the page.
-     * @name schnipp.dynforms.fields.base#initialize
+     * @name schnipp.dynforms.abstract_field#initialize
      **/
     self.initialize = function() {}
 

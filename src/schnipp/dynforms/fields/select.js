@@ -7,7 +7,7 @@
  * @extends schnipp.dynforms.fields.base
  **/
 schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
+    var self = schnipp.dynforms.primitive_field(field_descriptor, field_data)
     self.empty_selection_value = (self.field_descriptor.empty_selection_value !== undefined) ?
         self.field_descriptor.empty_selection_value : ''
     self.empty_selection_label = (self.field_descriptor.empty_selection_label !== undefined) ?
