@@ -5,7 +5,7 @@
  * @param {object} field_data initial value for the field
  * @param {object} parent_dynform reference to the dynform instance that contains this field
  * @constructor
- * @extends schnipp.dynforms.fields.base
+ * @extends schnipp.dynforms.fields.form
  **/
 schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dynform) {
     var self = schnipp.dynforms.fields.base(field_descriptor, field_data)
