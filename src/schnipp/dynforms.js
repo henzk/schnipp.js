@@ -117,12 +117,12 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             self.fields[field_schema.name] = field
         }
         /* generate view */
-        var res = $('<form class="schnippforms-form"></form>')
+        var view = $('<form class="schnippforms-form"></form>')
         if (self.schema.label) {
-             res.append($('<h3 class="schnippforms-form-label">' + self.schema.label + '</h3>'))
+             view.append($('<h3 class="schnippforms-form-label">' + self.schema.label + '</h3>'))
         }
         var holder = $('<div class="schnippform-form-holder"></div>')
-        res.append(holder)
+        view.append(holder)
 
         if (self.schema['fieldsets'] != undefined) {
             holder.append(self.render_fieldsets(self.schema.fieldsets))
@@ -136,60 +136,24 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             }
         }
 
-        self.dom.main = res
-
-        self.dom.main.submit(function() {
-            self.show_spinner()
-            self.onsubmit(self)
-            return false
-        })
-
-        return res
-    }
-
-    /**
-     * @name schnipp.dynforms.form#render_with_submit
-     * render the form including a submit button.
-     *
-     * @returns {jquery.nodelist} html of rendered form as 
-     * jquery nodelist ready for dom insertion
-     **/
-    self.render_with_submit = function(value) {
-        var submit_row = $('<div class="submit-row"/>')
-        var submit = $('<input type="submit"/>', {'value': value})
-        submit_row.append(submit)
-
-        self.dom.main = self.render()
-        self.dom.main.append($(submit_row))
-        
+        self.dom.main = view
         return self.dom.main
     }
 
-    self.onsubmit = function() {}
-
-    self.show_spinner = function() {
-        self.dom.main.addClass('schnappdocs-spinner')
-    }
-
-    self.hide_spinner = function() {
-        self.dom.main.removeClass('schnappdocs-spinner')
-    }
-
-    
     /**
      * get current form data as object according to the form`s schema.
      * @returns {object} form data
      * @name schnipp.dynforms.form#get_data
      **/
     self.get_data = function() {
-        var data = {}  
+        var data = {}
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
-            var field = self.fields[field_schema.name]  
-            data[field_schema.name] = field.get_data()  
+            var field = self.fields[field_schema.name]
+            data[field_schema.name] = field.get_data()
         }
-        return data  
-    }  
+        return data
+    }
 
     /**
      * run form validation
@@ -202,18 +166,18 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         var data = {
             valid: true,
             fields: {}
-        }  
+        }
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
-            var field = self.fields[field_schema.name]  
-            var result = field.do_validate()  
+            var field = self.fields[field_schema.name]
+            var result = field.do_validate()
             if (!result.valid) {
                 data.valid = false
             }
-            data.fields[field_schema.name] = result 
+            data.fields[field_schema.name] = result
         }
-        return data  
-    }  
+        return data
+    }
 
     /**
      * run form validation
@@ -232,11 +196,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     self.set_data = function(data) {
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
-            var field = self.fields[field_schema.name]  
-            field.set_data(data[field_schema.name] || field_schema.default_value)  
+            var field = self.fields[field_schema.name]
+            field.set_data(data[field_schema.name] || field_schema.default_value)
         }
-    }  
-    
+    }
+
     /**
      * initialize the form after rendering it 
      * @name schnipp.dynforms.form#initialize
@@ -245,14 +209,14 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
-            var field = self.fields[field_schema.name]  
-            field.initialize()  
+            var field = self.fields[field_schema.name]
+            field.initialize()
         }
         /* form funkyness */
         self.dom.main.children('div').children('div').children('.collapse').children('h3').click(function() {
-            var self = $(this)  
+            var self = $(this)
             self.parent().toggleClass('collapsed')
-            self.parent().children('div').slideToggle()  
+            self.parent().children('div').slideToggle()
         })
         self.dom.main.children('div').children('div').children('.collapse').children('div').hide()
         self.dom.main.children('div').children('div').children('.collapse').addClass('collapsed')
@@ -300,7 +264,28 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     return self
 }
 
+schnipp.dynforms.with_submit_button = function(original_form, save_button_label) {
+    var self = original_form
 
+    self.save_button_label = save_button_label
+
+    var super_render = self.render
+    self.render = function() {
+        super_render()
+        self.dom.main.submit(function() {
+            return self.onsubmit()
+        })
+        var submit_row = $('<div class="submit-row"/>')
+        var submit = $('<input type="submit"/>', {'value': save_button_label})
+        submit_row.append(submit)
+        self.dom.main.append(submit_row)
+        return self.dom.main
+    }
+
+    self.onsubmit = function() {}
+
+    return self
+}
 
 
 /**

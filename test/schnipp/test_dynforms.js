@@ -58,21 +58,46 @@ test('render fieldsets', function() {
     var obj = schnipp.dynforms.form(
         {
             fields:[
-                {
-                    name: 'test',
-                    type: 'text'
-                },
-                {
-                    name: 'test2',
-                    type: 'text'
-                }
+            {
+                name: 'test',
+                type: 'text'
+            },
+            {
+                name: 'test2',
+                type: 'text'
+            }
             ],
             fieldsets: [
-                {
-                    classes: [],
-                    fields_display: ['test2', 'test']
-                }
-            ]
+            {
+                classes: [],
+                fields_display: ['test2', 'test']
+            }
+                ]
+        }
+    )
+    var rendered = obj.render()
+    obj.initialize()
+    equal(rendered.find('input').eq(1).attr('name'), 'test', 'name of input should be test')
+    equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
+
+    var obj = schnipp.dynforms.form(
+        {
+            fields:[
+            {
+                name: 'test',
+                type: 'text'
+            },
+            {
+                name: 'test2',
+                type: 'text'
+            }
+            ],
+            fieldsets: [
+            {
+                classes: [],
+                fields_display: [['test2', 'test']]
+            }
+                ]
         }
     )
     var rendered = obj.render()
@@ -111,6 +136,27 @@ test('render fieldsets', function() {
 test('get_field_schema', function() {
     var schema = {
         fields:[
+        {
+            name: 'test',
+     type: 'text'
+        },
+     {
+         name: 'test2',
+     type: 'text'
+     }
+        ]
+    }
+    var obj = schnipp.dynforms.form(
+        schema
+    )
+    var rendered = obj.render()
+    obj.initialize()
+    equal(obj.get_field_schema('test2'), schema.fields[1], 'get_field_schema should return schema of test2')
+})
+
+test('iter_fields', function() {
+    var schema = {
+        fields:[
             {
                 name: 'test',
                 type: 'text'
@@ -126,5 +172,14 @@ test('get_field_schema', function() {
     )
     var rendered = obj.render()
     obj.initialize()
-    equal(obj.get_field_schema('test2'), schema.fields[1], 'get_field_schema should return schema of test2')
+    expect(2)
+    obj.iter_fields(function(idx, val) {
+        if (idx == 0) {
+            equal(val.field_descriptor.name, 'test', 'first field should be named test')
+        } else if (idx == 1) {
+            equal(val.field_descriptor.name, 'test2', 'second field should be named test')
+        } else {
+            fail()
+        }
+    })
 })
