@@ -18,7 +18,7 @@ On Linux, it is recommended to use NVM::
 
 ::
     . ~/.nvm/nvm.sh
-    nvm install v.0.11.2
+    nvm install 0.11.2
     nvm alias default v0.11.2
 
 
