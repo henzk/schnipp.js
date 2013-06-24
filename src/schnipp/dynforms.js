@@ -36,11 +36,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      **/
     self.render_fieldset = function(fieldset) {
         var classnames = fieldset.classes.join(' ')
-        var classes = ' class="schnippform-fieldset ' + classnames + '"'
+        var classes = ' class="schnippforms-fieldset ' + classnames + '"'
         var container = $('<div' + classes + '></div>')
         var holder = $('<div></div>')
         if (fieldset.label) {
-            container.append($('<h3>' + fieldset.label + '</h3>').addClass('schnippform-fieldset-label'))
+            container.append($('<label>' + fieldset.label + '</label>'))
         }
         holder.append(self.render_fields(fieldset.fields_display))
         container.append(holder)
@@ -119,9 +119,9 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         /* generate view */
         var view = $('<form class="schnippforms-form"></form>')
         if (self.schema.label) {
-             view.append($('<h3 class="schnippforms-form-label">' + self.schema.label + '</h3>'))
+             view.append($('<label>' + self.schema.label + '</label>'))
         }
-        var holder = $('<div class="schnippform-form-holder"></div>')
+        var holder = $('<div class="schnippforms-form-holder"></div>')
         view.append(holder)
 
         if (self.schema['fieldsets'] != undefined) {
