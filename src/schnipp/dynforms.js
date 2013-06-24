@@ -69,7 +69,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         for (var i = 0; i < field_tree.length;   i++) {
             var entry = field_tree[i]  
             if ($.isArray(entry)) {
-                var row = $('<div class="form-row"></div>')  
+                var row = $('<div class="schnippforms-form-row"></div>')  
                 for (var j = 0; j < entry.length; j++) {
                     var col = entry[j]  
                     var field_schema = self.field_schemata[col]  
