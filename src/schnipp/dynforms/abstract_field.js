@@ -198,7 +198,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     }
 
     /**
-     * initialize the field - called after the field has been rendered
+     * initialize the field - must be called after the field has been rendered
      * and placed into the DOM of the page.
      * @name schnipp.dynforms.abstract_field#initialize
      **/
