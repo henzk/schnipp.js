@@ -19,6 +19,18 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
         '"></input>'
     )
 
+    if (field_descriptor.style === 'box_left') {
+        self.render_container = function(field_descriptor, rendered_field) {
+            var main = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
+            main.append(rendered_field)
+            if (field_descriptor.label !== undefined || field_descriptor.label !== null) {
+                var label = '<label>' + field_descriptor.label + '</label>'
+                main.append(label)
+            }
+            return main
+        }
+    }
+
     self.get_data = function() {
         return self.dom.input.prop('checked')
     }
