@@ -22,7 +22,6 @@ schnipp.dynforms.fields.integerrange = function(field_descriptor, field_data) {
         for (var i = self.field_descriptor.min_value; i<= self.field_descriptor.max_value; i++) {
             values.push(i)
         }
-        console.log(values, field_descriptor.name)
         // build html structure
         $.each(values, function(i, v) {
             var a = $(self.templates.number({label:v}))
