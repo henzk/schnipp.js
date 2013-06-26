@@ -18,6 +18,11 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
         self.events.bind('change', function(args) {
             self.dom.display.html(self.selected_option.label)
         })
+        
+        if (field_descriptor.default_value != undefined) {
+            self.dom.display.html(self.get_option_by_value(field_descriptor.default_value).label)
+            self.selected = field_descriptor.default_value
+        }
     }    
     
     self.render_input = function() {
@@ -46,11 +51,7 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
             })   
         })
         
-        if (field_descriptor.default_value != undefined) {
-            self.dom.display.html(self.get_option_by_value(field_descriptor.default_value).label)
-            self.dom.selected = field_descriptor.default_value
-        }
-        
+       
         return self.dom.dropdown
     }
     
