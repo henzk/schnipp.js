@@ -60,7 +60,7 @@ schnipp.dynforms.fields.optionalform = function(field_descriptor, field_data, pa
     self.initialize = function() {
         self.checkbox.initialize()
         self.form.initialize()
-        self.checkbox.events.bind('changed', toggle_visibility)
+        self.checkbox.events.bind('change', toggle_visibility)
         toggle_visibility()
     }
 

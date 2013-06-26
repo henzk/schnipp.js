@@ -185,7 +185,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      **/
     self.set_data = function(value) {
         self._set(value)
-        self.events.fire('changed', {
+        self.events.fire('change', {
             src: self,
             value: value
         })
