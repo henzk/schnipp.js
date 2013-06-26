@@ -1,4 +1,4 @@
-module('schnipp.dynforms.fields.floatingpoint')
+module('schnipp.dynforms')
 
 test('smoketest', function() {
     var obj = schnipp.dynforms.form(
@@ -128,9 +128,9 @@ test('render fieldsets', function() {
     )
     var rendered = obj.render()
     obj.initialize()
-    equal(rendered.find('.schnippform-fieldset-label').text(), 'a label', 'fieldset should contain a label')
-    ok(rendered.find('.schnippform-fieldset').hasClass('testclass'), 'fieldset should have class testclass')
-    ok(rendered.find('.schnippform-fieldset').hasClass('collapse'), 'fieldset should have class collapse')
+    equal(rendered.find('.schnippforms-fieldset > label').text(), 'a label', 'fieldset should contain a label')
+    ok(rendered.find('.schnippforms-fieldset').hasClass('testclass'), 'fieldset should have class testclass')
+    ok(rendered.find('.schnippforms-fieldset').hasClass('collapse'), 'fieldset should have class collapse')
 })
 
 test('get_field_schema', function() {
