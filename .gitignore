@@ -1,3 +1,4 @@
 *~
 *.kate-swp
 coverage
+docs/apidocs/_build
