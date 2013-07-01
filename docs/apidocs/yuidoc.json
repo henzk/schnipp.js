@@ -1,0 +1,10 @@
+{
+    "name": "schnipp.js",
+    "description": "schnipp.js JavaScript Utility Belt",
+    "version": "0.1",
+    "url": "https://github.com/henzk/schnipp.js",
+    "options": {
+        "linkNatives": false,
+        "tabtospace": 4
+    }
+}
