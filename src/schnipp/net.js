@@ -1,6 +1,8 @@
 /**
- *  Network and AJAX helpers.
- *  @namespace
+ * Network and AJAX helpers.
+ * @static
+ * @class schnipp.net
+ * @module schnipp.net
  **/
 schnipp.net = {}
 
@@ -10,7 +12,8 @@ schnipp.net = {}
  * @param {string} url The request URL
  * @param {string} data The post data
  * @param {Function} Callback to be executed on success
- * @name {string} type The type of data expected from the server. Per Default, type is an intelligent guess (--> jQuery)
+ * @param {string} type The type of data expected from the server. Per Default, type is an intelligent guess (--> jQuery)
+ * @method get
  **/
 schnipp.net.get = function (url, data, callback, type) {
     // shift arguments if data argument was omitted
@@ -38,7 +41,8 @@ schnipp.net.get = function (url, data, callback, type) {
  * @param {string} url The request URL
  * @param {string} data The post data
  * @param {Function} Callback to be executed on success
- * @name {string} type The type of data expected from the server. Per Default, type is an intelligent guess (--> jQuery)
+ * @param {string} type The type of data expected from the server. Per Default, type is an intelligent guess (--> jQuery)
+ * @method post
  **/
 schnipp.net.post = function (url, data, callback, type) {
     // shift arguments if data argument was omitted
@@ -65,7 +69,8 @@ schnipp.net.post = function (url, data, callback, type) {
  *
  * @param {object} jqXHR The jQuery XHR object
  * @param {string} textStatus The http error status
- * @name {string} errorThrown The text portion of the http error status
+ * @param {string} errorThrown The text portion of the http error status
+ * @method error_handler
  **/
 schnipp.net.error_handler = function(jqXHR, textStatus, errorThrown) {
     alert('Sorry, a network error has occured!\n You may have to reload the page.')
@@ -80,7 +85,7 @@ schnipp.net._iframe_seq = 1;
  *
  * @param {dom node} form The jQuery form node
  * @param {function} on_success The success callback
- * @name {function} on_error The error callback
+ * @param {function} on_error The error callback
  **/
 schnipp.net._iframe_post = function(form, on_success, on_error) {
     remoter_id = 'schnipp_remoter' + (schnipp.net._iframe_seq++);
@@ -127,6 +132,3 @@ schnipp.net._create_iframe = function(iid, iname) {
     iframe.appendTo(document.body)
     return iframe
 }
-
-
-

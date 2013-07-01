@@ -1,29 +1,24 @@
 /**
- *  @namespace
- *  @description
- *  dynamically create forms using a json description of form fields.
- *  Forms are added to the DOM programatically - no html required.
- *  New form field types incl. validation can be added easily.
+ * dynamically create forms using a json description of form fields.
+ * Forms are added to the DOM programatically - no html required.
+ * New form field types incl. validation can be added easily.
+ * @module schnipp.dynforms
  **/
 schnipp.dynforms = {}
 
 /**
- * @constructor
- * @description
  * the schnippform - give it a schema and some data and it`ll be your form
  *
  * @param {schnipp.dynforms.schema} schema the schema of the form.
  * @param {object} data initial form data in the format defined by schema(optional).
  * @param {object} fieldtypes replacements and additional field types for <tt>schnipp.dynforms.fields</tt>(optional).
+ * @constructor
+ * @class schnipp.dynforms.form
  **/
 schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     var self = {}
     self.fieldtypes = $.extend({}, schnipp.dynforms.fields, fieldtypes)
-    /**
-     * @name schnipp.dynforms.form#schema
-     * @type {schnipp.dynforms.schema} 
-     **/
     self.schema = schema
     self.data = data || {}
     self.fields = {}
@@ -31,8 +26,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     self.dom = {}
 
     /**
-     * @name schnipp.dynforms.form#render_fieldset
+     * renders a single fieldset
      * @param {object} fieldset obj
+     * @return {jq} jquery nodelist of rendered fieldset
+     * @protected
+     * @method render_fieldset
      **/
     self.render_fieldset = function(fieldset) {
         var classnames = fieldset.classes.join(' ')
@@ -48,8 +46,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-     * @name schnipp.dynforms.form#render_fieldsets
-     * @param {object} fieldset obj
+     * renders fieldsets
+     * @param {Array} fieldsets array
+     * @return {jq} jquery nodelist of rendered fieldsets
+     * @protected
+     * @method render_fieldsets
      **/
     self.render_fieldsets = function(fieldsets) {
         var res = $('<div></div>')
@@ -61,13 +62,16 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-     * @name schnipp.dynforms.form#render_fields
-     * @param {object} fieldset obj
+     * renders fields
+     * @param {object} fields array
+     * @return {jq} jquery nodelist of rendered fields
+     * @protected
+     * @method render_fields
      **/
     self.render_fields = function(field_tree) {
         var res = $('<div></div>')
-        for (var i = 0; i < field_tree.length;   i++) {
-            var entry = field_tree[i]  
+        for (var i = 0; i < field_tree.length; i++) {
+            var entry = field_tree[i]
             if ($.isArray(entry)) {
                 var row = $('<div class="schnippforms-form-row"></div>')  
                 for (var j = 0; j < entry.length; j++) {
@@ -93,11 +97,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-     * render the form
+     * render the form view
      *
-     * @returns {jquery.nodelist} html of rendered form as 
+     * @return {jq} html of rendered form as
      * jquery nodelist ready for dom insertion
-     * @name schnipp.dynforms.form#render
+     * @method render
      **/
     self.render = function() {
         self.fields = {}
@@ -142,8 +146,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * get current form data as object according to the form`s schema.
-     * @returns {object} form data
-     * @name schnipp.dynforms.form#get_data
+     * @return {object} form data
+     * @method get_data
      **/
     self.get_data = function() {
         var data = {}
@@ -157,10 +161,10 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * run form validation
-     * @returns {object} validation results contain a boolean property <tt>valid</tt>
+     * @return {object} validation results contain a boolean property <tt>valid</tt>
      * and a property <tt>fields</tt> that contains a mapping of 
      * fieldname to list of errors of that field.
-     * @name schnipp.dynforms.form#do_validate
+     * @method do_validate
      **/
     self.do_validate = function() {
         var data = {
@@ -181,8 +185,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * run form validation
-     * @returns {boolean} true if form data contains no errors, false otherwise.
-     * @name schnipp.dynforms.form#is_valid
+     * @return {Boolean} true if form data contains no errors, false otherwise.
+     * @method is_valid
      **/
     self.is_valid = function() {
         return self.do_validate().valid
@@ -190,8 +194,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * set data of the form
-     * @param {object} data form data in format defined by schema.
-     * @name schnipp.dynforms.form#set_data
+     * @param {Object} data form data in format defined by schema.
+     * @method set_data
      **/
     self.set_data = function(data) {
         for (var i = 0; i < self.schema.fields.length; i++) {
@@ -203,7 +207,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * initialize the form after rendering it 
-     * @name schnipp.dynforms.form#initialize
+     * @method initialize
      **/
     self.initialize = function(data) {
         /* initialize fields */
@@ -226,7 +230,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * iterate the fields - pass in a function 
      * @param {Function} visitor function that is called for every field <tt>f</tt> of the form
      * with the arguments <tt>[i, f]</tt>, where <tt>i</tt> is the index of the respective field.
-     * @name schnipp.dynforms.form#iter_fields
+     * @method iter_fields
      **/
     self.iter_fields = function(visitor) {
         for (var i = 0; i < self.schema.fields.length; i++) {
@@ -236,11 +240,11 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         }
     }
 
-    /** 
+    /**
      * get the schema of a field
-     * @param name name of the field
-     * @returns {object} schema of field
-     * @name schnipp.dynforms.form#get_field_schema
+     * @param {String} name name of the field
+     * @return {Object} schema of field
+     * @method get_field_schema
      **/
     self.get_field_schema = function(name) {
         for (var i = 0; i < self.schema.fields.length; i++) {
@@ -252,8 +256,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     /**
      * update view to display validation errors
-     * @param {object} errors object that contains list of errors per fieldname.
-     * @name schnipp.dynforms.form#render_errors
+     * @param {Object} errors object that contains list of errors per fieldname.
+     * @nmethod render_errors
      **/
     self.render_errors = function(errors) {
         for (key in errors) {
@@ -289,12 +293,11 @@ schnipp.dynforms.with_submit_button = function(original_form, save_button_label)
 
 
 /**
- * @constructor
- * @extends schnipp.dynforms.form
- * @description
  * Modelform which additionally takes an entity_type instance.
  * Provides a save method.
- *
+ * @class schnipp.dynforms.modelform
+ * @extends schnipp.dynforms.form
+ * @constructor
  * @param {schnipp.models.entity} entity_type
  * @param {schnipp.dynforms.schema} schema
  * @param {object} instance
@@ -358,7 +361,7 @@ schnipp.dynforms.get_modelform = function(entity_type, schema, self_modifier) {
  * @param {schnipp.dynforms.schema} schema created forms will use this schema
  * @param {schnipp.dynforms.form# -> schnipp.dynforms.form#} instance_modifier -optional- function that is applied
  * to created forms before returning them. Can be used to wrap or patch created form instances.
- * @returns {data -> schnipp.dynforms.form#} factory function that accepts initial form data as object and returns a form instance with
+ * @returns {data -> schnipp.dynforms.form} factory function that accepts initial form data as object and returns a form instance with
  * the optional instance_modifier applied.
  **/
 schnipp.dynforms.get_form_factory = function(schema, instance_modifier) {

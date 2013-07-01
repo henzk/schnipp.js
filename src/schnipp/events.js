@@ -1,7 +1,7 @@
 /**
  *  event helpers - right now this package contains the class <tt>event_support</tt>:
  *  a helper for stuff that wants to support listeners.
- *  @namespace
+ *  @module schnipp.events
  **/
 schnipp.events = {}
 
@@ -9,6 +9,7 @@ schnipp.events = {}
  * helper class for stuff that wants to support listeners.
  * Encapsulate this.
  * Convention: call the instance <tt>events</tt>.
+ * @class schnipp.events.event_support
  * @constructor
  **/
 schnipp.events.event_support = function() {
@@ -22,7 +23,7 @@ schnipp.events.event_support = function() {
      *
      * @param {string} evt name of the event to bind to
      * @param {Function} handler function that is called when the event occurs
-     * @name schnipp.events.event_support#bind
+     * @method bind
      **/
     self.bind = function(evt, handler) {
         var curr_elem
@@ -41,7 +42,7 @@ schnipp.events.event_support = function() {
      *
      * @param {string} evt name of the event to unbind from
      * @param {Function} handler function to unregister
-     * @name schnipp.events.event_support#unbind
+     * @method unbind
      **/
     self.unbind = function(evt, handler) {
         if (self.cache[evt] === undefined) {
@@ -62,7 +63,7 @@ schnipp.events.event_support = function() {
      *
      * @param {string} evt name of the event to fire
      * @param {?} args optional - arguments to pass to registered listeners
-     * @name schnipp.events.event_support#fire
+     * @method fire
      **/
     self.fire = function(evt, args) {
         if (self.cache[evt] === undefined) {
@@ -82,7 +83,7 @@ schnipp.events.event_support = function() {
      *
      * @param {string} evt name of the event to fire
      * @param {?} args optional - arguments to pass to registered listeners
-     * @name schnipp.events.event_support#fire_and_unbind
+     * @method fire_and_unbind
      **/
     self.fire_and_unbind = function(evt, args) {
         if (self.cache[evt] === undefined) {

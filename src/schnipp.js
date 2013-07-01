@@ -1,36 +1,29 @@
 /**
- *  @fileOverview
- *  schnipp.js - javascript framework
- *  https://github.com/henzk/schnipp.js
- *  License: MIT
- *  @author http://schnapptack.de/
+ * schnipp.js - javascript framework
  *
- *  @description
- *  schnipp.js javascript framework
- *  <br>
- *  The project can be found online at 
- *  <a href="https://github.com/henzk/schnipp.js">
- *  https://github.com/henzk/schnipp.js</a>.
+ * The project can be found online at
+ * <a href="https://github.com/henzk/schnipp.js">
+ * https://github.com/henzk/schnipp.js</a>.
+ *
+ * License: MIT
+ * @module schnipp
+ * @author http://schnapptack.de/
  **/
-
-/**
- *  @namespace
- *  @description
- *  schnipp.js javascript framework main module
- **/
-var schnipp = {};
+var schnipp = {}
 
 
 /**
- *  @namespace
- *  @description
- *  simple busy indicator
+ * simple busy indicator
+ *
+ * @static
+ * @class schnipp.spinner
  **/
 schnipp.spinner = {}
 
 
 /**
- *  show busy indicator
+ * show busy indicator
+ * @method show
  **/
 schnipp.spinner.show = function() {
     var dom_elem = $('#schnipp-spinner')
@@ -43,7 +36,8 @@ schnipp.spinner.show = function() {
 
 
 /**
- *  hide busy indicator
+ * hide busy indicator
+ * @method hide
  **/
 schnipp.spinner.hide = function() {
     $('#schnipp-spinner').hide()
