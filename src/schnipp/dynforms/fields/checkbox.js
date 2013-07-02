@@ -36,6 +36,7 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     /**
      * get field data
      * @return {Boolean} true if checked, false otherwise
+     * @method get_data
      **/
     self.get_data = function() {
         return self.dom.input.prop('checked')
@@ -44,6 +45,8 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     /**
      * set field data
      * @param {Boolean} value true for checked checkbox, false otherwise
+     * @protected
+     * @method _set
      **/
     self._set = function(value) {
         self.dom.input.prop('checked', value)

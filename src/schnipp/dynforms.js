@@ -257,7 +257,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     /**
      * update view to display validation errors
      * @param {Object} errors object that contains list of errors per fieldname.
-     * @nmethod render_errors
+     * @method render_errors
      **/
     self.render_errors = function(errors) {
         for (key in errors) {

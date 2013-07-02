@@ -200,7 +200,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * validates the field. Override this method in subclasses to add
      * specific validation to fields. This implementation checks
      * that required fields contain a value.
-     * @returns {Object} validation result
+     * @return {Object} validation result
      * @method validate
      **/
     self.validate = function() {

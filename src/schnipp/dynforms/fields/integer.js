@@ -15,6 +15,7 @@ schnipp.dynforms.fields.integer = function(field_descriptor, field_data) {
      *
      * @return {Integer} current value of the form as integer.
      * This will be NaN, if value is not an integer.
+     * @method set_data
      **/
     self.super_get_data = self.get_data;
     self.get_data = function() {
