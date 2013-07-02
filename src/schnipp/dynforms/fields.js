@@ -1,6 +1,6 @@
 /**
- *  @namespace
- *  @description
- *  this module contains all the available field types
+ * this module contains all the available field types
+ *
+ * @module schnipp.dynforms.fields
  **/
-schnipp.dynforms.fields = {};
+schnipp.dynforms.fields = {}

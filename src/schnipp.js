@@ -45,8 +45,9 @@ schnipp.spinner.hide = function() {
 
 
 /**
-* truncates a string by <len> chars
-*/
+ * truncates a string by <len> chars
+ * @method truncate
+ **/
 schnipp.truncate = function(str, len) {
     if (str.length > len)
         return $.trim(str).substring(0, len) + '...'
@@ -55,9 +56,10 @@ schnipp.truncate = function(str, len) {
 }
 
 /**
-*   Enables inline editing of <elem> on the basis of <obj> (entity). 
-*   Inserts a form on dblclick and saves that form on enter or blur.
-*/
+ * Enables inline editing of <elem> on the basis of <obj> (entity).
+ * Inserts a form on dblclick and saves that form on enter or blur.
+ * @method enable_inline_editing
+ **/
 schnipp.enable_inline_editing = function(elem, obj, get_filter, set_filter) {
 
     get_filter = get_filter || function(obj) {return obj.get('name')}
@@ -66,7 +68,7 @@ schnipp.enable_inline_editing = function(elem, obj, get_filter, set_filter) {
     var parent = elem.parent()
     var form = null
     var input = null
-    
+
     elem.click(function() {return false})
     elem.unbind('dblclick')
     elem.dblclick(function() {
@@ -104,8 +106,9 @@ schnipp.enable_inline_editing = function(elem, obj, get_filter, set_filter) {
 }
 
 /**
-*   Enables inline editing with taking file endings into account.
-*   The file ending will not be editable.
+* Enables inline editing with taking file endings into account.
+* The file ending will not be editable.
+* @method enable_file_inline_editing
 */
 schnipp.enable_file_inline_editing = function(domelem, obj) {
     var get_filter = function(obj) {

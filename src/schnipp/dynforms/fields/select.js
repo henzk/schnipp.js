@@ -1,10 +1,11 @@
 /**
  * single select field
  *
- * @param {object} field_descriptor field specific part of the form schema
- * @param {object} field_data initial value for the field
+ * @param {Object} field_descriptor field specific part of the form schema
+ * @param {Object} field_data initial value for the field
  * @constructor
- * @extends schnipp.dynforms.fields.base
+ * @class schnipp.dynforms.fields.select
+ * @extends schnipp.dynforms.primitive_field
  **/
 schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.primitive_field(field_descriptor, field_data)
@@ -85,6 +86,17 @@ schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
         '"></select>'
     )
 
+    /**
+     * get default data of field
+     *
+     * If 'default_value' is specified in the field schema,
+     * its value is used as default data. Otherwise, the
+     * first option is used as default i.e. the empty option for
+     * non-required fields; the first valid option for required fields.
+     *
+     * @return {String} default data
+     * @method get_default_data
+     **/
     self.get_default_data = function() {
         if (self.field_descriptor.default_value !== undefined) {
             return self.field_descriptor.default_value
@@ -96,6 +108,13 @@ schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
         }
     }
 
+    /**
+     * render the field
+     *
+     * @return {JQ} jquery nodelist containing the rendered view
+     * of the field ready for DOM insertion
+     * @method render
+     **/
     var super_render = self.render
     self.render = function() {
         var initial_data = self.get_initial_data()

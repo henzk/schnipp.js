@@ -1,6 +1,6 @@
 /**
  *  observable little data objects
- *  @namespace
+ *  @module schnipp.models
  **/
 schnipp.models = {}
 

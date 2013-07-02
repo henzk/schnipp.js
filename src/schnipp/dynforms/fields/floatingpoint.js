@@ -1,9 +1,10 @@
 /**
  * floatingpoint field
  *
- * @param {object} field_descriptor field specific part of the form schema
- * @param {object} field_data initial value for the field
+ * @param {Object} field_descriptor field specific part of the form schema
+ * @param {Object} field_data initial value for the field
  * @constructor
+ * @class schnipp.dynforms.fields.floatingpoint
  * @extends schnipp.dynforms.fields.integer
  **/
 schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
@@ -16,6 +17,12 @@ schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
         return rendered
     }
 
+    /**
+     * returns the field data
+     *
+     * @return {Float} field data as float; NaN if field data is invalid
+     * @method get_data
+     **/
     self.get_data = function() {
         var data = self.super_get_data()
         if (self.field_descriptor.float_separator !== undefined) {
@@ -25,6 +32,12 @@ schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
         return parseFloat(data)
     }
 
+    /**
+     * set the field data
+     *
+     * @param {Float} data field data as float
+     * @method get_data
+     **/
     var super_set_data = self.set_data
     self.set_data = function(data) {
         var data = '' + data

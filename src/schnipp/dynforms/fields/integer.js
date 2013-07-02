@@ -1,19 +1,34 @@
 /**
- * integer field
+ * Integer field
  *
- * @param {object} field_descriptor field specific part of the form schema
- * @param {object} field_data initial value for the field
+ * @param {Object} field_descriptor field specific part of the form schema
+ * @param {Object} field_data initial value for the field
  * @constructor
- * @extends schnipp.dynforms.fields.integer
+ * @class schnipp.dynforms.fields.integer
+ * @extends schnipp.dynforms.fields.text
  **/
 schnipp.dynforms.fields.integer = function(field_descriptor, field_data) {
     var self = schnipp.dynforms.fields.text(field_descriptor, field_data)
 
+    /**
+     * get field data
+     *
+     * @return {Integer} current value of the form as integer.
+     * This will be NaN, if value is not an integer.
+     **/
     self.super_get_data = self.get_data;
     self.get_data = function() {
         return parseInt(self.super_get_data(), 10)
     }
 
+    /**
+     * run validation
+     *
+     * the field supports range checks, by setting 'min_value'
+     * and 'max_value' via the fields schema
+     * @return {Object} validation result
+     * @method validate
+     **/
     var super_validate = self.validate
     self.validate = function() {
         var res = super_validate()

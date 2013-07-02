@@ -361,7 +361,7 @@ schnipp.dynforms.get_modelform = function(entity_type, schema, self_modifier) {
  * @param {schnipp.dynforms.schema} schema created forms will use this schema
  * @param {schnipp.dynforms.form# -> schnipp.dynforms.form#} instance_modifier -optional- function that is applied
  * to created forms before returning them. Can be used to wrap or patch created form instances.
- * @returns {data -> schnipp.dynforms.form} factory function that accepts initial form data as object and returns a form instance with
+ * @return {data -> schnipp.dynforms.form} factory function that accepts initial form data as object and returns a form instance with
  * the optional instance_modifier applied.
  **/
 schnipp.dynforms.get_form_factory = function(schema, instance_modifier) {

@@ -1,9 +1,11 @@
 /**
  * abstract base class for dynform fields
  *
- * @param {object} field_descriptor field specific part of the form schema
- * @param {object} field_data initial value for the field
+ * @param {Object} field_descriptor field specific part of the form schema
+ * @param {Object} field_data initial value for the field
  * @constructor
+ * @class schnipp.dynforms.abstract_field
+ * @module schnipp.dynforms
  **/
 schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     var self = {}
@@ -27,10 +29,11 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     /**
      * renders a field in a container with the field label
      *
-     * @param {object} field_descriptor the field`s schema
-     * @param {object} rendered_field jquery nodelist of the rendered field view
-     * @returns {object} jquery nodelist containing rendered field view
-     * @name schnipp.dynforms.abstract_field#render_container
+     * @param {Object} field_descriptor the field`s schema
+     * @param {Object} rendered_field jquery nodelist of the rendered field view
+     * @return {Object} jquery nodelist containing rendered field view
+     * @protected
+     * @method render_container
      **/
     self.render_container = function(field_descriptor, rendered_field) {
         var main = $(self.templates.main({
@@ -45,16 +48,17 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         main.append(rendered_field)
         return main
     }
-    
-        /**
+
+    /**
      * set the field's text attributes like label, description and help_text if specified
      * in field_descriptor, else remove dom nodes.
-     * 
-     * @param {object} field_descriptor the field`s schema
-     * @param {object} label jquery nodelist containing the label node
-     * @param {object} dsc jquery nodelist containing the description node
-     * @param {object} help_text jquery nodelist containing the help_text node
-     * @name schnipp.dynforms.abstract_field#initialize
+     *
+     * @param {Object} field_descriptor the field`s schema
+     * @param {Object} label jquery nodelist containing the label node
+     * @param {Object} dsc jquery nodelist containing the description node
+     * @param {Object} help_text jquery nodelist containing the help_text node
+     * @protected
+     * @method render_field_texts
      **/
     self.render_field_texts = function(field_descriptor, label, dsc, help_text) {
         // set label or remove label node
@@ -73,13 +77,14 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         else
             help_text.remove()
     }
-    
+
     /**
      * render the help text; you may overwrite this method to provide a more
      * sophisticated help text visualization like e.g. with tool tips
-     * @param {string} help_text the field's help text
-     * @return {?} html string or jquery node list 
-     * @name schnipp.dynforms.abstract_field#initialize
+     * @param {string} field_descriptor
+     * @return {Mixed} formated help text
+     * @protected
+     * @method render_help_text
      **/
     self.render_help_text = function(field_descriptor) {
         return field_descriptor.help_text
@@ -87,12 +92,10 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * render the input portion of the field
-     *
-     * @returns {object} jquery nodelist containing input portion of rendered field view
-     *
-     * must be implemented by subclass
-     *
-     * @name schnipp.dynforms.abstract_field#render_input
+     * -must be implemented by subclass-
+     * @return {Object} jquery nodelist containing input portion of rendered field view
+     * @protected
+     * @method render_input
      **/
     self.render_input = function() {
         throw {
@@ -102,8 +105,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * render the form
-     * @returns {object} jquery nodelist containing rendered field
-     * @name schnipp.dynforms.abstract_field#render
+     * @return {Object} jquery nodelist containing rendered field
+     * @method render
      **/
     self.render = function() {
         self.dom.main = self.render_container(
@@ -115,12 +118,11 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * get current field data
-     * @returns {?} field data - the format of the data depends on the
-     * field type
+     * -must be implemented by subclass-
+     * @return {Mixed} field data (the format of the data depends on the
+     * field type)
      *
-     * must be implemented by subclass
-     *
-     * @name schnipp.dynforms.abstract_field#get_data
+     * @method get_data
      **/
     self.get_data = function() {
         throw {
@@ -130,7 +132,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * reset field`s data to the default value
-     * @name schnipp.dynforms.abstract_field#clear
+     * @method clear
      **/
     self.clear = function() {
         self.set_data(self.get_default_data())
@@ -141,7 +143,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      *
      * Default data is the value of 'default_value' in the field`s schema.
      * If it is not set, field.default_value is used.
-     * @name schnipp.dynforms.abstract_field#get_default_data
+     * @return {Mixed} default data of the field
+     * @method get_default_data
      **/
     self.get_default_data = function() {
         if (self.field_descriptor.default_value !== undefined) {
@@ -153,7 +156,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * Returns the field's initial data or the default data if no initial data has been given.
-     * @name schnipp.dynforms.abstract_field#get_initial_data
+     * @return {Mixed} initial data of the field
+     * @method get_initial_data
      **/
     self.get_initial_data = function() {
         if (self.initial_data !== undefined) {
@@ -167,10 +171,11 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * set data of the field
      * used internally by set_data to actually set the field
      *
-     * must be implemented in subclass
+     * -must be implemented in subclass-
      *
-     * @param {?} field data - format depends on the field type
-     * @name schnipp.dynforms.abstract_field#_set
+     * @param {Mixed} value field data(format depends on the field type)
+     * @protected
+     * @method _set
      **/
     self._set = function(value) {
         throw {
@@ -180,8 +185,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * set data of the field
-     * @param {?} field data - format depends on the field type
-     * @name schnipp.dynforms.abstract_field#set_data
+     * @param {Mixed} value field data(format depends on the field type)
+     * @method set_data
      **/
     self.set_data = function(value) {
         self._set(value)
@@ -195,8 +200,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * validates the field. Override this method in subclasses to add
      * specific validation to fields. This implementation checks
      * that required fields contain a value.
-     * @returns {object} validation result
-     * @name schnipp.dynforms.abstract_field#validate
+     * @returns {Object} validation result
+     * @method validate
      **/
     self.validate = function() {
         if (self.field_descriptor.required) {
@@ -212,11 +217,21 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         return {valid: true}
     }
 
+    /**
+     * update view to indicate valid field data
+     * @protected
+     * @method render_valid
+     **/
     self.render_valid = function() {
         self.dom.errorlist.remove()
         self.dom.main.removeClass('error')
     }
 
+    /**
+     * update view to indicate invalid field data
+     * @protected
+     * @method render_errors
+     **/
     self.render_errors = function(errors) {
         if (self.dom.main) {
             self.dom.main.append(self.dom.errorlist)
@@ -232,8 +247,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     /**
      * triggers field validation
-     * @returns {object} validation result
-     * @name schnipp.dynforms.abstract_field#do_validate
+     * @return {Object} validation result
+     * @method do_validate
      **/
     self.do_validate = function() {
         var validation_result = self.validate()
@@ -248,7 +263,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     /**
      * initialize the field - must be called after the field has been rendered
      * and placed into the DOM of the page.
-     * @name schnipp.dynforms.abstract_field#initialize
+     * @method initialize
      **/
     self.initialize = function() {}
 
