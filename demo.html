@@ -6,24 +6,17 @@
     <!-- dependencies -->
     <script type="text/javascript" src="dependencies/jqueryui/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="dependencies/jqueryui/js/jquery-ui-1.8.16.min.js"></script>
-    <script type="text/javascript" src="dependencies/cP_v0.91/colorPicker.js"></script>
-    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js" ></script>
     <script type="text/javascript" src="dependencies/underscore.js"></script>
 
     <!-- schnipplib -->
     <script type="text/javascript" src="src/schnipp.js"></script>
     <script type="text/javascript" src="src/schnipp/events.js"></script>
     <script type="text/javascript" src="src/schnipp/net.js"></script>
-    <script type="text/javascript" src="src/schnipp/net/post.js"></script>
-    <script type="text/javascript" src="src/schnipp/net/get.js"></script>
-    <script type="text/javascript" src="src/schnipp/dialogs.js"></script>
-    <script type="text/javascript" src="src/schnipp/dialogs/component.js"></script>
-    <script type="text/javascript" src="src/schnipp/dialogs/dialog.js"></script>
-    <script type="text/javascript" src="src/schnipp/dialogs/tabber.js"></script>
     
     <script type="text/javascript" src="src/schnipp/dynforms.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields.js"></script>
-    <script type="text/javascript" src="src/schnipp/dynforms/fields/base.js"></script>
+    <script type="text/javascript" src="src/schnipp/dynforms/abstract_field.js"></script>
+    <script type="text/javascript" src="src/schnipp/dynforms/primitive_field.js"></script>    
     <script type="text/javascript" src="src/schnipp/dynforms/fields/text.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields/textarea.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields/integer.js"></script>
@@ -31,7 +24,6 @@
     <script type="text/javascript" src="src/schnipp/dynforms/fields/checkbox.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields/select.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields/color.js"></script>
-    <script type="text/javascript" src="src/schnipp/dynforms/fields/nicedit.js"></script>
     <script type="text/javascript" src="src/schnipp/dynforms/fields/form.js"></script>
 
     <!-- The demo -->
@@ -116,21 +108,6 @@
 <body>
     <h1 id="schnipp__form">schnipp.form Demo</h1>
     <div id="content"></div>
-    <h1 id="schnipp__dialog">schnipp.dialog Demo</h1>
-    
-    <a href="dialog1.html" class="dialogbox">open link in dialogbox</a>(using a class)<br>
-    <a href="dialog1.html" data-dialogbox="extra data">open link in dialogbox</a>(using a data attribute)<br>
-    <a href="postdialog.html" data-dialogbox="extra data">link containing form</a>(using a data attribute)<br>
-    <script>
-    $(function() {
-        schnipp.dialogs.enable_for($(document.body))
-        var dialog = schnipp.dialogs.dialog('mydialog', null)
 
-        dialog.render()
-            .view.set_content('Demo Dialog Content')
-            .view.set_title('Demo Dialog')
-            .view.resizable(false)
-    })
-    </script>
 </body>
 </html>
