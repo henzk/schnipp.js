@@ -127,12 +127,12 @@ $(function() {
         ],
         fieldsets: [
             {
-                classes: ['collapse'],
+                classes: [],
                 label: 'Main Settings',
                 fields_display: [['test2', 'test1'], ['test3', 'color1']]
             },
             {
-                classes: ['collapse'],
+                classes: [],
                 label: 'Not so important',
                 fields_display: ['int1', 'float1', 'check1', 'select1', 'form1']
             }
