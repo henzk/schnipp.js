@@ -1,0 +1,46 @@
+/* dropdownselect
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------*/
+
+.schnippforms-dropdownselect-select {position:relative; width:300px;}
+.schnippforms-dropdownselect-display {
+    padding: 0 20px 0 10px; line-height: 32px; min-height:32px; position: relative;
+    background: white;  cursor:pointer;
+    border: 1px solid #ccc; border-radius:3px;
+
+}
+.schnippforms-dropdownselect-toggler {
+    background: #eee;; border-left:1px solid #ddd;
+    position:absolute; right: 1px; top:1px; cursor: pointer;
+    font-size: 23px;
+    padding: 4px;
+}
+
+.schnippforms-dropdownselect-toggler:before {
+   content: "▼";
+}
+
+
+.schnippforms-dropdownselect-options {
+    position: absolute;
+    background: #fbfbfb;;
+    border: 3px solid #ccc;
+    opacity: 0.95;
+    left: 0;
+    right: 0;
+    top: 36px;
+    padding: 5px;
+    z-index: 100; display:none;
+}
+.schnippforms-dropdownselect.active .schnippforms-dropdownselect-options {display:block;}
+.schnippforms-dropdownselect.active .schnippforms-dropdownselect-toggler {background-position: center bottom;}
+
+.schnippforms-dropdownselect-options div {
+    line-height: 18px; display:block; padding: 6px 0 6px 0; cursor:pointer; 
+    padding-left: 8px; color: #666; text-align: left; 
+    border-bottom: 1px dashed #ddd;
+    
+}
+.schnippforms-dropdownselect-options div:hover {
+    background:#eee;
+}
