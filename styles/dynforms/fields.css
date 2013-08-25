@@ -1,0 +1,17 @@
+
+
+.schnippforms-form .schnippforms-fieldset .schnippforms-field-holder {
+    border-top:0px;
+}
+
+/* LABEL STYLING
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------*/
+
+.schnippforms-field-holder label {
+    margin-bottom:20px;color: rgba(88, 88, 90, 1);font-size: 13px;line-height: 17px;
+    font-weight: bold;display: block;
+}
+.schnippforms-field-holder {padding: 20px 0 20px 0; border-top: 1px solid rgba(0, 0, 0, 0.05);}
+
+
