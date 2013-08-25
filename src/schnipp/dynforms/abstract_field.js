@@ -14,7 +14,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     self.templates = {
         main: _.template('\
-            <div class="schnippforms-field-holder schnippforms-field-<%=name%> schnippforms-<%=type%>">\
+            <div class="schnippforms-field-holder schnippforms-field-<%=name%> schnippforms-<%=type%> <%=extra_classes%>">\
                 <div class="schnippforms-help-text"></div>\
                 <label></label>\
                 <div class="schnippforms-dsc"></div>\
@@ -33,9 +33,14 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * @name schnipp.dynforms.abstract_field#render_container
      **/
     self.render_container = function(field_descriptor, rendered_field) {
+
+        if (field_descriptor.extra_classes == undefined)
+            field_descriptor.extra_classes = ''
+        
         var main = $(self.templates.main({
             name: field_descriptor.name,
-            type: field_descriptor.type
+            type: field_descriptor.type,
+            extra_classes: field_descriptor.extra_classes
         }))
         
         if (field_descriptor.classes !== undefined)
