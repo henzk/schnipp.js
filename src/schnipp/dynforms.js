@@ -60,7 +60,6 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         }
         return res
     }
-
     /**
      * renders fields
      * @param {object} fields array
@@ -136,7 +135,9 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             for (var i = 0; i < self.schema.fields.length; i++) {
                 var field_schema = self.schema.fields[i]
                 var field = self.fields[field_schema.name]
-                holder.append(field.render())
+                var form_row = $('<div class="schnippforms-form-row"></div>')
+                form_row.append(field.render())
+                holder.append(form_row)
             }
         }
 
