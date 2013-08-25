@@ -52,7 +52,6 @@ schnipp.net.post = function (url, data, callback, type) {
         data = {}
     }
     schnipp.spinner.show()
-    
     return $.post(
         url,
         data,
