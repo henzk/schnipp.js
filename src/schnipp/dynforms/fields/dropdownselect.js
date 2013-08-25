@@ -18,11 +18,8 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
         self.events.bind('change', function(args) {
             self.dom.display.html(self.selected_option.label)
         })
-        
-        if (field_descriptor.default_value != undefined) {
-            self.dom.display.html(self.get_option_by_value(field_descriptor.default_value).label)
-            self.selected = field_descriptor.default_value
-        }
+        // TODO: mark fd.default_value as mandatory
+        self.dom.display.html(self.selected_option.label)
     }    
     
     self.render_input = function() {
