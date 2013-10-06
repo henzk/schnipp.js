@@ -62,8 +62,8 @@ schnipp.ui.list.ListView = function(dom_elem) {
 
 schnipp.ui.list.SingleSelectListView = function(dom_elem) {
     var self = schnipp.ui.list.ListView(dom_elem)
-    
-    self.select_element = function(element) {
+
+    self._update_view_selection = function(element) {
         self.dom.container
             .children(self.conf.elem_selector)
             .removeClass('selected')
@@ -76,32 +76,35 @@ schnipp.ui.list.SingleSelectListView = function(dom_elem) {
                     .addClass('selected')
         }
     }
-    
+
     self._handle_select = function(attrs) {
         if (attrs.old_value != attrs.new_value)
-            self.select_element(attrs.new_value)
+            self._update_view_selection({id: attrs.new_value})
     }
-    
+
+    self._handle_click = function(element) {
+        self.model.select_element(element)
+    }
+
     var _super_render_element = self.render_element
-    
+
     self.render_element = function(element) {
         var li = _super_render_element(element)
         li.bind('click', function() {
-            self.model.select_element(element)
+            self._handle_click(element)
+            return false
         })
         return li
     }
-    
+
     var _super_init = self.init
-    
+
     self.init = function(model) {
         _super_init(model)
         self.model.events
             .bind('selection-changed', self._handle_select)
         return self
     }
-    
+
     return self
 }
-
-
