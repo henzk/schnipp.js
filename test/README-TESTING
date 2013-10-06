@@ -28,6 +28,7 @@ Install Karma
 ::
     npm install -g karma
     npm install -g istanbul #test coverage tool
+    npm install -g phantomjs #headless browser
 
 Running the tests
 -------------------
@@ -41,3 +42,22 @@ As soon as karma has started, connect at least one browser by visiting http://lo
 If for some reason the ``karma`` command is not available, try::
 
     . ~/.nvm/nvm.sh
+
+
+Also, have a look at the Makefile, which provides some shortcuts:
+
+    make test
+
+runs all tests and exits
+
+
+    make apidocs
+
+generate api documentation
+
+
+    make tdd
+
+runs tests and builds documentation in a loop; listens for file changes. This command will open up 2 eterm windows.
+
+

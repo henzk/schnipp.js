@@ -22,6 +22,8 @@ help:
 tdd:
 	xterm -T "karma test" -n "karma test" -fg gray -bg black -e bash -c "bash scripts/run_karma_dev.sh;sleep 5;" &
 
+test:
+	bash ./scripts/run_karma_dev.sh --single-run
 
 apidocs:
 	bash ./scripts/build_apidocs.sh
@@ -32,3 +34,5 @@ apidocsonchange:
 
 
 devenv: tdd apidocsonchange
+
+.PHONY: tdd test apidocs apidocsonchange devenv
