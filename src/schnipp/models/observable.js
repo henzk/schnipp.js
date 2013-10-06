@@ -258,6 +258,24 @@ schnipp.models.observable_list = function(modifier) {
     }
 
     /**
+    * Inserts element to the position specified by index.
+    * Fires a set event.
+    * @param {Integer} index The index of the element to update.
+    * @param {Object} element The element to update.
+    * @method set
+    */
+    self.set = function(index, value) {
+        var oldval = self.data[index]
+        self.data[index] = value
+        self.events.fire('set', {
+                src: self,
+                index: index,
+                old_value: oldval,
+                new_value: value
+        })
+    }
+
+    /**
      * Returns the element at index
      * @param {integer} index The index of the element
      * @return {Object} element at given index
