@@ -347,11 +347,6 @@ schnipp.models.observable_list = function(modifier) {
                 index: index,
                 element: removed
         })
-        removed.events.fire('remove', {
-            src: removed,
-            index: index,
-            element: removed
-        })
         return removed
     }
 

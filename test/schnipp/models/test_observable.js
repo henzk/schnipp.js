@@ -147,7 +147,7 @@ asyncTest('test list insert events', 20, function() {
     start()
 })
 
-asyncTest('test list remove events', 2, function() {
+asyncTest('test list remove events', 1, function() {
     var olist = schnipp.models.observable_list()
     for (var i=0; i<5; i++) {
         olist.append(schnipp.models.observable({a:i}))
@@ -158,10 +158,7 @@ asyncTest('test list remove events', 2, function() {
     olist.events.bind('remove', function(args, evt) {
         equal(args.element.id, obj.id)
     })
-    // object remove event
-    obj.events.bind('remove', function(args, evt) {
-        equal(args.element.id, obj.id)
-    })
+
     olist.remove(0)
     start()
 })
