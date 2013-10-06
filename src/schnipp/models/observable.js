@@ -176,44 +176,47 @@ schnipp.models.observable = function(attrs) {
 
 
 /**
- * The observable list stereotype. Takes an optional argument modifier, which is a
- * function to manipulate the object itself.
- * @param {Function} func Optional - he modifier function.
+ * object_list is a list-like container that supports events to
+ * notify subscribers
+ *
+ * elements that are placed in the list must be objects.
+ * Also, elements must contain an id attribute that is unique over all
+ * elements in a list.
+ *
  * @constructor
- * @class schnipp.models.observable_list
+ * @class schnipp.models.object_list
  **/
-schnipp.models.observable_list = function(modifier) {
+schnipp.models.object_list = function(modifier) {
 
     var self = {}
     self.data = []
-    modifier = modifier || function(instance){}
     self.events = schnipp.events.event_support()
 
     /**
-     * Deserializes raw data to an observable.
-     * @param {Object} data The the raw data.
-     * @return {schnipp.models.observable} observable containing data
+     * objects are deserialized when added to the list
+     * @param {data} externally used representation of element
+     * @return {Object} internally used representation of element
      * @protected
      * @method deserialize_element
-     **/
+     */
     self.deserialize_element = function(data) {
-        return schnipp.models.observable(data)
+        return data
     }
 
     /**
-     * Serializes an observable object to raw data.
-     * @param {schnipp.models.observable} data observable element
-     * @return {Object} raw data contained in observable
+     * objects are serialized when requested from the list
+     * @param {element} internally used representation of element
+     * @return {Object} externally used representation of element
      * @protected
      * @method serialize_element
-     **/
+     */
     self.serialize_element = function(element) {
-        return element.get_data()
+        return element
     }
 
     /**
-     * Returns the data (list of serialized observables).
-     * @return {Array} list of raw data of observables in this list
+     * Returns the data (list of serialized objectss).
+     * @return {Array} list of raw data of objects in this list
      * @method get_data
      **/
     self.get_data = function() {
@@ -225,8 +228,8 @@ schnipp.models.observable_list = function(modifier) {
     }
 
     /**
-     * Appends a new element to the observable list.
-     * @param {observable} The observable that is appended
+     * Appends a new element to the list.
+     * @param {Object} element The element to append
      **/
     self.append = function(element) {
         var el_index = self.data.length
@@ -238,7 +241,7 @@ schnipp.models.observable_list = function(modifier) {
     * Inserts element to the position specified by index.
     * Fires a pre-insert and an insert event.
     * @param {integer} index The index where element is inserted.
-    * @param {observable} element The observable that is inserted.
+    * @param {Object} element The element to insert.
     * @method insert
     */
     self.insert = function(index, element) {
@@ -288,7 +291,7 @@ schnipp.models.observable_list = function(modifier) {
     /**
      * Returns the element specified by id.
      * @param {Integer} id the id of the element to look up
-     * @return {Object} observable with given id or undefined if no element with that id can be found
+     * @return {Object} Object with given id or undefined if no element with that id can be found
      * @method get_by_id
      **/
     self.get_by_id = function(id) {
@@ -303,7 +306,7 @@ schnipp.models.observable_list = function(modifier) {
 
     /**
      * Returns the index of element
-     * @param {Mixed} element The observable element to get the index for
+     * @param {Mixed} element The element to get the index for
      * @return {Integer} index of given element in list or undefined if element not in list
      * @method index_of
      **/
@@ -334,7 +337,7 @@ schnipp.models.observable_list = function(modifier) {
 
     /**
      * Removes the element at position <index>.
-     * Fires a remove event on the list and the removed item.
+     * Fires a remove event on the list.
      * @param {Integer} index index of the element to delete
      * @return {Object} element that has been removed
      * @method remove
@@ -373,7 +376,7 @@ schnipp.models.observable_list = function(modifier) {
     }
 
     /**
-     * Iterates the elements of the observable list.
+     * Iterates the elements of the list.
      * @param {Function} func The visitor function.
      * @method each
      **/
@@ -381,7 +384,72 @@ schnipp.models.observable_list = function(modifier) {
         $.each(self.data, func)
         return self
     }
-    // apply the modifier
-    modifier(self)
+
+    return self
+}
+
+/**
+ * observable_list is a list-like container that supports events to
+ * notify subscribers
+ *
+ * elements that are placed in the list must be objects.
+ * Also, elements must contain an id attribute that is unique over all
+ * elements in a list.
+ *
+ * Elements are internally represented as observables.
+ *
+ * @constructor
+ * @class schnipp.models.observable_list
+ * @superclass schnipp.models.object_list
+ **/
+schnipp.models.observable_list = function() {
+    var self = schnipp.models.object_list()
+
+    /**
+     * Deserializes raw data to an observable.
+     * @param {Object} data The the raw data.
+     * @return {schnipp.models.observable} observable containing data
+     * @protected
+     * @method deserialize_element
+     **/
+    self.deserialize_element = function(data) {
+        return schnipp.models.observable(data)
+    }
+
+    /**
+     * Serializes an observable object to raw data.
+     * @param {schnipp.models.observable} data observable element
+     * @return {Object} raw data contained in observable
+     * @protected
+     * @method serialize_element
+     **/
+    self.serialize_element = function(element) {
+        return element.get_data()
+    }
+
+    return self
+}
+
+schnipp.models.selectable_list_refinement = function(object_list) {
+    var self = object_list
+
+    self._selected_id = null
+
+    self.select_element = function(element) {
+        var elem = self.get_by_id(element.id)
+        if (elem !== undefined) {
+            var oldsel = self._selected_id
+            self._selected_index = element.id
+            self.events.fire('selection-changed', {
+                src: self,
+                index: self.index_of(elem),
+                old_value: oldsel,
+                new_value: self._selected_index
+            })
+            return true
+        }
+        return false
+    }
+
     return self
 }

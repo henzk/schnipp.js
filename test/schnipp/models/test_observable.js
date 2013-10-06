@@ -67,13 +67,6 @@ test('observable list instantiation', function() {
     var olist = get_olist(0)
     equal(olist.size(), 0)
 
-    // test modifier
-    var olist_2 = schnipp.models.observable_list(function(self) {
-        self.index_of = function() {
-            return 'modifier test'
-        }
-    })
-    equal(olist_2.index_of(), 'modifier test')
 })
 
 test('test retrieve functions', function() {
