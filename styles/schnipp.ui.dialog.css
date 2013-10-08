@@ -1,6 +1,5 @@
 
-
-.schnipp-dialog  {background:#fff; z-index:5; position:absolute; width:400px; display:none;
+.schnipp-dialog  {background:#fff; z-index:5; position:absolute; min-width:400px; display:none;
     -webkit-box-shadow: 2px 2px 20px 1px #999999;
 -moz-box-shadow: 2px 2px 20px 1px #999999;
 box-shadow: 2px 2px 20px 1px #999999;
