@@ -9,9 +9,9 @@
 --------------------------------------------------------------------------------------------------*/
 
 .schnippforms-field-holder label {
-    margin-bottom:20px;color: rgba(88, 88, 90, 1);font-size: 13px;line-height: 17px;
-    font-weight: bold;display: block;
+    margin-bottom:5px;color: rgba(88, 88, 90, 1);font-size: 12px;line-height: 12px;
+    display: inline-block; 
 }
-.schnippforms-field-holder {padding: 20px 0 20px 0; border-top: 1px solid rgba(0, 0, 0, 0.05);}
+.schnippforms-field-holder {padding: 10px 0 10px 0;border-bottom: 1px solid #eee;;}
 
 
