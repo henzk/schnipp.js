@@ -2,7 +2,9 @@
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------*/
 
-.schnippforms-dropdownselect-select {position:relative; width:300px;}
+.schnippforms-fieldholder.schnippforms-dropdownselectselect {}
+
+.schnippforms-dropdownselect-select {position:relative; width:300px; display:inline-block;}
 .schnippforms-dropdownselect-display {
     padding: 0 20px 0 10px; line-height: 32px; min-height:32px; position: relative;
     background: white;  cursor:pointer;
