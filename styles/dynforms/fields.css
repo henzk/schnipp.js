@@ -12,6 +12,17 @@
     margin-bottom:5px;color: rgba(88, 88, 90, 1);font-size: 12px;line-height: 12px;
     display: inline-block; 
 }
-.schnippforms-field-holder {padding: 10px 0 10px 0;border-bottom: 1px solid #eee;;}
+.schnippforms-field-holder {padding: 10px;border-bottom: 1px solid #eee;;}
 
 
+
+.schnippforms-error  {background: #FAEFED; border-top: 1px solid #fff;}
+.schnippforms-error input,
+.schnippforms-error textarea {border-color: #DE5959 !important; }
+.schnippforms-errorlist { color:#DE5959;}
+.schnippforms-errorlist li {list-style-type:none; font-style:italic;}
+
+label.schnippforms-required {font-weight:bold;}
+label.schnippforms-required:after {content: "*"}
+
+.flexydata-submit-row {padding:12px}
