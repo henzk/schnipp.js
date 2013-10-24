@@ -42,14 +42,18 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
             type: field_descriptor.type,
             extra_classes: field_descriptor.extra_classes
         }))
-        
-        if (field_descriptor.classes !== undefined)
-            $.each(field_descriptor.classes, function(i, cls) {main.addClass(cls)})
-        
         var label = main.find('label')
         var dsc = main.find('.schnippforms-dsc')
         var help_text = main.find('.schnippforms-help-text')
         var input = main.find('.schnippforms-input')
+        
+        if (field_descriptor.required)
+            label.addClass('schnippforms-required')
+        
+        if (field_descriptor.classes !== undefined)
+            $.each(field_descriptor.classes, function(i, cls) {main.addClass(cls)})
+        
+
         self.render_field_texts(field_descriptor, label, dsc, help_text)
         main.append(rendered_field)
         return main
@@ -229,13 +233,21 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         return {valid: true}
     }
 
+    /**
+    *   Removes the errorlist from dom and all error classes.
+    */
     self.render_valid = function() {
-        self.dom.errorlist.remove()
-        self.dom.main.removeClass('error')
+        if (self.dom.errorlist) 
+            self.dom.errorlist.remove()
+        self.dom.main.removeClass('schnippforms-error')
     }
 
+    
     self.render_errors = function(errors) {
+        if (self.dom.errorlist)
+            self.dom.errorlist.remove()
         if (self.dom.main) {
+            self.dom.errorlist = $(self.templates.errorlist)
             self.dom.main.append(self.dom.errorlist)
             self.dom.errorlist.empty()
             $.each(errors, function(index, value) {
@@ -243,7 +255,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
                     '<li>' + value + '</li>'
                 ))
             })
-            self.dom.main.addClass('error')
+            self.dom.main.addClass('schnippforms-error')
         }
     }
 
