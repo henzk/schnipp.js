@@ -15,8 +15,9 @@ schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
         self.field_descriptor.name +
         '" value="' + self.get_initial_data() +
         '" class="fieldtype_' + self.field_descriptor.type +
-        '"></input>'
+        '"/>'
     )
+    
 
     if (field_descriptor.placeholder !== undefined)
         self.dom.input.attr('placeholder', field_descriptor.placeholder)
