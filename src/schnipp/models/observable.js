@@ -256,7 +256,6 @@ schnipp.models.object_list = function(modifier) {
             index: index,
             element: element
         })
-        element.parent = self
         return self
     }
 
