@@ -245,6 +245,7 @@ schnipp.models.object_list = function(modifier) {
     * @method insert
     */
     self.insert = function(index, element) {
+        var element = self.deserialize_element(element)
         self.events.fire('pre-insert', {
             src: self,
             index: index,
@@ -259,6 +260,18 @@ schnipp.models.object_list = function(modifier) {
         return self
     }
 
+    self.import_data = function(data) {
+        console.log('importimport', data)
+        self.clear()
+        var toimport = []
+        $.each(data, function(index, value) {
+            toimport.push(self.deserialize_element(value))
+        })
+        self.data = toimport
+        console.log(self.get_data())
+        self.events.fire('refresh', {})
+    }
+
     /**
     * Inserts element to the position specified by index.
     * Fires a set event.
@@ -267,6 +280,7 @@ schnipp.models.object_list = function(modifier) {
     * @method set
     */
     self.set = function(index, value) {
+        var value = self.deserialize_element(value)
         var oldval = self.data[index]
         self.data[index] = value
         self.events.fire('set', {
