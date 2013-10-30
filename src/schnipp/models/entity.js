@@ -1,24 +1,54 @@
+/**
+ * @module schnipp.models
+ **/
 
-schnipp.models.entity = function(name, parent, attrs) {
-    var self = schnipp.models.observable(attrs)
-    self.parent = parent
-    self.entity_type = name
 
-    self.get_url = function() {return self.parent.get_url()}
-    self.create_url = null
-
-    self.get_create_url = function() {
-        if (self.create_url != undefined)
-            return self.create_url
-        else if (self.parent)
-            return self.parent.get_url()
+schnipp.models.EntityRemoter = function(urls) {
+    var self = {}
+    self.events = schnipp.events.event_support()
+    /*override this on instance level*/
+    self.urls = urls || {
+        detail: '/myressource/{pk}/',
+        delete: '/myressource/{pk}/delete/',
+        create: '/myressource/add/',
+        list: '/myressource/'
     }
 
-    /**
-    *   Fetches the entity's data from the server via GET.
-    */
-    self.fetch = function(onsuccess) {
-    
+    self.get_detail_url = function(pk) {
+        return self.urls.detail.replace('{pk}', pk)
+    }
+
+    self.get_delete_url = function(pk) {
+        return self.urls.delete.replace('{pk}', pk)
+    }
+
+    self.get_create_url = function() {
+        return self.urls.create
+    }
+
+    self.get_list_url = function() {
+        return self.urls.list
+    }
+
+    self.fetch_list = function(entity_list, onsuccess) {
+        schnipp.net.get(
+            self.get_list_url(),
+            function(data) {
+                if (data.status == 'success') {
+                    entity_list.import_data(data.result)
+                    if (onsuccess != undefined) {
+                        onsuccess(self)
+                    }
+                    self.events.fire('post-fetch', data)
+                } else {
+                    self.events.fire('fetch-error', data)
+                }
+            },
+            'json'
+        )
+    }
+
+    self.fetch_one = function(observable, onsuccess) {
         schnipp.net.get(
             self.get_url(),
             function(data) {
@@ -36,8 +66,77 @@ schnipp.models.entity = function(name, parent, attrs) {
             'json'
         )
     }
-    
-    
+
+    self.save = function(observable, onsuccess) {}
+
+    self.create = function(observable, onsuccess) {}
+
+    self.delete = function(observable, onsuccess) {}
+
+    return self
+}
+
+schnipp.models.EntityList = function(list_url) {
+    var self = schnipp.models.observable_list()
+
+    self.remote = schnipp.models.EntityRemoter({
+        list: list_url
+    })
+
+    self.fetch_list = function(onsuccess) {
+        self.remote.fetch_list(self, onsuccess)
+    }
+
+    return self
+}
+
+/**
+ * An Entity is an observable that supports syncing data with a server
+ *
+ * @class schnipp.models.entity
+ * @constructor
+ * @extends schnipp.models.observable
+ * @param {Object} attrs observed data.
+ **/
+schnipp.models.Entity = function(name, parent, attrs) {
+    var self = schnipp.models.observable(attrs)
+    self.parent = parent
+    self.entity_type = name
+
+    self.get_url = function() {return self.parent.get_url()}
+    self.create_url = null
+
+    self.get_create_url = function() {
+        if (self.create_url != undefined)
+            return self.create_url
+        else if (self.parent)
+            return self.parent.get_url()
+    }
+
+
+    /**
+    *   Fetches the entity's data from the server via GET.
+    */
+    self.fetch = function(onsuccess) {
+        schnipp.net.get(
+            self.get_url(),
+            function(data) {
+                if (data.status == 'success') {
+                    self.clear()
+                    self.set_raw(data.result)
+                    if (onsuccess != undefined) {
+                        onsuccess(self)
+                    }
+                    self.events.fire('post-fetch', {})
+                } else {
+                    console.log(data.status, data.msg)
+                }
+            },
+            'json'
+        )
+    }
+
+
     /**
     *   Create a new entity.
     */
@@ -106,76 +205,3 @@ schnipp.models.entity = function(name, parent, attrs) {
     return self
 }
 
-
-
-/*
-
-*/
-schnipp.models.entity_type = function(name, modifier) {
-    return function(parent, attrs) {
-        var en = schnipp.models.entity(name, parent, attrs)
-        modifier(en)
-        return en
-    }
-}
-
-
-
-
-
-/**
-*   Observable list with server side synchronization.
-*/
-schnipp.models.entity_list = function() {
-
-    var self = schnipp.models.observable_list()
-    self.element_type = null
-
-    // fetch url
-    self.url = null
-    self.get_url = function() {return self.url || self.options.url}
-
-
-    /**
-    *   Fetch entities from server.
-    */
-    self.fetch = function(onsuccess) {
-        var element_type = self.element_type || self.options.element_type
-        self.events.fire('pre-fetch', {
-            elements: self.data
-        })
-
-        $.getJSON(
-            self.get_url(),
-            function(data) {
-                if (data.status == 'success') {
-                    self.clear()
-                    $.each(self.parse_raw(data.result), function(index, value) {
-                        var obj = element_type(self, value)
-                        self.append(obj)
-                    })
-                    if (onsuccess != undefined) {
-                        onsuccess(self)
-                    }
-                    self.events.fire('post-fetch', {
-                        elements: self.data
-                    })
-                } else {
-                    console.log(data.status, data.msg)
-                }
-            }
-        )
-    }
-    
-    
-    
-    /**
-    *   Called once for the list of items whenever new data was fetched from the server.
-    */
-    self.parse_raw = function(items) {
-        return items
-    }
-    
-    
-    return self
-}
