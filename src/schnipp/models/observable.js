@@ -438,12 +438,12 @@ schnipp.models.selectable_list_refinement = function(object_list) {
         var elem = self.get_by_id(element.id)
         if (elem !== undefined) {
             var oldsel = self._selected_id
-            self._selected_index = element.id
+            self._selected_id = element.id
             self.events.fire('selection-changed', {
                 src: self,
                 index: self.index_of(elem),
                 old_value: oldsel,
-                new_value: self._selected_index
+                new_value: self._selected_id
             })
             return true
         }
