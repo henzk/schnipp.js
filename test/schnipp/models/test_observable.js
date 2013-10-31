@@ -53,11 +53,11 @@ asyncTest('test change events on update', 2, function() {
 function get_olist(nbr_of_elems) {
     var list = schnipp.models.observable_list()
     for (var i=0; i<nbr_of_elems; i++) {
-        list.append(schnipp.models.observable({
+        list.append({
             first_name: 'Toni',
             last_name: 'Michel',
             for_index: i
-        }))
+        })
     }
     return list
 
@@ -81,9 +81,9 @@ test('test update functions', function() {
     var olist = get_olist(0)
 
     // test append
-    olist.append(schnipp.models.observable({a:0}))
-    olist.append(schnipp.models.observable({a:1}))
-    olist.append(schnipp.models.observable({a:2}))
+    olist.append({a:0})
+    olist.append({a:1})
+    olist.append({a:2})
 
     equal(olist.size(), 3)
     equal(olist.get(0).get('a'), 0)
@@ -91,7 +91,7 @@ test('test update functions', function() {
     equal(olist.get(2).get('a'), 2)
 
     // test insert
-    olist.insert(0, schnipp.models.observable({a:4}))
+    olist.insert(0, {a:4})
     equal(olist.get(0).get('a'), 4)
     equal(olist.get(2).get('a'), 1)
     equal(olist.size(), 4)
@@ -102,10 +102,10 @@ test('test update functions', function() {
     equal(olist.size(), 3)
 
     // test remove_by_id
-    var obj_5 = schnipp.models.observable({a:5})
+    var obj_5 = {a:5}
     olist.append(obj_5)
     equal(olist.size(), 4)
-    olist.remove_by_id(obj_5.id)
+    olist.remove_by_id(olist.get(3).id)
     equal(olist.size(), 3)
 
     // test index_of
