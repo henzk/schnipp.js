@@ -25,7 +25,7 @@ schnipp.ui.list.ListView = function(dom_elem) {
     var self = {}
     self.model = null
     self.dom = {
-        container: dom_elem
+        main: dom_elem
     }
     self.conf = {
         elem_selector: 'li'
@@ -48,7 +48,7 @@ schnipp.ui.list.ListView = function(dom_elem) {
 
     self.remove_element = function(index) {
         schnipp.ui.list.delete_element(
-            self.dom.container,
+            self.dom.main,
             index,
             self.conf.elem_selector
         )
@@ -56,9 +56,9 @@ schnipp.ui.list.ListView = function(dom_elem) {
 
     self.insert_element = function(index, element) {
         schnipp.ui.list.insert_element(
-            index, 
-            element, 
-            self.dom.container, 
+            index,
+            element,
+            self.dom.main,
             self._do_render_element
         )
     }
@@ -69,7 +69,7 @@ schnipp.ui.list.ListView = function(dom_elem) {
     }
 
     self._handle_clear = function() {
-        self.dom.container.empty()
+        self.dom.main.empty()
     }
 
     self._handle_insert = function(attrs) {
@@ -93,8 +93,7 @@ schnipp.ui.list.ListView = function(dom_elem) {
 
     self.init = function(model, container) {
         if (container !== undefined) {
-            console.log(container)
-            self.dom.container = container
+            self.dom.main = container
         }
         self._handle_clear()
         self.model = model
@@ -115,13 +114,13 @@ schnipp.ui.list.SingleSelectListView = function(dom_elem) {
     var self = schnipp.ui.list.ListView(dom_elem)
 
     self._update_view_selection = function(element) {
-        self.dom.container
+        self.dom.main
             .children(self.conf.elem_selector)
             .removeClass('selected')
         if (element) {
             var idx = self.model.index_of(element)
             if (idx >= 0)
-                self.dom.container
+                self.dom.main
                     .children(self.conf.elem_selector)
                     .eq(idx)
                     .addClass('selected')
