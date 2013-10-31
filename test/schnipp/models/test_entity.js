@@ -21,24 +21,25 @@ var MOCK_DATA = {
         }
     }
 
-
+/*
 var FooEntity = schnipp.models.entity_type('FooEntity', function(self) {
 
     self.get_url = function() {
         return '/fetch/aaa/'
     }
 
-})
+})*/
 
 // ------------------------------------------------------------
-
+/*
 test('smoke test', function() {
     var data = {first_name: 'Toni'}
     var e = schnipp.models.entity(null, null, data)
     equal(e.get('first_name'), 'Toni')
     deepEqual(e.get_data(), data)
 })
-
+*/
+/*
 asyncTest('test post-fetch event', 1, function() {
     define_mockjax('/fetch/aaa/', MOCK_DATA)
     var foo = FooEntity()
@@ -56,4 +57,4 @@ asyncTest('test fetch with callback', 1, function() {
         start()
         equal(foo.get('first_name'), 'Toni')
     })
-})
+})*/
