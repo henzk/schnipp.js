@@ -52,7 +52,7 @@ schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
      **/
     self.initialize = function() {
         self.dom.input.change(function() {
-            self.events.fire('changed', {
+            self.events.fire('change', {
                 src: self,
                 value: self.get_data()
             })
