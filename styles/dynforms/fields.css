@@ -4,13 +4,15 @@
     border-top:0px;
 }
 
+.schnippforms-dsc {display:block; width:60%;}
+
 /* LABEL STYLING
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------*/
 
 .schnippforms-field-holder label {
     margin-bottom:5px;color: rgba(88, 88, 90, 1);font-size: 12px;line-height: 12px;
-    display: inline-block; 
+    display: block; float:left;
 }
 .schnippforms-field-holder {padding: 10px;border-bottom: 1px solid #eee;;}
 
