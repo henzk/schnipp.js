@@ -37,6 +37,13 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
             } else {
                 self.dom.main.removeClass('active')
             }
+            return false
+        })
+        
+        $('body').click(function() {
+            if(self.dom.options.css('display') != 'none')
+                self.dom.main.removeClass('active')
+            return false
         })
         
         // render options
