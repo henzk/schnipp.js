@@ -15,9 +15,27 @@ schnipp.dynforms.fields.datepicker = function(field_descriptor, field_data) {
         field_descriptor.date_format = 'dd.mm.yy' 
     
     self.render_input = function() {
-        self.dom.input.datepicker({ dateFormat: field_descriptor.date_format })
+        self.dom.input.datepicker({ dateFormat: field_descriptor.date_format})
         return self.dom.input
     }
+        
+    
+    self.super_validate = self.validate
+    self.validate = function() {
+        var result = self.super_validate()
+        result.errors = result.errors || {}
+       
+        try {
+            $.datepicker.parseDate(field_descriptor.date_format, self.get_data())
+        } catch(e) {
+           result.valid = false
+           result.errors.date_format = 'Invalid date format'
+        }
+        
+        return result
+        
+    }
+    
     return self
 }
 
