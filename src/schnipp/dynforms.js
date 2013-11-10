@@ -33,12 +33,14 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render_fieldset
      **/
     self.render_fieldset = function(fieldset) {
-        var classnames = fieldset.classes.join(' ')
+    
+        var c = fieldset.classes || []
+        var classnames = c.join(' ')
         var classes = ' class="schnippforms-fieldset ' + classnames + '"'
         var container = $('<div' + classes + '></div>')
-        var holder = $('<div></div>')
+        var holder = $('<div class="schnippforms-fieldset-fields"></div>')
         if (fieldset.label) {
-            container.append($('<label>' + fieldset.label + '</label>'))
+            container.append($('<div class="schnippforms-label-container"><label>' + fieldset.label + '</label></div>'))
         }
         holder.append(self.render_fields(fieldset.fields_display))
         container.append(holder)
@@ -53,7 +55,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render_fieldsets
      **/
     self.render_fieldsets = function(fieldsets) {
-        var res = $('<div></div>')
+        var res = $('<div class="schnippforms-fieldset"></div>')
         for (var i = 0; i < fieldsets.length; i++) {
             var fieldset = fieldsets[i]
             res.append(self.render_fieldset(fieldset))
@@ -72,16 +74,12 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         for (var i = 0; i < field_tree.length; i++) {
             var entry = field_tree[i]
             if ($.isArray(entry)) {
-                var row = $('<div class="schnippforms-form-row"></div>')  
+                var row = $('<div class="schnippforms-form-row schnippforms-fields-horizontal"></div>')  
                 for (var j = 0; j < entry.length; j++) {
                     var col = entry[j]  
                     var field_schema = self.field_schemata[col]  
                     var field = self.fields[field_schema.name]  
                     var rendered = field.render()  
-                    rendered.css({
-                        'display': 'inline-block',
-                        'float': 'left'
-                    })  
                     row.append(rendered)  
                 }
                 res.append(row)  
@@ -218,13 +216,15 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             field.initialize()
         }
         /* form funkyness */
-        self.dom.main.children('div').children('div').children('.collapse').children('h3').click(function() {
+        
+        var toggler = self.dom.main.find('.schnippforms-fieldset label')
+        toggler.click(function() {
             var self = $(this)
-            self.parent().toggleClass('collapsed')
-            self.parent().children('div').slideToggle()
+            self.parent().parent().toggleClass('collapsed')
+            self.parent().parent().find('.schnippforms-fieldset-fields').slideToggle()
         })
-        self.dom.main.children('div').children('div').children('.collapse').children('div').hide()
-        self.dom.main.children('div').children('div').children('.collapse').addClass('collapsed')
+        self.dom.main.find('.schnippforms-fieldset.collapse .schnippforms-fieldset-fields').hide()
+        self.dom.main.find('.schnippforms-fieldset.collapse  .schnippforms-fieldset.collapse').addClass('collapsed')
     }
 
     /**
