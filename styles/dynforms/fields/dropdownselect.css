@@ -15,7 +15,7 @@
     background: #eee;; border-left:1px solid #ddd;
     position:absolute; right: 1px; top:1px; cursor: pointer;
     font-size: 23px;
-    padding: 4px;
+    padding: 4px; 
 }
 
 .schnippforms-dropdownselect-toggler:before {
@@ -26,16 +26,31 @@
 .schnippforms-dropdownselect-options {
     position: absolute;
     background: #fbfbfb;;
-    border: 3px solid #ccc;
+    border: 1px solid #ccc;
     opacity: 0.95;
     left: 0;
     right: 0;
     top: 36px;
     padding: 5px;
     z-index: 100; display:none;
+        -webkit-box-shadow: 2px 2px 20px 1px #999999;
+    -moz-box-shadow: 2px 2px 20px 1px #999999;
+    box-shadow: 2px 2px 20px 1px #999999;
 }
+.schnippforms-dropdownselect-options div:last-child {border:0px;}
+
+
 .schnippforms-dropdownselect.active .schnippforms-dropdownselect-options {display:block;}
 .schnippforms-dropdownselect.active .schnippforms-dropdownselect-toggler {background-position: center bottom;}
+.schnippforms-dropdownselect.active .schnippforms-dropdownselect-display {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted 9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    background: #fbfbfb;
+}
 
 .schnippforms-dropdownselect-options div {
     line-height: 18px; display:block; padding: 6px 0 6px 0; cursor:pointer; 
