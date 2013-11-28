@@ -205,10 +205,12 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * @name schnipp.dynforms.abstract_field#set_data
      **/
     self.set_data = function(value) {
+        var old_value = self.get_data()
         self._set(value)
         self.events.fire('change', {
             src: self,
-            value: value
+            value: value,
+            old_value: old_value
         })
     }
  
