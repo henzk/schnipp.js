@@ -200,7 +200,13 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]
-            field.set_data(data[field_schema.name] || field_schema.default_value)
+            // explicitely check, as data[field_schema.name] || field_schema.default_value
+            // evaluates to default_value if data is 0!!!
+            if (data[field_schema.name] == 0)
+                var d = data[field_schema.name]
+            else
+                var d = data[field_schema.name] || field_schema.default_value
+            field.set_data(d)
         }
     }
 
