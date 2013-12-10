@@ -24,6 +24,7 @@
 
 
 .schnippforms-dropdownselect-options {
+    max-height:300px; overflow-y:auto;
     position: absolute;
     background: #fbfbfb;;
     border: 1px solid #ccc;
