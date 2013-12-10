@@ -4,7 +4,7 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
     var self = schnipp.dynforms.abstractselect(field_descriptor, field_data)
     
     self.templates.dropdown = '\
-        <div  class="schnippforms-dropdownselect-select">\
+        <div class="schnippforms-dropdownselect-select">\
             <div class="schnippforms-dropdownselect-input">\
                 <div class="schnippforms-dropdownselect-display"></div>\
                 <div class="schnippforms-dropdownselect-toggler"></div>\
@@ -33,10 +33,14 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
         // add toggle handler
         self.dom.display.add(self.dom.toggler).click(function() {
             if(self.dom.options.css('display') === 'none') {
+                // remove classes in both cases; if done before case 1 wont match
+                $('.schnippforms-dropdownselect').removeClass('active')
                 self.dom.main.addClass('active')
             } else {
+                $('.schnippforms-dropdownselect').removeClass('active')
                 self.dom.main.removeClass('active')
             }
+            
             return false
         })
         
