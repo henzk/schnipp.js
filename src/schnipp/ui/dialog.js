@@ -1,3 +1,5 @@
+
+schnipp.ui.dialog_count = 0
 /**
  * @constructor
  * @description
@@ -20,6 +22,8 @@ schnipp.ui.Dialog = function() {
     self.dom.content = self.dom.main.find('.schnipp-dialog-content')
     self.dom.header = self.dom.main.find('.schnipp-dialog-header')
     self.dom.close = self.dom.main.find('.schnipp-dialog-close')
+    self._zindex = 1
+
 
     /**
      * The constructor containing the controler code binding events and appending
@@ -29,6 +33,9 @@ schnipp.ui.Dialog = function() {
         self.dom.close.click(self.close)
         self.dom.main.click(self.focus)
         $('body').append(self.dom.main)
+        schnipp.ui.dialog_count += 1
+        
+        self.dom.main.css('z-index', self.dom.main.css('z-index') + schnipp.ui.dialog_count)
         return self
     }
     
