@@ -261,14 +261,12 @@ schnipp.models.object_list = function(modifier) {
     }
 
     self.import_data = function(data) {
-        console.log('importimport', data)
         self.clear()
         var toimport = []
         $.each(data, function(index, value) {
             toimport.push(self.deserialize_element(value))
         })
         self.data = toimport
-        console.log(self.get_data())
         self.events.fire('refresh', {})
     }
 
