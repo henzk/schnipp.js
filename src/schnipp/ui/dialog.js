@@ -1,11 +1,11 @@
 
-schnipp.ui.dialog_count = 0
+schnipp.ui.dialog_count = 5
 /**
  * @constructor
  * @description
  * The schnipp dialog.
  **/
-schnipp.ui.Dialog = function() {
+schnipp.ui.BaseDialog = function(config) {
 
     var self = {}
     self.events = schnipp.events.event_support()
@@ -13,7 +13,7 @@ schnipp.ui.Dialog = function() {
     self.dom.main = $('\
         <div class="schnipp-dialog">\
             <div class="schnipp-dialog-inner">\
-                <a class="schnipp-dialog-close">close</a>\
+                <a class="schnipp-dialog-close"><i class="fa fa-times"></i></a>\
                 <div class="schnipp-dialog-header"></div>\
                 <div class="schnipp-dialog-content"</div>\
             </div>\
@@ -24,7 +24,10 @@ schnipp.ui.Dialog = function() {
     self.dom.close = self.dom.main.find('.schnipp-dialog-close')
     self._zindex = 1
 
-
+    self.config = {
+        draggable: false
+    }
+    self.config = $.extend(self.config, config)
     /**
      * The constructor containing the controler code binding events and appending
      * the dialog dom node to document. 
@@ -36,6 +39,12 @@ schnipp.ui.Dialog = function() {
         schnipp.ui.dialog_count += 1
         
         self.dom.main.css('z-index', self.dom.main.css('z-index') + schnipp.ui.dialog_count)
+        
+        if (self.config.draggable) {
+            self.dom.main.draggable({handle: '.schnipp-dialog-header'})
+            self.dom.main.addClass('schnipp-dialog-draggable')
+        }
+        
         return self
     }
     
@@ -78,11 +87,13 @@ schnipp.ui.Dialog = function() {
      **/    
     self.show = function() {
         self.events.trigger('show')
-        self.dom.main.show()
-        self.events.fire('show', {
-            evt: 'show',
-            dialog: self
+        self.dom.main.show('fade', function() {
+            self.events.fire('show', {
+                evt: 'show',
+                dialog: self
+            })
         })
+        
     }
     
     /**
@@ -90,11 +101,14 @@ schnipp.ui.Dialog = function() {
      **/
     self.close = function() {
         self.events.trigger('close')
-        self.dom.main.remove()
-        self.events.fire('close', {
-            evt: 'close',
-            dialog: self
+        self.dom.main.hide('fade', function() {
+            self.dom.main.remove()
+                self.events.fire('close', {
+                evt: 'close',
+                dialog: self
+            })
         })
+        
     }
     
     /**
@@ -135,4 +149,33 @@ schnipp.ui.Dialog = function() {
 
     return self
 }
+
+schnipp.ui.ModalDialog = function() {
+    var self = schnipp.ui.BaseDialog({
+        draggable:false
+    })
+    
+    self.super_show = self.show
+    self.show = function() {
+        self.super_show()
+        self.dom.modal = $('<div class="schnipp-dialog-modal"></div>')
+        $('body').append(self.dom.modal)
+    }
+    
+    self.super_close = self.close
+    self.close = function() {
+        self.super_close()
+        self.dom.modal.remove()
+    }
+    
+    return self
+}
+
+schnipp.ui.Dialog = function() {
+    return schnipp.ui.BaseDialog({
+        draggable:true
+    })
+}
+
+
 
