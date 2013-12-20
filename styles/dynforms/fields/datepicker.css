@@ -1,4 +1,9 @@
-.ui-datepicker {padding:5px; border: 1px solid #ddd; background:#fff; }
+
+.schnippforms-datepicker input {
+position: relative; 
+}
+
+.ui-datepicker {padding:5px; border: 1px solid #ddd; background:#fff; z-index:89329832 !important; }
 .ui-datepicker td a {border: 1px solid #eee; padding:5px;  display:block;text-align:center;}
 .ui-datepicker td a:hover {background: #ccc; }
 
