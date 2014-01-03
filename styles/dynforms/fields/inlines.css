@@ -1,0 +1,23 @@
+
+
+.schnippforms-inline-add {padding:5px 12px 5px 12px; background:#eee; border: 1px solid #ddd; cursor:pointer; display:inline-block;}
+
+
+/* Object listing
+-------------------------------------------------------------_*/
+    .schnippforms-inline-objects {margin-left:15em;}
+
+
+
+    .schnippforms-inline-objects table {width:100%; margin-top:12px;}
+    .schnippforms-inline-objects table tr th,
+    .schnippforms-inline-objects table tr td {padding:12px; border:1px solid #ddd !important; }
+    .schnippforms-inline-objects table tr td {padding:12px; border:1px solid #ddd !important; background:#f8f8f8;}
+
+    .schnippforms-inline-actions {width:60px;}
+    .schnippforms-inline-actions a {padding:5px; background:#eee; border: 1px solid #ddd; cursor:pointer;}
+
+    .schnippforms-inline-handle {width:10px; color:#999;}
+    .schnippforms-inline-handle:hover {background:#fbfbfb; cursor:move; color:#666; }
+
+
