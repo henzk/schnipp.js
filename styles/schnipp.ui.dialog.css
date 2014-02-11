@@ -9,7 +9,7 @@
      background:#fbfbfb; border: 1px solid #ddd;}
 .schnipp-dialog-close:hover {background:#f5f5ff; color:darkred; border-color:#ccc;}
      
-.schnipp-dialog-header {min-height:30px; background: #f5f5f5; border-bottom:1px solid #ddd;}
+.schnipp-dialog-header { background: #f5f5f5; border-bottom:1px solid #ddd;}
 .schnipp-dialog-header.dialog-has-title {padding:12px; border-bottom: 1px solid #ddd;}
 .schnipp-dialog-content {padding:22px; }
 
