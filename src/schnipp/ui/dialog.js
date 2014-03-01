@@ -115,7 +115,7 @@ schnipp.ui.BaseDialog = function(config) {
      * Private function to center the dialog. 
      **/
     self._center = function() {
-        var top = self.dom.main.offset().top
+        var top = $(window).scrollTop()
         var left = self.dom.main.offset().left
         var width = self.dom.main.width()
         var height = self.dom.main.height()
@@ -123,7 +123,7 @@ schnipp.ui.BaseDialog = function(config) {
         var window_width = $(window).width()
         var window_height = $(window).height()
         
-        var new_top = (window_height - height) / 2
+        var new_top = top + 80
         var new_left = (window_width - width) / 2
         
         self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px'})    
