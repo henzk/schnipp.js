@@ -70,7 +70,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var tds = {}
         
         $.each(field_descriptor.form.fields, function(i, field) {
-            var td = $('<td>' + obj.get(field.name) + '</td>')
+            var td = $('<td></td>').text(obj.get(field.name))
             tds[field.name] = td
             tr.append(td)
         })
@@ -94,7 +94,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
                 if (self.change_form.is_valid()) {
                     var data = self.change_form.get_data()
                     for (key in data) {
-                        tds[key].html(data[key])                        
+                        tds[key].text(data[key])                        
                         obj.set(key, data[key])
                     }
                     d.close()
@@ -173,7 +173,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var thead = table.find('thead')
         var tr = $('<tr></tr>')
         $.each(self.form.schema.fields, function(i, field) {
-            th = $('<th>' + field.label + '</th>')
+            th = $('<th></th>').text(field.label)
             if (i == self.form.schema.fields.length - 1)
                 th.attr('colspan', '2')
             if (i == 0) 

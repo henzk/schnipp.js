@@ -254,8 +254,8 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
             self.dom.errorlist.empty()
             $.each(errors, function(index, value) {
                 self.dom.errorlist.append($(
-                    '<li>' + value + '</li>'
-                ))
+                    '<li></li>'
+                ).text(value))
             })
             self.dom.main.addClass('schnippforms-error')
         }

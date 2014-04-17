@@ -26,7 +26,7 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
             var main = $('<div class="field-holder field-' + field_descriptor.name +  '"></div>')
             main.append(rendered_field)
             if (field_descriptor.label !== undefined || field_descriptor.label !== null) {
-                var label = '<label>' + field_descriptor.label + '</label>'
+                var label = $('<label></label>').text(field_descriptor.label)
                 main.append(label)
             }
             return main

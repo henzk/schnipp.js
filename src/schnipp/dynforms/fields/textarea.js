@@ -14,9 +14,8 @@ schnipp.dynforms.fields.textarea = function(field_descriptor, field_data) {
         '<textarea name="' +
         self.field_descriptor.name +
         '" class="fieldtype_' + self.field_descriptor.type +
-        '">' + self.get_initial_data() +
-        '</textarea>'
-    )
+        '"></textarea>'
+    ).text(self.get_initial_data())
 
     return self
 }

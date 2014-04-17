@@ -121,15 +121,17 @@ schnipp.dynforms.fields.select = function(field_descriptor, field_data) {
 
         if (!self.field_descriptor.required) {
             self.dom.input.append($(
-                '<option value="' + self.empty_selection_value + '" ' +
+                '<option ' +
                 ((self.empty_selection_value == self.get_initial_data()) ? _selected : '') +
-                '>' + self.empty_selection_label + '</option>'
-            ))
+                '></option>'
+            ).attr('value', self.empty_selection_value).text(self.empty_selection_label))
         }
 
         for (var i = 0; i < self.field_descriptor.options.length; i++) {
             var option = self.field_descriptor.options[i];
-            var opt = $('<option value="' + option[0] + '">' + option[1] + '</option>')
+            var opt = $('<option></option>')
+                .attr('value', option[0])
+                .text(option[1])
             if (initial_data == option[0]) {
                 opt.attr('selected', 'selected')
             }
