@@ -7,24 +7,33 @@
 .schnippforms-dsc {display:block; width:60%;}
 
 /* LABEL STYLING
---------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------*/
 
-.schnippforms-field-holder label {
-    margin-bottom:5px;color: rgba(88, 88, 90, 1);font-size: 12px;line-height: 12px;
-    display: block; float:left;
-}
-.schnippforms-field-holder {padding: 10px;border-bottom: 1px solid #eee;;}
+    .schnippforms-field-holder label {
+        display: inline-block; vertical-align:top; padding-right:12px;
+    }
+    .schnippforms-field-holder {padding: 12px 0px 12px 0px; border-bottom:1px dashed #ddd;}
 
 
+/* Default fields
+--------------------------------------------------------------------------------------------------*/
 
-.schnippforms-error  {background: #FAEFED; border-top: 1px solid #fff;}
-.schnippforms-error input,
-.schnippforms-error textarea {border-color: #DE5959 !important; }
-.schnippforms-errorlist { color:#DE5959;}
-.schnippforms-errorlist li {list-style-type:none; font-style:italic;}
+   .schnippforms-form input[type="text"],
+    .schnippforms-form textarea { margin:0px;}    
+    
 
-label.schnippforms-required {font-weight:bold;}
-label.schnippforms-required:after {content: "*"}
+/* Errors
+--------------------------------------------------------------------------------------------------*/
+    .schnippforms-error  {background: #FAEFED; border-top: 1px solid #fff;}
+    .schnippforms-error input,
+    .schnippforms-error textarea {border-color: #DE5959 !important; }
+    
+    
+    
+    .schnippforms-errorlist { color:#DE5959;}
+    .schnippforms-errorlist li {list-style-type:none; font-style:italic;}
 
-.flexydata-submit-row {padding:12px}
+    label.schnippforms-required {font-weight:bold;}
+    label.schnippforms-required:after {content: "*"}
+
+    .flexydata-submit-row {padding:12px}

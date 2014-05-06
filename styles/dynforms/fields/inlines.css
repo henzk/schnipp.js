@@ -20,4 +20,4 @@
     .schnippforms-inline-handle {width:10px; color:#999;}
     .schnippforms-inline-handle:hover {background:#fbfbfb; cursor:move; color:#666; }
 
-
+    .schnippforms-inlines > label {font-size:21px; padding:10px 0px 10px 0px; width:100%;}

@@ -15,7 +15,9 @@
     background: #eee;; border-left:1px solid #ddd;
     position:absolute; right: 1px; top:1px; cursor: pointer;
     font-size: 23px;
-    padding: 4px; 
+    height: 32px;
+    width: 32px;
+    text-align: center;
 }
 
 .schnippforms-dropdownselect-toggler:before {
