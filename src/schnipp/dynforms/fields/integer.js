@@ -35,25 +35,27 @@ schnipp.dynforms.fields.integer = function(field_descriptor, field_data) {
         var res = super_validate()
         if (res.valid) {
             var data = self.get_data()
-            if (isNaN(data)) {
-                res.valid = false
-                res.errors = {
-                    nan: 'Please enter only numeric values'
-                }
-            } else{
-                res.errors = {}
-                if (self.field_descriptor.min_value != undefined) {
-                    if (self.field_descriptor.min_value > data) {
-                        res.valid = false
-                        res.errors.value_too_low = 'The entered value must be greater than or equal to ' +
-                            self.field_descriptor.min_value + '.'
+            if (data) {
+                if (isNaN(data)) {
+                    res.valid = false
+                    res.errors = {
+                        nan: 'Please enter only numeric values'
                     }
-                }
-                if (self.field_descriptor.max_value != undefined) {
-                    if (self.field_descriptor.max_value < data) {
-                        res.valid = false
-                        res.errors.value_too_high = 'The entered value must be lower than or equal to ' +
-                            self.field_descriptor.max_value + '.'
+                } else{
+                    res.errors = {}
+                    if (self.field_descriptor.min_value != undefined) {
+                        if (self.field_descriptor.min_value > data) {
+                            res.valid = false
+                            res.errors.value_too_low = 'The entered value must be greater than or equal to ' +
+                                self.field_descriptor.min_value + '.'
+                        }
+                    }
+                    if (self.field_descriptor.max_value != undefined) {
+                        if (self.field_descriptor.max_value < data) {
+                            res.valid = false
+                            res.errors.value_too_high = 'The entered value must be lower than or equal to ' +
+                                self.field_descriptor.max_value + '.'
+                        }
                     }
                 }
             }
