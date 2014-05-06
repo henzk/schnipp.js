@@ -89,7 +89,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             self.change_form.set_data(obj.raw_data)
             self.change_form.initialize()
             var f = d.dom.main.find('form')
-            f.append($('<input type="submit" value="übernehmen"/>'))
+            f.append($('<input type="submit" value="Übernehmen"/>'))
             f.submit(function() {
                 if (self.change_form.is_valid()) {
                     var data = self.change_form.get_data()
@@ -214,9 +214,8 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     self._set = function(objects) {
         for (var i=0; i<objects.length; i++) {
             var obj = objects[i]
-            self.objects.append(push(obj))
+            self.objects.append(obj)
         }
-        self.objects = objects
     }
     
     return self
