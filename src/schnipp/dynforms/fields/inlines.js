@@ -206,6 +206,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         }).disableSelection()
     }
     
+    
     self.get_data = function() {
         return self.objects.get_data()
     }
