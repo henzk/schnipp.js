@@ -1,0 +1,23 @@
+
+/* styles for the schnippform help text visitor */
+
+.schnf-hpv {
+    background: #ffffff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #ffffff 38%, #eeeeee 99%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(38%,#ffffff), color-stop(99%,#eeeeee)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+}
+.schnf-hpv .schnippforms-form-holder {width:600px; float:left; background:#fbfbfb; border-right:1px solid #ddd;}
+
+
+.schnf-hpv-display {width:200px; float:left;  padding:22px; border-left:1px solid #fff; color:#646464; line-height:1.4;
+    font-size:14px;}
+
+.schnf-hpv-display i {color:#79a003; font-size:20px;}
+

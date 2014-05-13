@@ -58,10 +58,19 @@ schnipp.dynforms.fields.dropdownselect = function(field_descriptor, field_data) 
                 self.set_data(opt.value)
                 self.dom.main.removeClass('active')
                 return false
-            })   
+            })
+            // display option help text
+            item.hover(function() {
+                if (opt.help_text) {
+                    self.events.fire('focus', {field: self, help_text: opt.help_text})
+                }
+            })
         })
-        
+
        
+        self.dom.display.click(function() {
+            self.events.fire('focus', {field: self})
+        })
         return self.dom.dropdown
     }
     

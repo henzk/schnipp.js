@@ -127,6 +127,12 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         
         a.click(function() {
             var d = schnipp.ui.Dialog().init()
+            
+            if (self.field_descriptor.dialog_title)
+                d.set_title(self.field_descriptor.dialog_title)
+            else
+                d.set_title('Element hinzufügen')
+            
             var dialog_content = self.render_add_form(d)
             d.set_content(dialog_content)
             d.show()           
@@ -141,7 +147,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     */
     self.render_add_form = function(d) {
         var content = $('<div></div>')
-        var submit = $('<input type="submit" value="anlegen"/>')
+        var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> anlegen</button></div>')
         content.append(self.form.render())
         self.form.initialize()
         

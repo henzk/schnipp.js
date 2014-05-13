@@ -215,14 +215,26 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method initialize
      **/
     self.initialize = function(data) {
+        // invoke form visitor if specified
+        if (self.schema.visitors && self.schema.visitors.length)
+            $.each(self.schema.visitors, function(index, visitor) {
+                visitor.visit_form(self)
+            })
+        
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]
             field.initialize()
+            // invoke form visitor if specified
+            if (self.schema.visitors && self.schema.visitors.length) {
+                $.each(self.schema.visitors, function(index, visitor) {
+                     visitor.visit_field(self, field)
+                })
+            }
         }
-        /* form funkyness */
         
+        /* form funkyness */
         var toggler = self.dom.main.find('.schnippforms-fieldset label')
         toggler.click(function() {
             var self = $(this)

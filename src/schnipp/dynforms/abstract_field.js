@@ -14,10 +14,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
     self.templates = {
         main: _.template('\
-            <div class="schnippforms-field-holder schnippforms-field-<%=name%> schnippforms-<%=type%> <%=extra_classes%>">\
-                <div class="schnippforms-help-text"></div>\
-                <label></label>\
-                <div class="schnippforms-dsc"></div>\
+            <div class="schnippforms-field-holder schnippforms-field-<%=name%> schnippforms-<%=type%> <%=extra_classes%>" >\
             </div>\
         '),
         errorlist: '<ul class="schnippforms-errorlist"></ul>'
@@ -42,61 +39,32 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
             type: field_descriptor.type,
             extra_classes: field_descriptor.extra_classes
         }))
-        var label = main.find('label')
-        var dsc = main.find('.schnippforms-dsc')
-        var help_text = main.find('.schnippforms-help-text')
-        var input = main.find('.schnippforms-input')
         
-        if (field_descriptor.required)
-            label.addClass('schnippforms-required')
+       
         
         if (field_descriptor.classes !== undefined)
             $.each(field_descriptor.classes, function(i, cls) {main.addClass(cls)})
         
+        // label
+        if (field_descriptor.label !== undefined) {
+            var label = $('<label></label>').text(field_descriptor.label)
+            main.append(label)
+            if (field_descriptor.required)
+               label.addClass('schnippforms-required')   
+        }
 
-        self.render_field_texts(field_descriptor, label, dsc, help_text)
+        // field
         main.append(rendered_field)
+        
+        // dsc
+        if (field_descriptor.description !== undefined) 
+            main.append($('<div class="schnippforms-field-dsc"></div>').text(field_descriptor.description))
+        
+        
         return main
     }
     
-        /**
-     * set the field's text attributes like label, description and help_text if specified
-     * in field_descriptor, else remove dom nodes.
-     * 
-     * @param {object} field_descriptor the field`s schema
-     * @param {object} label jquery nodelist containing the label node
-     * @param {object} dsc jquery nodelist containing the description node
-     * @param {object} help_text jquery nodelist containing the help_text node
-     * @name schnipp.dynforms.abstract_field#initialize
-     **/
-    self.render_field_texts = function(field_descriptor, label, dsc, help_text) {
-        // set label or remove label node
-        if (field_descriptor.label !== undefined) 
-            label.html(field_descriptor.label)
-        else
-            label.remove()
-        // set dsc or remove dsc node
-        if (field_descriptor.description !== undefined) 
-            dsc.html(field_descriptor.description)
-        else
-            dsc.remove()
-        // set help text or remove node
-        if (field_descriptor.help_text !== undefined)
-            help_text.html(self.render_help_text(field_descriptor))
-        else
-            help_text.remove()
-    }
     
-    /**
-     * render the help text; you may overwrite this method to provide a more
-     * sophisticated help text visualization like e.g. with tool tips
-     * @param {string} help_text the field's help text
-     * @return {?} html string or jquery node list 
-     * @name schnipp.dynforms.abstract_field#initialize
-     **/
-    self.render_help_text = function(field_descriptor) {
-        return field_descriptor.help_text
-    }
 
     /**
      * render the input portion of the field
@@ -281,7 +249,9 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * and placed into the DOM of the page.
      * @name schnipp.dynforms.abstract_field#initialize
      **/
-    self.initialize = function() {}
+    self.initialize = function() {
+    
+    }
 
     return self
 }

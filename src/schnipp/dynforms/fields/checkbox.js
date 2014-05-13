@@ -20,6 +20,9 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
         '" class="fieldtype_' + self.field_descriptor.type +
         '"></input>'
     )
+    
+    
+
 
     if (field_descriptor.style === 'box_left') {
         self.render_container = function(field_descriptor, rendered_field) {
@@ -32,6 +35,17 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
             return main
         }
     }
+    
+    self.super_initialize = self.initialize
+    self.initialize = function() {
+        self.dom.main.hover(function() {
+            
+        })
+    }
+
+self.dom.input.focus(function() {
+        self.events.fire('focus', {field: self})
+    })
 
     /**
      * get field data
