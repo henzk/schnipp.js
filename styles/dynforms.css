@@ -15,14 +15,15 @@
 
 
 .schnippforms-submit-row { padding:12px 0px 12px 0px; border-top:1px solid #ddd;
-background: #eaf2ff; /* Old browsers */
-background: -moz-linear-gradient(top,  #eaf2ff 0%, #ffffff 77%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eaf2ff), color-stop(77%,#ffffff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #eaf2ff 0%,#ffffff 77%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #eaf2ff 0%,#ffffff 77%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #eaf2ff 0%,#ffffff 77%); /* IE10+ */
-background: linear-gradient(to bottom,  #eaf2ff 0%,#ffffff 77%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaf2ff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  background: #ffffff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #ffffff 38%, #eeeeee 99%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(38%,#ffffff), color-stop(99%,#eeeeee)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 
 
 

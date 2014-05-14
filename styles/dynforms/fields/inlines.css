@@ -11,9 +11,9 @@
 
     .schnippforms-inline-objects table {width:100%; margin-top:12px;}
     .schnippforms-inline-objects table tr th,
-    .schnippforms-inline-objects table tr td {padding:12px; border:1px solid #ddd !important; }
-    .schnippforms-inline-objects table tr td {padding:12px; border:1px solid #ddd !important; background:#f8f8f8;
-        font-size: 13px;line-height: 1.4;}
+    .schnippforms-inline-objects table tr td {padding:12px; border-bottom:1px solid #ddd; text-align:left;}
+    .schnippforms-inline-objects table tr td {padding:12px; border-bottom:1px dashed #ddd ; background:#f8f8f8;
+        font-size: 13px;line-height: 1.4; }
     .schnippforms-inline-actions {width:60px;}
     .schnippforms-inline-actions a {padding:5px; background:#eee; border: 1px solid #ddd; cursor:pointer;}
 
