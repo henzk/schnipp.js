@@ -2,8 +2,10 @@
     {
         name: 'myinlines',
         type: 'inlines',
+        list_display: ['position'],
         form: {
             name: 'myform',
+            visitors: ['helptext_visitor'],
             fields: [
                 {
                     name: 'Position',
@@ -40,6 +42,27 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         </td>\
     '
     
+    
+    /**
+    * Preprocess list_display.
+    */
+    self.change_list_fields = []
+
+    if (self.field_descriptor.list_display) {
+       $.each(self.form.schema.fields, function(index, field) {
+            if (self.field_descriptor.list_display.indexOf(field.name) != -1)
+                self.change_list_fields.push(field)       
+        })
+    } else {
+        self.change_list_fields = self.form.schema.fields
+    }
+    
+        
+    
+ 
+    
+    
+    
     var super_initialize = self.initialize
     self.initialize = function() {
         super_initialize()
@@ -69,7 +92,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var tr = $('<tr><td class="schnippforms-inline-handle"><i class="fa fa-arrows"></i></td></tr>')
         var tds = {}
         
-        $.each(field_descriptor.form.fields, function(i, field) {
+        $.each(self.change_list_fields, function(i, field) {
             var td = $('<td></td>').text(obj.get(field.name))
             tds[field.name] = td
             tr.append(td)
@@ -85,6 +108,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
         edit.click(function() {
             var d = schnipp.ui.Dialog().init()
+            d.set_title('Element bearbeiten')
             d.set_content(self.change_form.render())
             self.change_form.set_data(obj.raw_data)
             self.change_form.initialize()
@@ -178,7 +202,9 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var table = $('<table><thead></thead><tbody></tbody></table>')
         var thead = table.find('thead')
         var tr = $('<tr></tr>')
-        $.each(self.form.schema.fields, function(i, field) {
+        
+        
+        $.each(self.change_list_fields, function(i, field) {
             th = $('<th></th>').text(field.label)
             if (i == self.form.schema.fields.length - 1)
                 th.attr('colspan', '2')
@@ -219,10 +245,11 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     
     
     self._set = function(objects) {
-        for (var i=0; i<objects.length; i++) {
-            var obj = objects[i]
-            self.objects.append(obj)
-        }
+        if (objects)
+            for (var i=0; i<objects.length; i++) {
+                var obj = objects[i]
+                self.objects.append(obj)
+            }
     }
     
     return self
