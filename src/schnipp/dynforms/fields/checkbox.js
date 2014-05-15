@@ -38,9 +38,8 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     
     self.super_initialize = self.initialize
     self.initialize = function() {
-        self.dom.main.hover(function() {
-            
-        })
+        //self.dom.main.hover(function() {
+        //})
     }
 
 self.dom.input.focus(function() {
