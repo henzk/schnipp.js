@@ -10,14 +10,14 @@
     background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* IE10+ */
     background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
+    position:relative;
 
 }
 .schnf-hpv .schnippforms-form-holder {width:600px; float:left; background:#fbfbfb; border-right:1px solid #ddd;}
 
 
-.schnf-hpv-display {width:200px; float:left;  padding:22px; border-left:1px solid #fff; color:#646464; line-height:1.4;
-    font-size:14px;}
+.schnf-hpv-display {width:200px; float:left;  padding:0px 22px; border-left:1px solid #fff; color:#646464; line-height:1.4;
+    font-size:14px; position:relative; }
 
 .schnf-hpv-display i {color:#79a003; font-size:20px;}
 
