@@ -118,7 +118,8 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
                 if (self.change_form.is_valid()) {
                     var data = self.change_form.get_data()
                     for (key in data) {
-                        tds[key].text(data[key])                        
+                        if (tds[key])
+                            tds[key].text(data[key])                        
                         obj.set(key, data[key])
                     }
                     d.close()
