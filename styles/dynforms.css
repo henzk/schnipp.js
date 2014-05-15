@@ -1,13 +1,18 @@
 
-.schnippforms-fieldset {border-bottom:1px solid #ddd;}
-.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; border-top:1px solid #ddd;}
+.schnippforms-fieldset {border-bottom:0px solid #ddd;}
+.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; }
 
-.schnippforms-fieldset .schnippforms-label-container {padding:12px 0px 12px 12px; background:#eee;}
-.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%;   color:#5b80b2}
-.schnippforms-fieldset .schnippforms-label-container:hover {background:#f5f5f5;}
+.schnippforms-fieldset .schnippforms-label-container {padding:12px 0px 12px 12px; background:#eee;
+    border-bottom:1px solid #ddd;
+
+
+}
+.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%;   color:#5b80b2; }
+.schnippforms-fieldset .schnippforms-label-container:hover {background:#f5f5f5; text-decoration:underline;}
 .schnippforms-fieldset.collapse .schnippforms-label-container > label:after {content: " ▼";}
 .schnippforms-fieldset.collapse.collapsed .schnippforms-label-container > label:after {content: " ▲";}
 
+.schnippforms-fieldset .schnippforms-field-holder {padding-left:22px;}
 
 .schnippforms-form-row.schnippforms-fields-horizontal {border-bottom:0px;}
 .schnippforms-fields-horizontal .schnippforms-field-holder {display:inline-block; float:left; border-bottom:0px; }
