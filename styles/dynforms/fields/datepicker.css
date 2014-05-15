@@ -3,8 +3,15 @@
 position: relative; 
 }
 
-.ui-datepicker {padding:5px; border: 1px solid #ddd; background:#fff; z-index:89329832 !important; }
-.ui-datepicker td a {border: 1px solid #eee; padding:5px;  display:block;text-align:center;}
+.ui-datepicker {padding:5px; border: 1px solid #ddd; background:#fff; z-index:89329832 !important;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.16);
+-moz-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.16);
+-webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.16);
+ }
+.ui-datepicker td a {border: 1px solid #eee; padding:5px;  display:block;text-align:center; font-size:12px; color:#646464;}
+
+td.ui-datepicker-today a {color:#fff;}
+
 .ui-datepicker td a:hover {background: #ccc; }
 
 .ui-datepicker-prev, .ui-datepicker-next {padding:2px 8px 2px 8px; margin-bottom:5px; cursor:pointer; background:#fbfbfb; border: 1px solid #ddd;}

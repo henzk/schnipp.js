@@ -2,8 +2,8 @@
 .schnippforms-fieldset {border-bottom:1px solid #ddd;}
 .schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; border-top:1px solid #ddd;}
 
-.schnippforms-fieldset .schnippforms-label-container {width:100%; background:#eee;}
-.schnippforms-fieldset .schnippforms-label-container > label {padding:12px 0px 12px 12px; cursor:pointer;    color:#5b80b2}
+.schnippforms-fieldset .schnippforms-label-container {padding:12px 0px 12px 12px; background:#eee;}
+.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%;   color:#5b80b2}
 .schnippforms-fieldset .schnippforms-label-container:hover {background:#f5f5f5;}
 .schnippforms-fieldset.collapse .schnippforms-label-container > label:after {content: " ▼";}
 .schnippforms-fieldset.collapse.collapsed .schnippforms-label-container > label:after {content: " ▲";}
@@ -11,7 +11,7 @@
 
 .schnippforms-form-row.schnippforms-fields-horizontal {border-bottom:0px;}
 .schnippforms-fields-horizontal .schnippforms-field-holder {display:inline-block; float:left; border-bottom:0px; }
-.schnippforms-fields-horizontal .schnippforms-field-holder label {display:block; float:none; }
+.schnippforms-fields-horizontal .schnippforms-field-holder label {display:block; width:100%;float:none; }
 
 
 .schnippforms-submit-row { padding:12px 0px 12px 0px; border-top:1px solid #ddd;
@@ -24,10 +24,9 @@
     background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
-
-
-
 }
+
+
 
 
 
