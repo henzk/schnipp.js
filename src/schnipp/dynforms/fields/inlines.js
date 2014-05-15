@@ -131,7 +131,9 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         })
         
         del.click(function() {
-            self.objects.remove($(this).closest('tr').prevAll().length)
+            var doit = confirm('Element wirklich löschen?')
+            if (doit)
+                self.objects.remove($(this).closest('tr').prevAll().length)
             return false
         })
         return tr
