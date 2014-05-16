@@ -1,18 +1,19 @@
 
 .schnippforms-fieldset {border-bottom:0px solid #ddd;}
-.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; }
+.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; padding:12px 0px 12px 22px;}
 
-.schnippforms-fieldset .schnippforms-label-container {padding:12px 0px 12px 12px; background:#eee;
-    border-bottom:1px solid #ddd;
-
-
+.schnippforms-fieldset .schnippforms-label-container {padding:0px 0px 0px 14px; background:#eee;
+    border-bottom:1px solid #ddd; border-top:1px solid #fff; border-right:1px solid #fff;
 }
-.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%;   color:#5b80b2; }
-.schnippforms-fieldset .schnippforms-label-container:hover {background:#f5f5f5; text-decoration:underline;}
-.schnippforms-fieldset.collapse .schnippforms-label-container > label:after {content: " ▼";}
-.schnippforms-fieldset.collapse.collapsed .schnippforms-label-container > label:after {content: " ▲";}
 
-.schnippforms-fieldset .schnippforms-field-holder {padding-left:22px;}
+.schnippforms-fieldsets .schnippforms-fieldset:first-child .schnippforms-label-container {border-top:1px solid #ddd;}
+
+.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%; padding:14px 0px 14px 0px; font-size:13px; color:#5b80b2; position:relative;}
+.schnippforms-fieldset .schnippforms-label-container:hover {background:#EDEDED; }
+.schnippforms-fieldset .schnippforms-label-container:hover > label {text-decoration:underline;}
+.schnippforms-fieldset .schnippforms-label-container:hover > label i {color:#9FBCE3}
+.schnippforms-fieldset .schnippforms-label-container > label i {color:#ccc; position:absolute; right:12px; top:14px;}
+
 
 .schnippforms-form-row.schnippforms-fields-horizontal {border-bottom:0px;}
 .schnippforms-fields-horizontal .schnippforms-field-holder {display:inline-block; float:left; border-bottom:0px; }

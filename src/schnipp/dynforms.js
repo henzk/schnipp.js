@@ -24,6 +24,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     self.fields = {}
     self.field_schemata = {}
     self.dom = {}
+    self.dom.fieldsets = []
 
     /**
      * renders a single fieldset
@@ -55,10 +56,13 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render_fieldsets
      **/
     self.render_fieldsets = function(fieldsets) {
-        var res = $('<div class="schnippforms-fieldset"></div>')
+        
+        var res = $('<div class="schnippforms-fieldsets"></div>')
         for (var i = 0; i < fieldsets.length; i++) {
             var fieldset = fieldsets[i]
-            res.append(self.render_fieldset(fieldset))
+            var fieldset_node = self.render_fieldset(fieldset)
+            res.append(fieldset_node)
+            self.dom.fieldsets.push(fieldset_node)
         }
         return res
     }
@@ -188,7 +192,15 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method is_valid
      **/
     self.is_valid = function() {
-        return self.do_validate().valid
+        var is_valid = self.do_validate().valid
+        
+        // open collapsed fieldsets
+        self.dom.main.find('.schnippforms-fieldset-fields').each(function() {
+            if ($(this).find('.schnippforms-error').length && $(this).css('display') === 'none') {
+                $(this).slideDown()
+            }
+        })
+        return is_valid
     }
 
     /**
@@ -248,15 +260,34 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             })
         }
         
-        /* form funkyness */
-        var toggler = self.dom.main.find('.schnippforms-fieldset label')
-        toggler.click(function() {
-            var self = $(this)
-            self.parent().parent().toggleClass('collapsed')
-            self.parent().parent().find('.schnippforms-fieldset-fields').slideToggle()
-        })
-        self.dom.main.find('.schnippforms-fieldset.collapse .schnippforms-fieldset-fields').hide()
-        self.dom.main.find('.schnippforms-fieldset.collapse  .schnippforms-fieldset.collapse').addClass('collapsed')
+        
+        if (self.schema.fieldsets) {
+            for (var i=0; i<self.schema.fieldsets.length; i++) {
+                var fs_schema = self.schema.fieldsets[i]
+                var fs_node = self.dom.fieldsets[i]
+                var label = fs_node.find('.schnippforms-label-container label')
+                
+                if (fs_schema.is_collapsed) {
+                    fs_node.find('.schnippforms-fieldset-fields').hide()
+                    label.append($('<i class="fa fa-sort-up"></i>'))
+                } else {
+                    label.append($('<i class="fa fa-sort-down"></i>'))
+                }
+                label.click(function() {
+                    $(this).parent().parent().find('.schnippforms-fieldset-fields').slideToggle()
+                    var icon = $(this).find('i')
+                    if (icon.hasClass('fa-sort-down')) {
+                        icon.removeClass('fa-sort-down')
+                        icon.addClass('fa-sort-up')
+                    } else if (icon.hasClass('fa-sort-up')) {
+                        icon.removeClass('fa-sort-up')
+                        icon.addClass('fa-sort-down')
+                    }
+                })
+                
+                    
+            }        
+        }
     }
 
     /**
