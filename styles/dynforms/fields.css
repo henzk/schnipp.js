@@ -35,7 +35,7 @@
     
     
     
-    .schnippforms-errorlist { color:#DE5959;}
+    .schnippforms-errorlist { color:#DE5959; padding-top:12px; font-size:12px;}
     .schnippforms-errorlist li {list-style-type:none; font-style:italic;}
 
     label.schnippforms-required {font-weight:bold;}
