@@ -12,6 +12,10 @@ schnipp.dynforms.visitors.helptext_visitor = function() {
         form.dom.main.append(self.dom.display)
         form.dom.main.append($('<div style="clear:both"></div>'))
         
+        form.dom.main.find('.schnippforms-label-container label').click(function() {
+            self.dom.display.empty()
+        })
+        
     }
 
     self.visit_field = function(form, field) {
