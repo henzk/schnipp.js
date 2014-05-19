@@ -26,8 +26,10 @@
 
 schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_dynform) {
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
-    self.form = schnipp.dynforms.form(field_descriptor.form, {}, parent_dynform.fieldtypes)
-    self.change_form = schnipp.dynforms.form(field_descriptor.form, {}, parent_dynform.fieldtypes)
+
+    self.form = null
+    self.change_form = null
+
     self.objects = schnipp.models.observable_list()
     self.templates.holder = '\
         <div>\
@@ -41,28 +43,32 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             <a class="schnippforms-inlines-delete"><i class="fa fa-trash-o"></i></a>\
         </td>\
     '
-    
-    
-    /**
-    * Preprocess list_display.
-    */
-    self.change_list_fields = []
 
-    if (self.field_descriptor.list_display) {
-       $.each(self.form.schema.fields, function(index, field) {
-            if (self.field_descriptor.list_display.indexOf(field.name) != -1)
-                self.change_list_fields.push(field)       
-        })
-    } else {
-        self.change_list_fields = self.form.schema.fields
+    self.get_inline_schema = function() {
+        return field_descriptor.form
+    }
+
+    self.init_forms = function() {
+
+        self.form = schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
+        self.change_form = schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
+
+        /**
+        * Preprocess list_display.
+        */
+        self.change_list_fields = []
+
+        if (self.field_descriptor.list_display) {
+           $.each(self.form.schema.fields, function(index, field) {
+                if (self.field_descriptor.list_display.indexOf(field.name) != -1)
+                    self.change_list_fields.push(field)
+            })
+        } else {
+            self.change_list_fields = self.form.schema.fields
+        }
     }
     
-        
-    
- 
-    
-    
-    
+
     var super_initialize = self.initialize
     self.initialize = function() {
         super_initialize()
@@ -146,6 +152,8 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     *   Main visualization of the field. Handle add button;
     */
     self.render_input = function() {
+        self.init_forms()
+
         var holder = $(self.templates.holder)
         var a = holder.find('a.schnippforms-inline-add')
         var changelist = holder.find('.schnippforms-inline-objects')
