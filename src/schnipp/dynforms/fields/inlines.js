@@ -203,8 +203,10 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> anlegen</button></div>')
         content.append(self.form.render())
         self.form.initialize()
-        
-        var f =  content.find('form')
+
+        content.find('form').append($('<div style="clear:both"></div>'))
+
+        var f =  self.form.dom.main
         f.append(submit)
         
         
