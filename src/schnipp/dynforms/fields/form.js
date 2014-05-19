@@ -14,7 +14,8 @@ schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dyn
     self.form = schnipp.dynforms.form(field_descriptor, field_data, parent_dynform.fieldtypes)
 
     self.render = function() {
-        return self.form.render()
+        self.dom.main = self.form.render()
+        return self.dom.main
     }
 
     self._set = function(data) {
