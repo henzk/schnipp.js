@@ -108,30 +108,13 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var edit = td.find('.schnippforms-inlines-edit')
         var del = td.find('.schnippforms-inlines-delete')
         tr.append(td)
-        
-        // this is hacky but necessary to enable data change on row sort.
+
         tr.data('obj', obj)
 
         edit.click(function() {
             var d = schnipp.ui.Dialog().init()
             d.set_title('Element bearbeiten')
-            d.set_content(self.change_form.render())
-            self.change_form.set_data(obj.raw_data)
-            self.change_form.initialize()
-            var f = d.dom.main.find('form')
-            f.append($('<input type="submit" value="Übernehmen"/>'))
-            f.submit(function() {
-                if (self.change_form.is_valid()) {
-                    var data = self.change_form.get_data()
-                    for (key in data) {
-                        if (tds[key])
-                            tds[key].text(data[key])                        
-                        obj.set(key, data[key])
-                    }
-                    d.close()
-                }
-                return false
-            })    
+            d.set_content(self.render_change_form(d, obj, tds))
             d.show()
             return false
         })
@@ -177,6 +160,41 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         return holder    
     }    
     
+
+
+    /**
+    *   Render edit form.
+    */
+    self.render_change_form = function(d, obj, tds) {
+        var content = $('<div></div>')
+        var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> übernehmen</button></div>')
+        content.append(self.change_form.render())
+
+        self.change_form.initialize()
+        self.change_form.set_data(obj.raw_data)
+
+        content.find('form').append($('<div style="clear:both"></div>'))
+
+        var f =  self.change_form.dom.main
+        f.append(submit)
+
+        f.submit(function() {
+            if (self.change_form.is_valid()) {
+                var data = self.change_form.get_data()
+                for (key in data) {
+                    if (tds[key])
+                        tds[key].text(data[key])
+                    obj.set(key, data[key])
+                }
+                d.close()
+            }
+            return false
+        })
+
+        return content
+    }
+
+
     /**
     *   Render add form.
     */
