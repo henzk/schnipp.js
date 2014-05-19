@@ -89,21 +89,20 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             self.objects.append(obj)
         })
     }
-    
-   
+
     /**
     *   Render object row with change buttons.
     */
     self.render_row = function(obj) {
         var tr = $('<tr><td class="schnippforms-inline-handle"><i class="fa fa-arrows"></i></td></tr>')
         var tds = {}
-        
+
         $.each(self.change_list_fields, function(i, field) {
             var td = $('<td></td>').text(obj.get(field.name))
             tds[field.name] = td
             tr.append(td)
         })
-        
+
         var td = $(self.templates.action_td)
         var edit = td.find('.schnippforms-inlines-edit')
         var del = td.find('.schnippforms-inlines-delete')
@@ -118,7 +117,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             d.show()
             return false
         })
-        
+
         del.click(function() {
             var doit = confirm('Element wirklich löschen?')
             if (doit)
@@ -127,8 +126,6 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         })
         return tr
     }
-
-    
 
 
     /**
@@ -142,24 +139,23 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var changelist = holder.find('.schnippforms-inline-objects')
         self.dom.changelist_table = self.render_changelist()
         changelist.append(self.dom.changelist_table)
-        
+
         a.click(function() {
             var d = schnipp.ui.Dialog().init()
-            
+
             if (self.field_descriptor.dialog_title)
                 d.set_title(self.field_descriptor.dialog_title)
             else
                 d.set_title('Element hinzufügen')
-            
+
             var dialog_content = self.render_add_form(d)
             d.set_content(dialog_content)
-            d.show()           
+            d.show()
             return false
         })
-        
-        return holder    
-    }    
-    
+
+        return holder
+    }
 
 
     /**
@@ -208,8 +204,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
         var f =  self.form.dom.main
         f.append(submit)
-        
-        
+
         f.submit(function() {
             if (self.form.is_valid()) {
                 self.objects.append(self.form.get_data())
@@ -224,8 +219,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         
         return content
     }
-    
-    
+
     /**
     *   Render empty the changelist.
     */
@@ -233,8 +227,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var table = $('<table><thead></thead><tbody></tbody></table>')
         var thead = table.find('thead')
         var tr = $('<tr></tr>')
-        
-        
+
         $.each(self.change_list_fields, function(i, field) {
             th = $('<th></th>').text(field.label)
             if (i == self.form.schema.fields.length - 1)
@@ -246,7 +239,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         thead.append(tr)
         return table
     }
-    
+
     /**
     *   Apply sortable functionality on table rows.
     */
@@ -255,26 +248,24 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         tbody.sortable({
             distance: 10,
             helper: function(e, ui) {
-	            ui.children().each(function() {
-		            $(this).width($(this).width())
-	            })
-	            return ui
+                ui.children().each(function() {
+                    $(this).width($(this).width())
+                })
+                return ui
             },
             stop: function() {
                 self.objects.clear()
                 tbody.children().each(function(i, elem) {
-                    self.objects.data.push($(elem).data('obj'))                
+                    self.objects.data.push($(elem).data('obj'))
                 })
             }
         }).disableSelection()
     }
-    
-    
+
     self.get_data = function() {
         return self.objects.get_data()
     }
-    
-    
+
     self._set = function(objects) {
         if (objects)
             for (var i=0; i<objects.length; i++) {
@@ -282,7 +273,6 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
                 self.objects.append(obj)
             }
     }
-    
+
     return self
 }
-
