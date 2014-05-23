@@ -19,6 +19,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
     var self = {}
     self.fieldtypes = $.extend({}, schnipp.dynforms.fields, fieldtypes)
+    self.events = schnipp.events.event_support()
     self.schema = schema
     self.data = data || {}
     self.fields = {}
@@ -260,12 +261,20 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             })
         }
         
+        $.each(self.fields, function(i, field) {
+            field.events.bind('change', function() {
+                self.events.fire('change', {
+                    'field': field
+                })
+            })
+        })
         
         if (self.schema.fieldsets) {
             for (var i=0; i<self.schema.fieldsets.length; i++) {
                 var fs_schema = self.schema.fieldsets[i]
                 var fs_node = self.dom.fieldsets[i]
                 var label = fs_node.find('.schnippforms-label-container label')
+                
                 
                 if (fs_schema.is_collapsed) {
                     fs_node.find('.schnippforms-fieldset-fields').hide()
