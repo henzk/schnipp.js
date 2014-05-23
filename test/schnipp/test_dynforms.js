@@ -128,7 +128,7 @@ test('render fieldsets', function() {
     )
     var rendered = obj.render()
     obj.initialize()
-    equal(rendered.find('.schnippforms-fieldset > label').text(), 'a label', 'fieldset should contain a label')
+    equal(rendered.find('.schnippforms-fieldset label:eq(0)').text(), 'a label', 'fieldset should contain a label')
     ok(rendered.find('.schnippforms-fieldset').hasClass('testclass'), 'fieldset should have class testclass')
     ok(rendered.find('.schnippforms-fieldset').hasClass('collapse'), 'fieldset should have class collapse')
 })
