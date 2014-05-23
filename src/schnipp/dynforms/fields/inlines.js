@@ -27,8 +27,6 @@
 schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_dynform) {
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
-    self.form = null
-    self.change_form = null
 
     self.objects = schnipp.models.observable_list()
     self.templates.holder = '\
@@ -43,28 +41,31 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             <a class="schnippforms-inlines-delete"><i class="fa fa-trash-o"></i></a>\
         </td>\
     '
+    
+  
+
 
     self.get_inline_schema = function() {
         return field_descriptor.form
     }
+    
+    self.get_form = function() {
+        return schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
+    }
 
-    self.init_forms = function() {
-
-        self.form = schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
-        self.change_form = schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
-
+    self.init_changelist_fields = function() {
         /**
         * Preprocess list_display.
         */
         self.change_list_fields = []
 
         if (self.field_descriptor.list_display) {
-           $.each(self.form.schema.fields, function(index, field) {
+           $.each(self.get_inline_schema().fields, function(index, field) {
                 if (self.field_descriptor.list_display.indexOf(field.name) != -1)
                     self.change_list_fields.push(field)
             })
         } else {
-            self.change_list_fields = self.form.schema.fields
+            self.change_list_fields = self.get_inline_schema().fields
         }
     }
     
@@ -80,14 +81,24 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         })
         // handle remove
         self.objects.events.bind('remove', function(args) {
+            self.events.fire('change', self)
             $(tbody.children()[args.index]).remove()
         })
+        
+        
         // make rows sortable
         self.make_sortable()
         // set initial data.
         $.each(self.get_initial_data(), function(i, obj) {
             self.objects.append(obj)
         })
+        
+        self.dom.main.addClass('schnippforms-inlines')
+        
+        if (field_descriptor.label === undefined || field_descriptor.label === '') {
+            self.dom.main.children('label').text('&nbsp;')
+            self.dom.main.children('label').css('visibility', 'hidden')
+        }
     }
 
     /**
@@ -132,7 +143,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     *   Main visualization of the field. Handle add button;
     */
     self.render_input = function() {
-        self.init_forms()
+        self.init_changelist_fields()
 
         var holder = $(self.templates.holder)
         var a = holder.find('a.schnippforms-inline-add')
@@ -164,54 +175,58 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     self.render_change_form = function(d, obj, tds) {
         var content = $('<div></div>')
         var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> übernehmen</button></div>')
-        content.append(self.change_form.render())
+        
+        var change_form = self.get_form()
+        
+        content.append(change_form.render())
 
-        self.change_form.initialize()
-        self.change_form.set_data(obj.raw_data)
+        change_form.initialize()
+        change_form.set_data(obj.raw_data)
 
         content.find('form').append($('<div style="clear:both"></div>'))
 
-        var f =  self.change_form.dom.main
+        var f =  change_form.dom.main
         f.append(submit)
 
         f.submit(function() {
-            if (self.change_form.is_valid()) {
-                var data = self.change_form.get_data()
+            if (change_form.is_valid()) {
+                var data = change_form.get_data()
                 for (key in data) {
                     if (tds[key])
                         tds[key].text(data[key])
                     obj.set(key, data[key])
                 }
+                self.events.fire('change', self)
                 d.close()
             }
             return false
         })
-
         return content
     }
 
 
+        
     /**
     *   Render add form.
     */
     self.render_add_form = function(d) {
         var content = $('<div></div>')
         var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> anlegen</button></div>')
-        content.append(self.form.render())
-        self.form.initialize()
+        
+        var add_form = self.get_form()
+        
+        content.append(add_form.render())
+        add_form.initialize()
 
         content.find('form').append($('<div style="clear:both"></div>'))
 
-        var f =  self.form.dom.main
+        var f =  add_form.dom.main
         f.append(submit)
 
         f.submit(function() {
-            if (self.form.is_valid()) {
-                self.objects.append(self.form.get_data())
-                for (var i=0; i<self.form.fields.length; i++) {
-                    var field = self.form.fields[i]
-                    field.clear()
-                }
+            if (add_form.is_valid()) {
+                self.objects.append(add_form.get_data())
+                self.events.fire('change', self)
                 d.close()
             }
             return false
@@ -230,7 +245,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
         $.each(self.change_list_fields, function(i, field) {
             th = $('<th></th>').text(field.label)
-            if (i == self.form.schema.fields.length - 1)
+            if (i == self.get_inline_schema().fields.length - 1)
                 th.attr('colspan', '2')
             if (i == 0) 
                 th.attr('colspan', '2')
@@ -267,6 +282,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     }
 
     self._set = function(objects) {
+        self.objects.clear()
         if (objects)
             for (var i=0; i<objects.length; i++) {
                 var obj = objects[i]
