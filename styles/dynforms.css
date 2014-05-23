@@ -29,7 +29,6 @@
     background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* IE10+ */
     background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 }
 
 

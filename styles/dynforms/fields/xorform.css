@@ -1,0 +1,21 @@
+.schnf-xorform .schnippforms-form-holder {width:98%;
+ background: #ffffff; /* Old browsers */
+
+   
+}
+
+.schnf-xorform .schnippforms-field-holder.schnippforms-field-_type {padding:0px;}
+
+.schnf-xorform .schnippforms-field-holder {padding-left:15px; padding-right:15px;}
+
+
+.schnf-xorform > .schnippforms-form-holder {border-right:0px;}
+.schnf-xorform > .schnippforms-form-holder > .schnippforms-form-row > .schnippforms-form >  .schnippforms-form-holder {
+    margin-top:12px;border:0px;border-left:1px dotted #ccc;  margin-right:1px;}
+
+/*.schnf-xorform .schnippforms-form-row .schnippforms-form {padding-top:12px;}*/
+.schnf-xorform .schnippforms-form-row .schnippforms-form > label {display:none;}
+
+.schnippforms-form .schnf-xorform .schnippforms-field-holder{
+    
+}
