@@ -10,8 +10,9 @@
  **/
 schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dynform) {
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
-
     self.form = schnipp.dynforms.form(field_descriptor, field_data, parent_dynform.fieldtypes)
+
+    
 
     self.render = function() {
         self.dom.main = self.form.render()
@@ -28,6 +29,9 @@ schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dyn
 
     self.initialize = function() {
         self.form.initialize()
+        self.form.events.bind('change', function(args) {
+            self.events.fire('change', args)
+        })
     }
 
     return self
