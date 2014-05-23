@@ -1,5 +1,5 @@
 module('schnipp.models.entity')
-
+/*
 var define_mockjax = function(url, result) {
     $.mockjax({
         logging: false,
@@ -56,4 +56,4 @@ asyncTest('test fetch with callback', 1, function() {
         start()
         equal(foo.get('first_name'), 'Toni')
     })
-})
+})*/
