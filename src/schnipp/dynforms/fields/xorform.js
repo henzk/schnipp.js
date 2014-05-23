@@ -58,6 +58,7 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
     self.initialize = function() {
         _super_init()
         self.form.fields._type.events.bind('change', toggle_visibility)
+        self.form.dom.main.addClass('schnf-xorform')
         toggle_visibility()
     }
 
