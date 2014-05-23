@@ -42,6 +42,7 @@ test('validate', function() {
         {
             label: 'Testlabel',
             name: 'testname',
+            required: true,
             min_value: 1,
             max_value: 10
         }
@@ -62,3 +63,4 @@ test('validate', function() {
     ok(!result.valid, 'validation result is invalid')
     ok(result.errors.value_too_high, 'validation error is value_too_high')
 })
+
