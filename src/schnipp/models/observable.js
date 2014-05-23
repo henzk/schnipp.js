@@ -193,28 +193,6 @@ schnipp.models.object_list = function(modifier) {
     self.events = schnipp.events.event_support()
 
     /**
-     * objects are deserialized when added to the list
-     * @param {data} externally used representation of element
-     * @return {Object} internally used representation of element
-     * @protected
-     * @method deserialize_element
-     */
-    self.deserialize_element = function(data) {
-        return data
-    }
-
-    /**
-     * objects are serialized when requested from the list
-     * @param {element} internally used representation of element
-     * @return {Object} externally used representation of element
-     * @protected
-     * @method serialize_element
-     */
-    self.serialize_element = function(element) {
-        return element
-    }
-
-    /**
      * Returns the data (list of serialized objectss).
      * @return {Array} list of raw data of objects in this list
      * @method get_data
@@ -222,7 +200,7 @@ schnipp.models.object_list = function(modifier) {
     self.get_data = function() {
         var result = []
         self.each(function(index, value) {
-            result.push(self.serialize_element(value))
+            result.push(value)
         })
         return result
     }
@@ -245,7 +223,6 @@ schnipp.models.object_list = function(modifier) {
     * @method insert
     */
     self.insert = function(index, element) {
-        var element = self.deserialize_element(element)
         self.events.fire('pre-insert', {
             src: self,
             index: index,
@@ -264,7 +241,7 @@ schnipp.models.object_list = function(modifier) {
         self.clear()
         var toimport = []
         $.each(data, function(index, value) {
-            toimport.push(self.deserialize_element(value))
+            toimport.push(value)
         })
         self.data = toimport
         self.events.fire('refresh', {})
@@ -278,7 +255,6 @@ schnipp.models.object_list = function(modifier) {
     * @method set
     */
     self.set = function(index, value) {
-        var value = self.deserialize_element(value)
         var oldval = self.data[index]
         self.data[index] = value
         self.events.fire('set', {
@@ -394,48 +370,6 @@ schnipp.models.object_list = function(modifier) {
     self.each = function(func) {
         $.each(self.data, func)
         return self
-    }
-
-    return self
-}
-
-/**
- * observable_list is a list-like container that supports events to
- * notify subscribers
- *
- * elements that are placed in the list must be objects.
- * Also, elements must contain an id attribute that is unique over all
- * elements in a list.
- *
- * Elements are internally represented as observables.
- *
- * @constructor
- * @class schnipp.models.observable_list
- * @superclass schnipp.models.object_list
- **/
-schnipp.models.observable_list = function() {
-    var self = schnipp.models.object_list()
-
-    /**
-     * Deserializes raw data to an observable.
-     * @param {Object} data The the raw data.
-     * @return {schnipp.models.observable} observable containing data
-     * @protected
-     * @method deserialize_element
-     **/
-    self.deserialize_element = function(data) {
-        return schnipp.models.observable(data)
-    }
-
-    /**
-     * Serializes an observable object to raw data.
-     * @param {schnipp.models.observable} data observable element
-     * @return {Object} raw data contained in observable
-     * @protected
-     * @method serialize_element
-     **/
-    self.serialize_element = function(element) {
-        return element.get_data()
     }
 
     return self
