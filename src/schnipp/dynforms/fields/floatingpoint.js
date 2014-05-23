@@ -24,7 +24,7 @@ schnipp.dynforms.fields.floatingpoint = function(field_descriptor, field_data) {
      * @method get_data
      **/
     self.get_data = function() {
-        var data = self.super_get_data()
+        var data = self.get_raw_data()
         if (self.field_descriptor.float_separator !== undefined) {
             data = data.replace(field_descriptor.float_separator, '.')
         }
