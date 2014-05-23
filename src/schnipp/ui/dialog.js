@@ -36,9 +36,8 @@ schnipp.ui.BaseDialog = function(config) {
         self.dom.close.click(self.close)
         self.dom.main.click(self.focus)
         $('body').append(self.dom.main)
-        schnipp.ui.dialog_count += 1
         
-        self.dom.main.css('z-index', self.dom.main.css('z-index') + schnipp.ui.dialog_count)
+        self.dom.main.css('z-index', self.get_new_zindex())
         
         if (self.config.draggable) {
             self.dom.main.draggable({handle: '.schnipp-dialog-header'})
@@ -129,18 +128,21 @@ schnipp.ui.BaseDialog = function(config) {
         self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px'})    
     }
 
+    self.get_new_zindex = function() {
+        var zindexes = []
+        $('.schnipp-dialog').each(function() {
+            zindexes.push(parseInt($(this).css('z-index')))
+        })
+        return new_index = Math.max.apply(null, zindexes) + 1
+    }
+
     /**
      * Sets the dialog on top (z-index) of all other dialogs. Triggers a focus event 
      * on the dialog instance.
      **/
     self.focus = function() {
-        var zindexes = []
-        $('.schnipp-dialog').each(function() {
-            zindexes.push(parseInt($(this).css('z-index')))
-        })
-        
-        var new_index = Math.max.apply(null, zindexes) + 1
-        self.dom.main.css('z-index', new_index)
+       
+        self.dom.main.css('z-index', self.get_new_zindex())
         self.events.fire('focus', {
             evt: 'focus',
             dialog: self
