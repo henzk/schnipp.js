@@ -110,7 +110,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         $.each(self.schema.fields, function(idx, field_schema) {
             var field = self.fields[field_schema.name]
             if (!field._dynform_rendered) {
-                missing.push(fieldname)
+                missing.push(field_schema.name)
             }
         })
         return missing

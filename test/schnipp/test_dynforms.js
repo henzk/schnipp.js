@@ -54,50 +54,48 @@ test('render fields_display', function() {
     equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
 })
 
-test('render fieldsets', function() {
+test('render fields_display_missing', function() {
     var obj = schnipp.dynforms.form(
         {
             fields:[
-            {
-                name: 'test',
-                type: 'text'
-            },
-            {
-                name: 'test2',
-                type: 'text'
-            }
+                {
+                    name: 'test',
+                    type: 'text'
+                },
+                {
+                    name: 'test2',
+                    type: 'text'
+                }
             ],
-            fieldsets: [
-            {
-                classes: [],
-                fields_display: ['test2', 'test']
-            }
-                ]
+            /*test is missing*/
+            fields_display: ['test2']
         }
     )
     var rendered = obj.render()
     obj.initialize()
     equal(rendered.find('input').eq(1).attr('name'), 'test', 'name of input should be test')
     equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
+})
 
+test('render fieldsets', function() {
     var obj = schnipp.dynforms.form(
         {
             fields:[
-            {
-                name: 'test',
-                type: 'text'
-            },
-            {
-                name: 'test2',
-                type: 'text'
-            }
+                {
+                    name: 'test',
+                    type: 'text'
+                },
+                {
+                    name: 'test2',
+                    type: 'text'
+                }
             ],
             fieldsets: [
-            {
-                classes: [],
-                fields_display: [['test2', 'test']]
-            }
-                ]
+                {
+                    classes: [],
+                    fields_display: ['test2', 'test']
+                }
+            ]
         }
     )
     var rendered = obj.render()
@@ -116,8 +114,33 @@ test('render fieldsets', function() {
                     name: 'test2',
                     type: 'text'
                 }
-                ],
-                fieldsets: [
+            ],
+            fieldsets: [
+                {
+                    classes: [],
+                    fields_display: [['test2', 'test']]
+                }
+            ]
+        }
+    )
+    var rendered = obj.render()
+    obj.initialize()
+    equal(rendered.find('input').eq(1).attr('name'), 'test', 'name of input should be test')
+    equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
+
+    var obj = schnipp.dynforms.form(
+        {
+            fields:[
+                {
+                    name: 'test',
+                    type: 'text'
+                },
+                {
+                    name: 'test2',
+                    type: 'text'
+                }
+            ],
+            fieldsets: [
                 {
                     classes: ['collapse', 'testclass'],
                     label: 'a label',
@@ -133,17 +156,79 @@ test('render fieldsets', function() {
     ok(rendered.find('.schnippforms-fieldset').hasClass('collapse'), 'fieldset should have class collapse')
 })
 
+test('render fieldsets missing', function() {
+    var obj = schnipp.dynforms.form(
+        {
+            fields:[
+                {
+                    name: 'test',
+                    type: 'text'
+                },
+                {
+                    name: 'test2',
+                    type: 'text'
+                }
+            ],
+            fieldsets: [
+                {
+                    classes: [],
+                    /*test is missing*/
+                    fields_display: ['test2']
+                }
+            ]
+        }
+    )
+    var rendered = obj.render()
+    obj.initialize()
+    equal(rendered.find('input').eq(1).attr('name'), 'test', 'name of input should be test')
+    equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
+
+    var obj = schnipp.dynforms.form(
+        {
+            fields:[
+                {
+                    name: 'test',
+                    type: 'text'
+                },
+                {
+                    name: 'test2',
+                    type: 'text'
+                },
+                {
+                    name: 'test3',
+                    type: 'text'
+                }
+            ],
+            fieldsets: [
+                {
+                    classes: [],
+                    fields_display: [['test2', 'test']]
+                }
+            ]
+        }
+    )
+    var rendered = obj.render()
+    obj.initialize()
+    equal(rendered.find('input').eq(1).attr('name'), 'test', 'name of input should be test')
+    equal(rendered.find('input').eq(0).attr('name'), 'test2', 'name of input should be test2')
+    equal(rendered.find('input').eq(2).attr('name'), 'test3', 'name of input should be test3')
+
+})
+
+
+
+
 test('get_field_schema', function() {
     var schema = {
         fields:[
-        {
-            name: 'test',
-     type: 'text'
-        },
-     {
-         name: 'test2',
-     type: 'text'
-     }
+            {
+                name: 'test',
+                type: 'text'
+            },
+            {
+                name: 'test2',
+                type: 'text'
+            }
         ]
     }
     var obj = schnipp.dynforms.form(
