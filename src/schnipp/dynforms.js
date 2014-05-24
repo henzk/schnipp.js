@@ -183,13 +183,14 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * run form validation
      * @return {object} validation results contain a boolean property <tt>valid</tt>
      * and a property <tt>fields</tt> that contains a mapping of 
-     * fieldname to list of errors of that field.
+     * fieldname to validation result of that field.
      * @method do_validate
      **/
     self.do_validate = function() {
         var data = {
             valid: true,
-            fields: {}
+            fields: {},
+            form: null
         }
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
@@ -200,6 +201,13 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             }
             data.fields[field_schema.name] = result
         }
+
+        data.form = self.validate_related()
+
+        if (!data.form.valid) {
+            data.valid = false
+        }
+
         return data
     }
 
@@ -210,7 +218,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      **/
     self.is_valid = function() {
         var is_valid = self.do_validate().valid
-        
+
         // open collapsed fieldsets
         self.dom.main.find('.schnippforms-fieldset-fields').each(function() {
             if ($(this).find('.schnippforms-error').length && $(this).css('display') === 'none') {
@@ -218,6 +226,18 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             }
         })
         return is_valid
+    }
+
+    /**
+     * validate relations between selected values
+     * override this
+     * @return {object} validation result.
+     * @method validate_related
+     **/
+    self.validate_related = function() {
+        return {
+            valid:true
+        }
     }
 
     /**
