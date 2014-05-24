@@ -107,6 +107,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render
      **/
     self.render = function() {
+
+    self._create_fields = function() {
         self.fields = {}
         self.field_schemata = {}
         /* instanciate fields */
@@ -123,6 +125,19 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             self.field_schemata[field_schema.name] = field_schema
             self.fields[field_schema.name] = field
         }
+    }
+
+    /**
+     * render the form view
+     *
+     * @return {jq} html of rendered form as
+     * jquery nodelist ready for dom insertion
+     * @method render
+     **/
+    self.render = function() {
+
+        self._create_fields()
+
         /* generate view */
         var view = $('<form class="schnippforms-form"></form>')
         if (self.schema.label) {
