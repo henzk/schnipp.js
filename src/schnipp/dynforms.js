@@ -35,7 +35,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render_fieldset
      **/
     self.render_fieldset = function(fieldset) {
-    
+
         var c = fieldset.classes || []
         var classnames = c.join(' ')
         var classes = ' class="schnippforms-fieldset ' + classnames + '"'
@@ -57,7 +57,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
      * @method render_fieldsets
      **/
     self.render_fieldsets = function(fieldsets) {
-        
+
         var res = $('<div class="schnippforms-fieldsets"></div>')
         for (var i = 0; i < fieldsets.length; i++) {
             var fieldset = fieldsets[i]
@@ -67,6 +67,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         }
         return res
     }
+
     /**
      * renders fields
      * @param {object} fields array
@@ -249,7 +250,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         $.each(VISITORS, function(index, visitor) {
             visitor.visit_form(self)
         })
-        
+
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
@@ -260,7 +261,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                  visitor.visit_field(self, field)
             })
         }
-        
+
         $.each(self.fields, function(i, field) {
             field.events.bind('change', function() {
                 self.events.fire('change', {
@@ -268,7 +269,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 })
             })
         })
-        
+
         if (self.schema.fieldsets) {
             for (var i=0; i<self.schema.fieldsets.length; i++) {
                 var fs_schema = self.schema.fieldsets[i]
@@ -293,9 +294,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                         icon.addClass('fa-sort-down')
                     }
                 })
-                
-                    
-            }        
+            }
         }
     }
 
@@ -383,7 +382,7 @@ schnipp.dynforms.modelform = function(entity_type, schema, instance) {
     } else {
         instance = entity_type(null, {})
     }
-    
+
     var self = schnipp.dynforms.form(schema, data)
     self.instance = instance
 
@@ -398,12 +397,11 @@ schnipp.dynforms.modelform = function(entity_type, schema, instance) {
         }
         return self.instance                
     }
-    
+
     self.onsubmit = function(form) {
         if (form.is_valid())
             return form.save()
-    } 
-    
+    }
 
     return self
 }
@@ -413,7 +411,7 @@ schnipp.dynforms.modelform = function(entity_type, schema, instance) {
 *   modifier which allows to patch the form instance.  
 */
 schnipp.dynforms.get_modelform = function(entity_type, schema, self_modifier) {
-    
+
     self_modifier = self_modifier || function(self) {}
 
     return function(instance) {
