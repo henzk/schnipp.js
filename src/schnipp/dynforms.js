@@ -82,31 +82,40 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             if ($.isArray(entry)) {
                 var row = $('<div class="schnippforms-form-row schnippforms-fields-horizontal"></div>')  
                 for (var j = 0; j < entry.length; j++) {
-                    var col = entry[j]  
-                    var field_schema = self.field_schemata[col]  
-                    var field = self.fields[field_schema.name]  
-                    var rendered = field.render()  
-                    row.append(rendered)  
+                    var col = entry[j]
+                    var field_schema = self.field_schemata[col]
+                    var field = self.fields[field_schema.name]
+                    var rendered = self.render_field(field)
+                    row.append(rendered)
                 }
-                res.append(row)  
-                res.append($('<div style="clear:both"></div>'))  
+                res.append(row)
+                res.append($('<div style="clear:both"></div>'))
             } else {
-                var field_schema = self.field_schemata[entry]  
-                var field = self.fields[field_schema.name]  
-                res.append(field.render())  
+                var field_schema = self.field_schemata[entry]
+                var field = self.fields[field_schema.name]
+                res.append(self.render_field(field))
             }
         }
         return res
     }
 
-    /**
-     * render the form view
-     *
-     * @return {jq} html of rendered form as
-     * jquery nodelist ready for dom insertion
-     * @method render
-     **/
-    self.render = function() {
+    self.render_field = function(field) {
+        var rendered = field.render()
+        field._dynform_rendered = true
+        return rendered
+    }
+
+    self._get_missing_fieldnames = function() {
+        var missing = []
+        $.each(self.schema.fields, function(idx, field_schema) {
+            var field = self.fields[field_schema.name]
+            if (!field._dynform_rendered) {
+                missing.push(fieldname)
+            }
+        })
+        return missing
+    }
+
 
     self._create_fields = function() {
         self.fields = {}
@@ -148,8 +157,19 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
 
         if (self.schema['fieldsets'] != undefined) {
             holder.append(self.render_fieldsets(self.schema.fieldsets))
+            var missing = self._get_missing_fieldnames()
+            if (missing.length) {
+                holder.append(self.render_fieldset({
+                    label: 'MISSING',
+                    fields_display: missing
+                }))
+            }
         } else if (self.schema['fields_display'] != undefined) {
             holder.append(self.render_fields(self.schema.fields_display))
+            var missing = self._get_missing_fieldnames()
+            if (missing.length) {
+                holder.append(self.render_fields(missing))
+            }
         } else {
             for (var i = 0; i < self.schema.fields.length; i++) {
                 var field_schema = self.schema.fields[i]
