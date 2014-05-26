@@ -90,7 +90,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         self.make_sortable()
         // set initial data.
         $.each(self.get_initial_data(), function(i, obj) {
-            self.objects.append(obj)
+            self.objects.append(schnipp.models.observable(obj))
         })
         
         self.dom.main.addClass('schnippforms-inlines')
@@ -225,7 +225,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
         f.submit(function() {
             if (add_form.is_valid()) {
-                self.objects.append(add_form.get_data())
+                self.objects.append(schnipp.models.observable(add_form.get_data()))
                 self.events.fire('change', self)
                 d.close()
             }
@@ -271,7 +271,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             stop: function() {
                 self.objects.clear()
                 tbody.children().each(function(i, elem) {
-                    self.objects.data.push($(elem).data('obj'))
+                    self.objects.data.push(schnipp.models.observable($(elem).data('obj')))
                 })
             }
         }).disableSelection()
@@ -286,7 +286,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         if (objects)
             for (var i=0; i<objects.length; i++) {
                 var obj = objects[i]
-                self.objects.append(obj)
+                self.objects.append(schnipp.models.observable(obj))
             }
     }
 
