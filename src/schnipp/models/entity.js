@@ -77,7 +77,7 @@ schnipp.models.EntityRemoter = function(urls) {
 }
 
 schnipp.models.EntityList = function(list_url) {
-    var self = schnipp.models.observable_list()
+    var self = schnipp.models.object_list()
 
     self.remote = schnipp.models.EntityRemoter({
         list: list_url

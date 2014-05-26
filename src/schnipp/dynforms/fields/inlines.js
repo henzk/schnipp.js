@@ -28,7 +28,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
 
-    self.objects = schnipp.models.observable_list()
+    self.objects = schnipp.models.object_list()
     self.templates.holder = '\
         <div>\
             <a class="schnippforms-inline-add"><i class="fa fa-plus"></i> Hinzufügen</a>\
