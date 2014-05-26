@@ -278,7 +278,11 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     }
 
     self.get_data = function() {
-        return self.objects.get_data()
+        var data = []
+        $.each(self.objects.data, function(key, item) {
+            data.push(item.raw_data)
+        })
+        return data
     }
 
     self._set = function(objects) {
