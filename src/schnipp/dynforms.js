@@ -45,6 +45,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             container.append($('<div class="schnippforms-label-container"><label>' + fieldset.label + '</label></div>'))
         }
         holder.append(self.render_fields(fieldset.fields_display))
+        holder.append($('<div style="clear:both;"></div>'))
         container.append(holder)
         return container
     }
