@@ -12,19 +12,24 @@ schnipp.dynforms.fields.optionalform = function(field_descriptor, field_data, pa
     var field_data = (field_data !== undefined) ? field_data : {}
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
-    self.default_value = {selected: false}
+    self.default_value = field_descriptor.default_value || {_selected: false}
+
+    var checkbox_default = false
+    if (field_descriptor.default_value !== undefined) {
+        checkbox_default = field_descriptor.default_value._selected
+    }
 
     self.checkbox = schnipp.dynforms.fields.checkbox({
         name: field_descriptor.name,
         label: field_descriptor.label,
         type: 'checkbox',
-        default_value: field_descriptor.default_value,
+        default_value: checkbox_default,
         style: 'box_left'
-    }, field_data.selected)
+    }, field_data._selected)
 
     self.form = schnipp.dynforms.form(
         $.extend({}, field_descriptor, {label:''}),
-        field_data.value,
+        field_data,
         parent_dynform.fieldtypes
     )
 
@@ -38,15 +43,14 @@ schnipp.dynforms.fields.optionalform = function(field_descriptor, field_data, pa
     self._set = function(data) {
         if (data === undefined) data = {}
 
-        self.checkbox.set_data(data.selected)
-        self.form.set_data(data.value)
+        self.checkbox.set_data(data._selected || false)
+        self.form.set_data(data)
     }
 
     self.get_data = function() {
-        return {
-            selected: self.checkbox.get_data(),
-            value: self.form.get_data()
-        }
+        var data = $.extend({}, self.form.get_data())
+        data._selected = self.checkbox.get_data()
+        return data
     }
 
     var toggle_visibility = function() {
