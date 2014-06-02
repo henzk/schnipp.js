@@ -40,11 +40,19 @@ schnipp.dynforms.fields.checkbox = function(field_descriptor, field_data) {
     self.initialize = function() {
         //self.dom.main.hover(function() {
         //})
+        self.dom.input.focus(function() {
+            self.events.fire('focus', {field: self})
+        })
+
+        self.dom.input.change(function() {
+            self.events.fire('change', {
+                src: self,
+                value: self.get_data()
+            })
+        })
+
     }
 
-self.dom.input.focus(function() {
-        self.events.fire('focus', {field: self})
-    })
 
     /**
      * get field data
