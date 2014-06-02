@@ -84,19 +84,23 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 for (var j = 0; j < entry.length; j++) {
                     var col = entry[j]
                     var field_schema = self.field_schemata[col]
-                    var field = self.fields[field_schema.name]
-                    if (field !== undefined && !field._dynform_rendered) {
-                        var rendered = self.render_field(field)
-                        row.append(rendered)
+                    if (field_schema !== undefined) {
+                        var field = self.fields[field_schema.name]
+                        if (field !== undefined && !field._dynform_rendered) {
+                            var rendered = self.render_field(field)
+                            row.append(rendered)
+                        }
                     }
                 }
                 res.append(row)
                 res.append($('<div style="clear:both"></div>'))
             } else {
                 var field_schema = self.field_schemata[entry]
-                var field = self.fields[field_schema.name]
-                if (field !== undefined && !field._dynform_rendered) {
-                    res.append(self.render_field(field))
+                if (field_schema !== undefined) {
+                    var field = self.fields[field_schema.name]
+                    if (field !== undefined && !field._dynform_rendered) {
+                        res.append(self.render_field(field))
+                    }
                 }
             }
         }
