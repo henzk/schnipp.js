@@ -1,6 +1,6 @@
 
 .schnippforms-fieldset {border-bottom:0px solid #ddd;}
-.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; padding:12px 0px 12px 22px;}
+.schnippforms-fieldset .schnippforms-fieldset-fields {border-bottom:1px solid #eee; }
 
 .schnippforms-fieldset .schnippforms-label-container {padding:0px 0px 0px 14px; background:#eee;
     border-bottom:1px solid #ddd; border-top:1px solid #fff; border-right:1px solid #fff;
@@ -30,6 +30,7 @@
     background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
 
 
 

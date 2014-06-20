@@ -41,7 +41,6 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
 
     var toggle_visibility = function() {
         var value = self.form.fields._type.get_data()
-        console.log(value)
         $.each(self.form.fields, function(key, field) {
             if (key != '_type') {
                 if (key === value) {
@@ -59,6 +58,11 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
         _super_init()
         self.form.fields._type.events.bind('change', toggle_visibility)
         self.form.dom.main.addClass('schnf-xorform')
+        
+        // preselect a xorform value by default_value        
+        if (self.field_descriptor.default_value)
+            self.form.fields._type.set_data(self.field_descriptor.default_value)
+        
         toggle_visibility()
     }
 
