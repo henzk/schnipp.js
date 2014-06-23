@@ -21,7 +21,11 @@
    .schnippforms-form textarea { margin:0px; padding:10px; width:300px;}    
    
    
-   .schnippforms-form textarea {height: 200px; width:380px;} 
+   .schnippforms-form textarea {height: 100px; width:535px;} 
+   .schnippforms-form textarea.schnf-small {height:50px;}
+   .schnippforms-form textarea.schnf-medium {height:200px;}
+   .schnippforms-form textarea.schnf-large {height:400px;}
+   
    
     
     .schnippforms-form input[type="text"]:focus,

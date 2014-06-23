@@ -31,7 +31,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     self.objects = schnipp.models.object_list()
     self.templates.holder = '\
         <div>\
-            <a class="schnippforms-inline-add"><i class="fa fa-plus"></i> Hinzufügen</a>\
+            <a class="schnippforms-inline-add"><i class="fa fa-plus-circle"></i> Hinzufügen</a>\
             <div class="schnippforms-inline-objects"></div>\
         </div>\
     '
