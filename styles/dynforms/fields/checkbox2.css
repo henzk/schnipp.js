@@ -1,0 +1,10 @@
+
+
+.schnippforms-checkbox2 i {font-size:22px; width:24px; color:#999; cursor:pointer;}
+
+.schnippforms-checkbox2> div {display:table; }
+.schnippforms-checkbox2> div i,
+.schnippforms-checkbox2> div span {display:table-cell; vertical-align:middle;}
+.schnippforms-checkbox2 .schnf-checked i {color:#6d8f13;}
+
+.schnippforms-checkbox2 .schnippforms-field-dsc {padding-left: 24px;}
