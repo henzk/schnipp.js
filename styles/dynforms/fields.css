@@ -18,6 +18,9 @@
 --------------------------------------------------------------------------------------------------*/
 
    .schnippforms-form input[type="text"],
+   .schnippforms-form input[type="integer"],
+   .schnippforms-form input[type="float"],
+   .schnippforms-form input[type="password"],
    .schnippforms-form textarea { margin:0px; padding:10px; width:300px;}    
    
    

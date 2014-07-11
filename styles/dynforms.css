@@ -8,7 +8,7 @@
 
 .schnippforms-fieldsets .schnippforms-fieldset:first-child .schnippforms-label-container {border-top:0px solid #ddd;}
 
-.schnippforms-fieldset .schnippforms-label-container > label { cursor:pointer; width:100%; padding:14px 0px 14px 0px; font-size:13px; color:#5b80b2; position:relative;}
+.schnippforms-fieldset .schnippforms-label-container > label { margin:0px; cursor:pointer; width:100%; padding:14px 0px 14px 0px; font-size:13px; color:#5b80b2; position:relative;}
 .schnippforms-fieldset .schnippforms-label-container:hover {background:#EDEDED; }
 .schnippforms-fieldset .schnippforms-label-container:hover > label {text-decoration:underline;}
 .schnippforms-fieldset .schnippforms-label-container:hover > label i {color:#9FBCE3}
