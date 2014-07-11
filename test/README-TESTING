@@ -12,14 +12,19 @@ Install node.js
 If node.js is not already installed, please do so first.
 On Linux, it is recommended to use NVM::
 
-    wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.10.0/install.sh | bash
 
 (This creates ~/.nvm and adds a line to your profile. See https://github.com/creationix/nvm)
 
 ::
-    . ~/.nvm/nvm.sh
-    nvm install 0.11.2
-    nvm alias default v0.11.2
+    
+    nvm install is failing so installing 0.10 manually
+    cd ~/.nvm
+    wget http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz ~/.nvm
+    tar xfvz node-v0.10.29-linux-x64.tar.gz
+    mv node-v0.10.29-linux-x64 v0.10.29
+    nvm use 0.10
+    nvm alias default v0.10
 
 
 Install Karma
