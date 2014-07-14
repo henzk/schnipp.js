@@ -21,7 +21,7 @@
    .schnippforms-form input[type="integer"],
    .schnippforms-form input[type="float"],
    .schnippforms-form input[type="password"],
-   .schnippforms-form textarea { margin:0px; padding:10px; width:300px;}    
+   .schnippforms-form textarea { margin:0px; padding:15px 10px; width:300px;}    
    
    
    .schnippforms-form textarea {height: 100px; width:535px;} 
@@ -37,6 +37,7 @@
 /* Errors
 --------------------------------------------------------------------------------------------------*/
     .schnippforms-error  {background: #FAEFED; border-top: 1px solid #fff;}
+    .schnippforms-errorlist {margin:0px;}
     .schnippforms-error input,
     .schnippforms-error textarea {border-color: #DE5959 !important; }
     
