@@ -254,6 +254,15 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 $(this).slideDown()
             }
         })
+        
+        var potentials = self.dom.main.find('.schnippforms-error')
+        if (potentials.length) {
+            // scroll to error fields
+            $('html, body').animate({
+                scrollTop: $(potentials[0]).offset().top
+            }, 200)
+        }
+        
         return is_valid
     }
 
