@@ -226,6 +226,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
                 ).text(value))
             })
             self.dom.main.addClass('schnippforms-error')
+            self.dom.main.animate({opacity: 0.5}, 500).animate({opacity: 1}, 500)
         }
     }
 
@@ -243,6 +244,17 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         }
         return validation_result
     }
+    
+    /**
+     * Must be implemented by the concrete subclass and trigger the (dom) focus event.
+     * Make sure in this context, initialize alsp triggers self.events.fire('focus', {field: self})
+     * @name schnipp.dynforms.abstract_field#focus
+     **/
+    self.set_focus = function(bool) {
+       
+    }
+    
+
 
     /**
      * initialize the field - must be called after the field has been rendered
@@ -250,7 +262,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
      * @name schnipp.dynforms.abstract_field#initialize
      **/
     self.initialize = function() {
-    
+
     }
 
     return self
