@@ -171,7 +171,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     *   Render edit form.
     */
     self.render_change_form = function(d, obj, tds) {
-        var content = $('<div></div>')
+        var content = $('<div class="schnf-inlines-dialog"></div>')
         var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> übernehmen</button></div>')
         
         var change_form = self.get_form()
@@ -208,7 +208,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     *   Render add form.
     */
     self.render_add_form = function(d) {
-        var content = $('<div></div>')
+        var content = $('<div class="schnf-inlines-dialog"></div>')
         var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> anlegen</button></div>')
         
         var add_form = self.get_form()

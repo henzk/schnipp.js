@@ -13,6 +13,9 @@
     border-bottom: 0px; 
 }
 
+
+.schnf-inlines-dialog {width:800px;}
+
     .schnippforms-inline-add {         
         font: 12px Helvetica, Arial, sans-serif;text-decoration: none; letter-spacing:normal; color: #666;
         background: #f3f3f3; background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
@@ -54,7 +57,7 @@
         
     .schnippforms-inline-objects table tr th {}
         
-    .schnippforms-inline-actions {width:60px;}
+    .schnippforms-inline-actions {width: 54px;padding: 0px !important;}
     .schnippforms-inline-actions a {padding:5px; background:#eee; border: 1px solid #ddd; cursor:pointer; color:#646464;}
 
     .schnippforms-inline-handle {width:10px; color:#999;}
