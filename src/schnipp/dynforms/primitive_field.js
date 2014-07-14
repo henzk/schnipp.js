@@ -44,6 +44,14 @@ schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
     self.render_input = function() {
         return self.dom.input
     }
+    
+    self.set_focus = function(bool) {
+        if (bool)
+            self.dom.input.focus()
+        else
+            self.dom.input.blur()
+    }
+    
 
     /**
      * initialize the field - must be called after the field has been rendered
@@ -56,6 +64,10 @@ schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
                 src: self,
                 value: self.get_data()
             })
+        })
+        
+        self.dom.input.focus(function() {
+            self.events.fire('focus', {field:self})
         })
     }
 

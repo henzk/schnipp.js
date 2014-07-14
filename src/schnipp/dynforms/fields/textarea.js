@@ -17,9 +17,6 @@ schnipp.dynforms.fields.textarea = function(field_descriptor, field_data) {
         '"></textarea>'
     ).text(self.get_initial_data())
     
-    self.dom.input.focus(function() {
-        self.events.fire('focus', {field: self})
-    })
 
     return self
 }

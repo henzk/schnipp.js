@@ -17,10 +17,7 @@ schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
         '"/>'
     ).attr('value', self.get_initial_data())
     
-    self.dom.input.focus(function() {
-        self.events.fire('focus', {field:self})
-    })
-    
+        
 
     if (field_descriptor.placeholder !== undefined)
         self.dom.input.attr('placeholder', field_descriptor.placeholder)
