@@ -18,11 +18,15 @@ On Linux, it is recommended to use NVM::
 
 ::
     
-    nvm install is failing so installing 0.10 manually
-    cd ~/.nvm
-    wget http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz ~/.nvm
-    tar xfvz node-v0.10.29-linux-x64.tar.gz
-    mv node-v0.10.29-linux-x64 v0.10.29
+    nvm install 0.10
+    
+    if nvm install is failing so installing node.js 0.10 manually:
+        EXAMPLE:
+        cd ~/.nvm
+        wget http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz ~/.nvm
+        tar xfvz node-v0.10.29-linux-x64.tar.gz
+        mv node-v0.10.29-linux-x64 v0.10.29
+        
     nvm use 0.10
     nvm alias default v0.10
 
@@ -32,6 +36,7 @@ Install Karma
 
 ::
     npm install -g karma
+    npm install -g karma-qunit karma-coverage karma-phantomjs-launcher --save-dev
     npm install -g istanbul #test coverage tool
     npm install -g phantomjs #headless browser
 
