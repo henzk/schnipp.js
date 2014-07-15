@@ -6,7 +6,7 @@
 
 .schnippforms-dropdownselect-select {position:relative; width:300px; display:inline-block;}
 .schnippforms-dropdownselect-display {
-    padding: 0 20px 0 10px; line-height: 32px; min-height:32px; position: relative;
+    padding: 0 20px 0 10px; line-height: 42px; min-height:44px; position: relative;
     background: white;  cursor:pointer;
     border: 1px solid #ccc; border-radius:3px;
 
@@ -14,9 +14,9 @@
 .schnippforms-dropdownselect-toggler {
     background: #eee;; border-left:1px solid #ddd;
     position:absolute; right: 1px; top:1px; cursor: pointer;
-    font-size: 23px;
-    height: 32px;
-    width: 32px;
+    font-size: 15px;
+    height: 42px;
+    width: 42px;
     text-align: center;
 }
 
@@ -33,7 +33,7 @@
     opacity: 0.95;
     left: 0;
     right: 0;
-    top: 36px;
+    top: 42px;
     padding: 5px;
     z-index: 100; display:none;
         -webkit-box-shadow: 2px 2px 20px 1px #999999;
