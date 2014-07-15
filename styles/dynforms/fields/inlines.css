@@ -1,5 +1,5 @@
 
-.schnippforms-inlines {
+.schnippforms-inlinesw {
     -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     -ms-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -7,6 +7,22 @@
     margin: 22px;
     padding:12px;
 }
+
+.schnippforms-inlines {
+    
+    border: 1px solid #eee;
+margin: 12px 22px;
+padding:12px;
+background: #1e5799;
+background: -moz-linear-gradient(top, #1e5799 0%, #f7f7f7 0%, #ffffff 47%, #ffffff 99%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f7f7f7), color-stop(47%,#ffffff), color-stop(99%,#ffffff));
+background: -webkit-linear-gradient(top, #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%);
+background: -o-linear-gradient(top, #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%);
+background: -ms-linear-gradient(top, #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%);
+background: linear-gradient(to bottom, #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#ffffff',GradientType=0 );
+}
+
 
 .schnippforms-inlines > label {font-size:13px;    display:inline-block; width:auto;;
     padding: 6px 6px 6px 0px;
