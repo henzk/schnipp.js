@@ -298,41 +298,20 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-    *   Returns a list of visitors if any are specified. As dynforms support to add 
-    *   visitors in string notation, too, those are instantiated.
-    */
-    self.get_visitors = function() {
-        var visitors = []
-        if (self.schema.visitors && self.schema.visitors.length) {
-            $.each(self.schema.visitors, function(index, visitor) {
-                if ($.type(visitor) === 'string') 
-                    visitor = schnipp.dynforms.visitors[visitor]()    
-                visitors.push(visitor)
-            })
-        }
-        return visitors
-    }
-
-    /**
      * initialize the form after rendering it 
      * @method initialize
      **/
     self.initialize = function(data) {
         // invoke form visitor if specified
-        var VISITORS = self.get_visitors()
-        $.each(VISITORS, function(index, visitor) {
-            visitor.visit_form(self)
-        })
+        var vrunner = schnipp.dynforms.visitors.VRunner(self)
+        vrunner.run()
+        
 
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
             var field_schema = self.schema.fields[i]
             var field = self.fields[field_schema.name]
             field.initialize()
-            // invoke form visitor if specified
-            $.each(VISITORS, function(index, visitor) {
-                 visitor.visit_field(self, field)
-            })
         }
 
         $.each(self.fields, function(i, field) {
