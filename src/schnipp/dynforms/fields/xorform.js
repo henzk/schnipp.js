@@ -12,13 +12,14 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
 
     $.each(field_descriptor.options, function(idx, val) {
         var field = $.extend({}, val)
+        field.label = '&nbsp;'
         field.name = field.value
         field.type = 'form'
         fields.push(field)
     })
 
     field_descriptor.fields = fields
-
+    
     var self = schnipp.dynforms.fields.form(field_descriptor, field_data, parent_dynform)
 
     self._set = function(data) {
