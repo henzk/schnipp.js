@@ -1,20 +1,50 @@
-.schnf-xorform .schnippforms-form-holder {width:98%;
+.schnf-xorform .schnippforms-form-holder {
  background: #ffffff; /* Old browsers */
 
    
 }
 
-.schnf-xorform .schnippforms-field-holder.schnippforms-field-_type {padding:0px;}
-
-.schnf-xorform .schnippforms-field-holder {padding-left:15px; padding-right:15px;}
 
 
-.schnf-xorform > .schnippforms-form-holder {border-right:0px;}
-.schnf-xorform > .schnippforms-form-holder > .schnippforms-form-row > .schnippforms-form >  .schnippforms-form-holder {
-    margin-top:12px;border:0px;border-left:1px dotted #ccc;  margin-right:1px;}
 
-/*.schnf-xorform .schnippforms-form-row .schnippforms-form {padding-top:12px;}*/
-.schnf-xorform .schnippforms-form-row .schnippforms-form > label {display:none;}
+/* FIX THE XORFORM LABEL AND PADDING OF ITS DROPDOWN
+--------------------------------------------------------- */
+    .schnf-xorform>label {padding:22px 0px 0px 22px;;}
+    .schnippforms-field-_type.schnippforms-dropdownselect {padding-top:0px;}
+    .schnippforms-field-_type.schnippforms-dropdownselect>label {display:none;}
+
+
+
+
+
+/* HIDE SELECTED LABEL
+--------------------------------------------------------- */
+
+.schnf-xorform > .schnippforms-form-holder .schnippforms-form-holder {
+    border:1px solid #eee;  margin:12px 22px; padding:0px;
+ background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top,  #1e5799 0%, #f7f7f7 0%, #ffffff 47%, #ffffff 99%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#f7f7f7), color-stop(47%,#ffffff), color-stop(99%,#ffffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%); /* IE10+ */
+background: linear-gradient(to bottom,  #1e5799 0%,#f7f7f7 0%,#ffffff 47%,#ffffff 99%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+
+    }
+
+.schnf-xorform .schnippforms-form {position:relative;}
+    .schnf-xorform .schnippforms-form-row .schnippforms-form > label {
+        width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 10px 10px 10px;
+border-color: transparent transparent #dddddd transparent;
+position:absolute;
+left: 22%;
+top: -10px;
+    }
 
 .schnippforms-form .schnf-xorform .schnippforms-field-holder{
     
