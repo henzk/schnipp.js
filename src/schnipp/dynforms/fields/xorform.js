@@ -42,12 +42,14 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
 
     var toggle_visibility = function() {
         var value = self.form.fields._type.get_data()
+                
         $.each(self.form.fields, function(key, field) {
             if (key != '_type') {
-                if (key === value) {
-                    field.dom.main.show()
+                if (key === value && field.field_descriptor.fields.length) {
+                    // show subform if selected but only if it also provides fields
+                    field.dom.main.show('blind')
                 } else {
-                    field.dom.main.hide()
+                    field.dom.main.hide('blind')
                 }
             }
         })
