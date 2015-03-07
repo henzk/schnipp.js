@@ -40,6 +40,7 @@ schnipp.dynforms.abstractselect = function(field_descriptor, field_data) {
     self.get_option_by_value = function(value) {
         var res = null
         $.each(field_descriptor.options, function(i, opt) {
+            if (opt)
             if (opt.value === value) {
                 opt.index = i
                 res = opt
