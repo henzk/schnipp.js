@@ -288,6 +288,11 @@ schnipp.models.object_list = function(modifier) {
                 elem = val
             }
         })
+        
+        if (elem == undefined) {
+            console.error('This list does not contain an element with id ' + id, self.get_data())
+        }
+        
         return elem
     }
 
