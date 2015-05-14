@@ -1,7 +1,7 @@
 
 .schnipp-dialog-modal {position:absolute; z-index:5; top:0px; left:0px; right:0px; bottom:0px; background:#000; opacity:0.5;}
 
-.schnipp-dialog  {background:#fff; z-index:6; position:absolute; min-width:400px; display:none;
+.schnipp-dialog  {background:#fff; z-index:1002; position:absolute; min-width:400px; display:none;
     -webkit-box-shadow: 2px 2px 20px 1px #999999; -moz-box-shadow: 2px 2px 20px 1px #999999; box-shadow: 2px 2px 20px 1px #999999;
 }
 .schnipp-dialog-inner {position:relative;}
