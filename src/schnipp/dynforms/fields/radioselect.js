@@ -10,9 +10,14 @@ schnipp.dynforms.fields.radioselect = function(field_descriptor, field_data, for
             <label><%-label%></label>\
         </a>\
     ')
+    
+    self.initialize = function() {
+        if (self.selected) {
+            self.set_data(self.selected)
+        }
+    }   
 
     var _super_get_data = self.get_data
-
     self.get_data = function() {
         var val = _super_get_data()
         if (val === undefined) {
