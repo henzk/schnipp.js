@@ -1,0 +1,5 @@
+
+
+.schnf-slider {height:10px; width:100%; background:#ccc; position:relative;}
+
+.schnf-slider .ui-slider-handle {position: absolute; width: 10px; height:30px; top:-10px; background:#999;}
