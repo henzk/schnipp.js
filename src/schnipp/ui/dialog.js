@@ -15,7 +15,7 @@ schnipp.ui.BaseDialog = function(config) {
             <div class="schnipp-dialog-inner">\
                 <a class="schnipp-dialog-close"><i class="fa fa-times"></i></a>\
                 <div class="schnipp-dialog-header"></div>\
-                <div class="schnipp-dialog-content"</div>\
+                <div class="schnipp-dialog-content"></div>\
             </div>\
         </div>\
     ')
@@ -35,7 +35,6 @@ schnipp.ui.BaseDialog = function(config) {
     self.init = function() {
         self.dom.close.click(self.close)
         self.dom.main.click(self.focus)
-        $('body').append(self.dom.main)
         
         self.dom.main.css('z-index', self.get_new_zindex())
         
@@ -48,6 +47,20 @@ schnipp.ui.BaseDialog = function(config) {
     }
     
     /**
+    *   Appends the dialog to the body in case it hasnt already been added to the dom.
+    */
+    self.create = function() {
+    
+        if (!self.exists()) {
+            $('body').append(self.dom.main)
+        }
+    }
+    
+    self.exists = function() {
+        return self.dom.main.closest('body').length > 0
+    }
+    
+    /**
      * Sets the content of the dialog. Triggers a content-change event on the dialog instance.
      *
      * @param {string} content The content that is set.
@@ -55,12 +68,12 @@ schnipp.ui.BaseDialog = function(config) {
     self.set_content = function(content) {
         self.dom.content.empty()
         self.dom.content.append(content)
-        self._center()
         self.events.fire('content-change', {
             evt: 'content-change',
             dialog: self,
             content: content
         })
+        self._center()
     }  
       
     /**
@@ -86,6 +99,7 @@ schnipp.ui.BaseDialog = function(config) {
      **/    
     self.show = function() {
         self.events.trigger('show')
+        self.dom.main.css('display', 'inline-block')
         self.dom.main.show('fade', function() {
             self.events.fire('show', {
                 evt: 'show',
@@ -98,17 +112,22 @@ schnipp.ui.BaseDialog = function(config) {
     /**
      * Closes and destroys the dialog of the dialog. Triggers a closes event on the dialog instance.
      **/
-    self.close = function() {
+    self.close = function(cb) {
         self.events.trigger('close')
-        self.dom.main.hide('fade', function() {
-            self.dom.main.remove()
-                self.events.fire('close', {
-                evt: 'close',
-                dialog: self
-            })
+        self.dom.main.hide('fade', cb || function() {})
+        self.events.fire('close', {
+            evt: 'close',
+            dialog: self
         })
-        
     }
+    
+    
+    self.destroy = function() {
+        self.close(function() {
+            self.dom.main.remove()
+        })
+    }
+    
     
     /**
      * Private function to center the dialog. 
@@ -125,7 +144,7 @@ schnipp.ui.BaseDialog = function(config) {
         var new_top = top + 80
         var new_left = (window_width - width) / 2
         
-        self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px'})    
+        self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px', position: 'absolute'})    
     }
 
     self.get_new_zindex = function() {
