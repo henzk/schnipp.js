@@ -30,36 +30,36 @@ schnipp.ui.BaseDialog = function(config) {
     self.config = $.extend(self.config, config)
     /**
      * The constructor containing the controler code binding events and appending
-     * the dialog dom node to document. 
+     * the dialog dom node to document.
      **/
     self.init = function() {
         self.dom.close.click(self.close)
         self.dom.main.click(self.focus)
-        
+
         self.dom.main.css('z-index', self.get_new_zindex())
-        
+
         if (self.config.draggable) {
             self.dom.main.draggable({handle: '.schnipp-dialog-header'})
             self.dom.main.addClass('schnipp-dialog-draggable')
         }
-        
+
         return self
     }
-    
+
     /**
     *   Appends the dialog to the body in case it hasnt already been added to the dom.
     */
     self.create = function() {
-    
+
         if (!self.exists()) {
             $('body').append(self.dom.main)
         }
     }
-    
+
     self.exists = function() {
         return self.dom.main.closest('body').length > 0
     }
-    
+
     /**
      * Sets the content of the dialog. Triggers a content-change event on the dialog instance.
      *
@@ -74,10 +74,10 @@ schnipp.ui.BaseDialog = function(config) {
             content: content
         })
         self._center()
-    }  
-      
+    }
+
     /**
-     * Sets the title of the dialog. 
+     * Sets the title of the dialog.
      * Triggers a title-change event on the dialog instance.
      *
      * @param {string} title The title that is set.
@@ -91,12 +91,12 @@ schnipp.ui.BaseDialog = function(config) {
             dialog: self,
             content: title
         })
-    }  
-    
+    }
+
     /**
-     * Shows the dialog if its display attribute is none. 
+     * Shows the dialog if its display attribute is none.
      * Triggers a show event on the dialog instance.
-     **/    
+     **/
     self.show = function() {
         self.events.trigger('show')
         self.dom.main.css('display', 'inline-block')
@@ -106,45 +106,51 @@ schnipp.ui.BaseDialog = function(config) {
                 dialog: self
             })
         })
-        
+
     }
-    
+
     /**
      * Closes and destroys the dialog of the dialog. Triggers a closes event on the dialog instance.
      **/
     self.close = function(cb) {
+
+        var close_callback = function() {
+            cb = cb || function() {}
+            self.events.fire('closed', {
+                evt: 'closed',
+                dialog: self
+            })
+        }
+
         self.events.trigger('close')
-        self.dom.main.hide('fade', cb || function() {})
-        self.events.fire('close', {
-            evt: 'close',
-            dialog: self
-        })
+        self.dom.main.hide('fade', close_callback)
+
     }
-    
-    
+
+
     self.destroy = function() {
         self.close(function() {
             self.dom.main.remove()
         })
     }
-    
-    
+
+
     /**
-     * Private function to center the dialog. 
+     * Private function to center the dialog.
      **/
     self._center = function() {
         var top = $(window).scrollTop()
         var left = self.dom.main.offset().left
         var width = self.dom.main.width()
         var height = self.dom.main.height()
-        
+
         var window_width = $(window).width()
         var window_height = $(window).height()
-        
+
         var new_top = top + 80
         var new_left = (window_width - width) / 2
-        
-        self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px', position: 'absolute'})    
+
+        self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px', position: 'absolute'})
     }
 
     self.get_new_zindex = function() {
@@ -156,11 +162,11 @@ schnipp.ui.BaseDialog = function(config) {
     }
 
     /**
-     * Sets the dialog on top (z-index) of all other dialogs. Triggers a focus event 
+     * Sets the dialog on top (z-index) of all other dialogs. Triggers a focus event
      * on the dialog instance.
      **/
     self.focus = function() {
-       
+
         self.dom.main.css('z-index', self.get_new_zindex())
         self.events.fire('focus', {
             evt: 'focus',
@@ -175,20 +181,20 @@ schnipp.ui.ModalDialog = function() {
     var self = schnipp.ui.BaseDialog({
         draggable:false
     })
-    
+
     self.super_show = self.show
     self.show = function() {
         self.super_show()
         self.dom.modal = $('<div class="schnipp-dialog-modal"></div>')
         $('body').append(self.dom.modal)
     }
-    
+
     self.super_close = self.close
     self.close = function() {
         self.super_close()
         self.dom.modal.remove()
     }
-    
+
     return self
 }
 
@@ -197,6 +203,3 @@ schnipp.ui.Dialog = function() {
         draggable:true
     })
 }
-
-
-
