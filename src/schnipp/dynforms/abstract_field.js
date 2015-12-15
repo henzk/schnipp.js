@@ -5,7 +5,7 @@
  * @param {object} field_data initial value for the field
  * @constructor
  **/
-schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
+schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_dynform) {
     var self = {}
     self.default_value = '' /* override this in subclass */
     self.field_descriptor = field_descriptor
@@ -33,38 +33,38 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
 
         if (field_descriptor.extra_classes == undefined)
             field_descriptor.extra_classes = ''
-        
+
         var main = $(self.templates.main({
             name: field_descriptor.name,
             type: field_descriptor.type,
             extra_classes: field_descriptor.extra_classes
         }))
-        
-       
-        
+
+
+
         if (field_descriptor.classes !== undefined)
             $.each(field_descriptor.classes, function(i, cls) {main.addClass(cls)})
-        
+
         // label
         if (field_descriptor.label !== undefined) {
             var label = $('<label></label>').text(field_descriptor.label)
             main.append(label)
             if (field_descriptor.required)
-               label.addClass('schnippforms-required')   
+               label.addClass('schnippforms-required')
         }
 
         // field
         main.append(rendered_field)
-        
+
         // dsc
-        if (field_descriptor.description !== undefined) 
+        if (field_descriptor.description !== undefined)
             main.append($('<div class="schnippforms-field-dsc"></div>').text(field_descriptor.description))
-        
-        
+
+
         return main
     }
-    
-    
+
+
 
     /**
      * render the input portion of the field
@@ -84,7 +84,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     self.hide = function() {
         self.dom.main.hide()
     }
-    
+
     self.show = function() {
         self.dom.main.show()
     }
@@ -181,7 +181,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
             old_value: old_value
         })
     }
- 
+
     /**
      * validates the field. Override this method in subclasses to add
      * specific validation to fields. This implementation checks
@@ -207,12 +207,12 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
     *   Removes the errorlist from dom and all error classes.
     */
     self.render_valid = function() {
-        if (self.dom.errorlist) 
+        if (self.dom.errorlist)
             self.dom.errorlist.remove()
         self.dom.main.removeClass('schnippforms-error')
     }
 
-    
+
     self.render_errors = function(errors) {
         if (self.dom.errorlist)
             self.dom.errorlist.remove()
@@ -244,16 +244,27 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data) {
         }
         return validation_result
     }
-    
+
     /**
      * Must be implemented by the concrete subclass and trigger the (dom) focus event.
      * Make sure in this context, initialize alsp triggers self.events.fire('focus', {field: self})
      * @name schnipp.dynforms.abstract_field#focus
      **/
     self.set_focus = function(bool) {
-       
+
     }
-    
+
+    /**
+    *   Returns the root form, which is in case of nested form structures
+    *   the most outer form.
+    */
+    self.get_root_form = function() {
+        if (parent_dynform.get_root_form != undefined) {
+            return parent_dynform.get_root_form()
+        } else {
+            return parent_dynform
+        }
+    }
 
 
     /**
