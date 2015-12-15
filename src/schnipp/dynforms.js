@@ -81,7 +81,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
         for (var i = 0; i < field_tree.length; i++) {
             var entry = field_tree[i]
             if ($.isArray(entry)) {
-                var row = $('<div class="schnippforms-form-row schnippforms-fields-horizontal"></div>')  
+                var row = $('<div class="schnippforms-form-row schnippforms-fields-horizontal"></div>')
                 for (var j = 0; j < entry.length; j++) {
                     var col = entry[j]
                     var field_schema = self.field_schemata[col]
@@ -135,6 +135,10 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             /* the field constructor gets the field`s schema, initial data,
                and a reference to the dynform(necessary for nested fields
                e.g. using schnipp.dynforms.fields.form). */
+
+            if ( self.fieldtypes[field_schema.type] == undefined ) {
+                throw 'The specified field type "' + field_schema.type + '" does not exist.'
+            }
             var field = self.fieldtypes[field_schema.type](
                 field_schema,
                 self.data[field_schema.name],
@@ -142,6 +146,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
             )
             self.field_schemata[field_schema.name] = field_schema
             self.fields[field_schema.name] = field
+
         }
     }
 
@@ -211,7 +216,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     /**
      * run form validation
      * @return {object} validation results contain a boolean property <tt>valid</tt>
-     * and a property <tt>fields</tt> that contains a mapping of 
+     * and a property <tt>fields</tt> that contains a mapping of
      * fieldname to validation result of that field.
      * @method do_validate
      **/
@@ -254,7 +259,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 $(this).slideDown()
             }
         })
-        
+
         var potentials = self.dom.main.find('.schnippforms-error')
         if (potentials.length) {
             // scroll to error fields
@@ -262,7 +267,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 scrollTop: $(potentials[0]).offset().top
             }, 200)
         }
-        
+
         return is_valid
     }
 
@@ -298,14 +303,14 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-     * initialize the form after rendering it 
+     * initialize the form after rendering it
      * @method initialize
      **/
     self.initialize = function(data) {
         // invoke form visitor if specified
         var vrunner = schnipp.dynforms.visitors.VRunner(self)
         vrunner.run()
-        
+
 
         /* initialize fields */
         for (var i = 0; i < self.schema.fields.length; i++) {
@@ -327,8 +332,8 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                 var fs_schema = self.schema.fieldsets[i]
                 var fs_node = self.dom.fieldsets[i]
                 var label = fs_node.find('.schnippforms-label-container label')
-                
-                
+
+
                 if (fs_schema.is_collapsed) {
                     fs_node.find('.schnippforms-fieldset-fields').hide()
                     label.append($('<i class="fa fa-sort-up"></i>'))
@@ -351,7 +356,7 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
     }
 
     /**
-     * iterate the fields - pass in a function 
+     * iterate the fields - pass in a function
      * @param {Function} visitor function that is called for every field <tt>f</tt> of the form
      * with the arguments <tt>[i, f]</tt>, where <tt>i</tt> is the index of the respective field.
      * @method iter_fields
@@ -445,9 +450,9 @@ schnipp.dynforms.modelform = function(entity_type, schema, instance) {
             // only pass the error callback
             self.instance.save(null, function(instance, errors) {
                 self.render_errors(response.result)
-            })    
+            })
         }
-        return self.instance                
+        return self.instance
     }
 
     self.onsubmit = function(form) {
@@ -460,7 +465,7 @@ schnipp.dynforms.modelform = function(entity_type, schema, instance) {
 
 /**
 *   Factory for modelforms. Takes the schema, the entity_type and a
-*   modifier which allows to patch the form instance.  
+*   modifier which allows to patch the form instance.
 */
 schnipp.dynforms.get_modelform = function(entity_type, schema, self_modifier) {
 
@@ -510,6 +515,6 @@ schnipp.dynforms.get_form_factory = function(schema, instance_modifier) {
  */
 schnipp.dynforms.insert_form = function(target, formclass, instance) {
     var form = formclass(instance)
-    $(target).append(form.render_with_submit('Speichern')) 
-    form.initialize()   
+    $(target).append(form.render_with_submit('Speichern'))
+    form.initialize()
 }
