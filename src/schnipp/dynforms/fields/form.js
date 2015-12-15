@@ -9,10 +9,13 @@
  * @extends schnipp.dynforms.abstract_field
  **/
 schnipp.dynforms.fields.form = function(field_descriptor, field_data, parent_dynform) {
-    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
+    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data, parent_dynform)
     self.form = schnipp.dynforms.form(field_descriptor, field_data, parent_dynform.fieldtypes)
 
-    
+    // monkeypatch the abstract's field get_form method in order to allow sub field to call it.
+    // This enables subfield to access the most outer parent (root) form.
+    self.form.get_root_form = self.get_root_form
+
 
     self.render = function() {
         self.dom.main = self.form.render()
