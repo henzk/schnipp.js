@@ -27,7 +27,7 @@
 schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_dynform) {
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
-
+    self.default_value = undefined
     self.objects = schnipp.models.object_list()
     self.templates.holder = '\
         <div>\
@@ -46,7 +46,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     self.get_inline_schema = function() {
         return field_descriptor.form
     }
-    
+
     self.get_form = function() {
         return schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
     }
@@ -66,7 +66,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             self.change_list_fields = self.get_inline_schema().fields
         }
     }
-    
+
 
     var super_initialize = self.initialize
     self.initialize = function() {
@@ -74,7 +74,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var tbody = self.dom.changelist_table.find('tbody')
         // handle insert
         self.objects.events.bind('insert', function(args) {
-            tbody.append(self.render_row(args.element))  
+            tbody.append(self.render_row(args.element))
             self.dom.changelist_table.sortable().find('tbody').sortable('refresh')
         })
         // handle remove
@@ -82,17 +82,20 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             self.events.fire('change', self)
             $(tbody.children()[args.index]).remove()
         })
-        
-        
+
+
         // make rows sortable
         self.make_sortable()
+
         // set initial data.
-        $.each(self.get_initial_data(), function(i, obj) {
-            self.objects.append(obj)
-        })
-        
+        if (self.default_value) {
+            $.each(self.get_initial_data(), function(i, obj) {
+                self.objects.append(obj)
+            })
+        }
+
         self.dom.main.addClass('schnippforms-inlines')
-        
+
         if (field_descriptor.label === undefined || field_descriptor.label === '') {
             self.dom.main.children('label').text('&nbsp;')
             self.dom.main.children('label').css('visibility', 'hidden')
@@ -150,6 +153,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         changelist.append(self.dom.changelist_table)
 
         a.click(function() {
+
             var d = schnipp.ui.Dialog().init()
 
             if (self.field_descriptor.dialog_title)
@@ -159,7 +163,9 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
             var dialog_content = self.render_add_form(d)
             d.set_content(dialog_content)
+            d.create()
             d.show()
+            d._center()
             return false
         })
 
@@ -172,10 +178,10 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     */
     self.render_change_form = function(d, obj, tds) {
         var content = $('<div class="schnf-inlines-dialog"></div>')
-        var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> übernehmen</button></div>')
-        
+        var submit = $('<div class="schnippforms-submit-row"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> übernehmen</button></div>')
+
         var change_form = self.get_form()
-        
+
         content.append(change_form.render())
 
         change_form.initialize()
@@ -203,16 +209,16 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     }
 
 
-        
+
     /**
     *   Render add form.
     */
     self.render_add_form = function(d) {
         var content = $('<div class="schnf-inlines-dialog"></div>')
-        var submit = $('<div class="schnippforms-submit-row"><button type="submit"><i class="fa fa-check"></i> anlegen</button></div>')
-        
+        var submit = $('<div class="schnippforms-submit-row"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> anlegen</button></div>')
+
         var add_form = self.get_form()
-        
+
         content.append(add_form.render())
         add_form.initialize()
 
@@ -229,7 +235,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             }
             return false
         })
-        
+
         return content
     }
 
@@ -245,7 +251,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             th = $('<th></th>').text(field.label)
             if (i == self.get_inline_schema().fields.length - 1)
                 th.attr('colspan', '2')
-            if (i == 0) 
+            if (i == 0)
                 th.attr('colspan', '2')
             tr.append(th)
         })
