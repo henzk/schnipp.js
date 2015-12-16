@@ -25,7 +25,7 @@
 */
 
 schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_dynform) {
-    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
+    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data, parent_dynform)
 
     self.default_value = undefined
     self.objects = schnipp.models.object_list()
@@ -48,7 +48,11 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     }
 
     self.get_form = function() {
-        return schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
+        var inline_form = schnipp.dynforms.form(self.get_inline_schema(), {}, parent_dynform.fieldtypes)
+        // monkeypatch the abstract's field get_form method in order to allow sub field to call it.
+        // This enables subfield to access the most outer parent (root) form.
+        inline_form.get_root_form = self.get_root_form
+        return inline_form
     }
 
     self.init_changelist_fields = function() {
@@ -218,7 +222,6 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var submit = $('<div class="schnippforms-submit-row"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> anlegen</button></div>')
 
         var add_form = self.get_form()
-
         content.append(add_form.render())
         add_form.initialize()
 
