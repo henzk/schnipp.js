@@ -12,6 +12,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
     self.initial_data = field_data
     self.events = schnipp.events.event_support()
 
+
     self.templates = {
         main: _.template('\
             <div class="schnippforms-field-holder schnippforms-field-<%=name%> schnippforms-<%=type%> <%=extra_classes%>" >\
@@ -34,13 +35,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
         if (field_descriptor.extra_classes == undefined)
             field_descriptor.extra_classes = ''
 
-        var main = $(self.templates.main({
-            name: field_descriptor.name,
-            type: field_descriptor.type,
-            extra_classes: field_descriptor.extra_classes
-        }))
-
-
+        var main = $(self.templates.main(field_descriptor))
 
         if (field_descriptor.classes !== undefined)
             $.each(field_descriptor.classes, function(i, cls) {main.addClass(cls)})
@@ -52,6 +47,11 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
             if (field_descriptor.required)
                label.addClass('schnippforms-required')
         }
+
+        // dsc
+        if (field_descriptor.help_text !== undefined)
+            main.append($('<div class="schnippforms-help-text alert alert-info"></div>').text(field_descriptor.help_text))
+
 
         // field
         main.append(rendered_field)
@@ -180,6 +180,13 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
             value: value,
             old_value: old_value
         })
+
+        if ( field_descriptor.fetch_further ) {
+            var root_form = self.get_root_form()
+            $.each( field_descriptor.fetch_further, function(idx, fieldname) {
+                root_form.fields[fieldname].call_remote()
+            } )
+        }
     }
 
     /**
@@ -265,6 +272,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
             return parent_dynform
         }
     }
+
 
 
     /**
