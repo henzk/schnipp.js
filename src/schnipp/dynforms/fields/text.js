@@ -13,11 +13,10 @@ schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
     self.dom.input = $(
         '<input type="text" name="' +
         self.field_descriptor.name +
-        '" class="fieldtype_' + self.field_descriptor.type +
+        '" class=" fieldtype_' + self.field_descriptor.type +
         '"/>'
     ).attr('value', self.get_initial_data())
-    
-        
+
 
     if (field_descriptor.placeholder !== undefined)
         self.dom.input.attr('placeholder', field_descriptor.placeholder)

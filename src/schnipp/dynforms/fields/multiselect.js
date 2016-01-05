@@ -25,7 +25,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
 			self.dom.select.append(opt)
 		})
 		return self.dom.select
-	
+
 	}
 
     self._set = function(selected_list) {
@@ -37,7 +37,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
     }
 
     self.initialize = function() {
-		self.dom.select.chosen()
+		//self.dom.select.chosen()
 
 		self.dom.select.change(function() {
 			self.set_data($(this).val())
@@ -47,7 +47,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
 			$.each(args.value, function(i, value) {
 				self.dom.select.find('option[value="' + value + '"]').attr('selected', true)
 			})
-			self.dom.select.trigger("chosen:updated")
+			//self.dom.select.trigger("chosen:updated")
 		})
     }
 
