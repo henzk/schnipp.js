@@ -11,7 +11,7 @@
     .schnippforms-field-holder label {
         display: block; vertical-align:top; width:100%; padding-bottom:5px;
     }
-    .schnippforms-field-holder {padding:12px 0px 12px 22px;}
+    .schnippforms-field-holder {padding:12px 12px 12px 12px;}
 
 
 /* Default fields
@@ -21,29 +21,27 @@
    .schnippforms-form input[type="integer"],
    .schnippforms-form input[type="float"],
    .schnippforms-form input[type="password"],
-   .schnippforms-form textarea { margin:0px; padding:15px 10px; width:300px;}    
-   
-   
-   .schnippforms-form textarea {height: 100px; width:535px;} 
+   .schnippforms-form textarea { margin:0px; padding:15px 10px; width:300px;}
+
+
+   .schnippforms-form textarea {height: 100px; max-width:535px;}
    .schnippforms-form .schnf-small textarea {height:50px;}
    .schnippforms-form .schnf-medium textarea {height:200px;}
    .schnippforms-form .schnf-large textarea {height:480px; width:98%;}
-   
-   
-    
+
+
+
     .schnippforms-form input[type="text"]:focus,
     .schnippforms-form textarea:focus {outline:none;}
 
 /* Errors
 --------------------------------------------------------------------------------------------------*/
-    .schnippforms-error  {background: #FAEFED; border-top: 1px solid #fff;}
-    .schnippforms-errorlist {margin:0px;}
+    .schnippforms-error  label { color:red; }
+    .schnippforms-errorlist {margin:0px; color:red; padding:12px 0px 0px 0px; font-size:12px;}
     .schnippforms-error input,
-    .schnippforms-error textarea {border-color: #DE5959 !important; }
-    
-    
-    
-    .schnippforms-errorlist { color:#DE5959; padding-top:12px; font-size:12px;}
+    .schnippforms-error textarea {border-color: red !important; }
+
+
     .schnippforms-errorlist li {list-style-type:none; font-style:italic;}
 
     label.schnippforms-required {font-weight:bold;}
