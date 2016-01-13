@@ -36,6 +36,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
     	return self.data.selected
     }
 
+    self._multiselect_super_initialize = self.initialize
     self.initialize = function() {
 		//self.dom.select.chosen()
 
@@ -49,6 +50,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
 			})
 			//self.dom.select.trigger("chosen:updated")
 		})
+        self._multiselect_super_initialize()
     }
 
     return self
