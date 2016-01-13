@@ -92,15 +92,20 @@ schnipp.dynforms.form = function(schema, data, fieldtypes) {
                             row.append(rendered)
                         }
                     }
+
                 }
+                row.append($('<div style="clear:both"></div>'))
+
                 res.append(row)
-                res.append($('<div style="clear:both"></div>'))
+
             } else {
                 var field_schema = self.field_schemata[entry]
                 if (field_schema !== undefined) {
                     var field = self.fields[field_schema.name]
                     if (field !== undefined && !field._dynform_rendered) {
-                        res.append(self.render_field(field))
+                        var rendered_field = self.render_field(field)
+                        res.append(rendered_field)
+                        rendered_field.wrap('<div class="schnippforms-form-row"></div>')
                     }
                 }
             }
