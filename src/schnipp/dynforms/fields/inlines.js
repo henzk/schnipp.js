@@ -92,7 +92,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         self.make_sortable()
 
         // set initial data.
-        if (self.default_value) {
+        if (self.get_initial_data()) {
             $.each(self.get_initial_data(), function(i, obj) {
                 self.objects.append(obj)
             })
