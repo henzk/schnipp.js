@@ -20,7 +20,7 @@
 .schnippforms-fields-horizontal .schnippforms-field-holder label {display:block; width:100%;float:none; }
 
 
-.schnippforms-submit-row { padding:12px 0px 12px 0px; border-top:1px solid #ddd;
+.schnippforms-submit-row { padding:12px ; border-top:1px solid #ddd;
   background: #ffffff; /* Old browsers */
     background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #ffffff 38%, #eeeeee 99%); /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(38%,#ffffff), color-stop(99%,#eeeeee)); /* Chrome,Safari4+ */
@@ -30,46 +30,3 @@
     background: radial-gradient(ellipse at center,  #ffffff 0%,#ffffff 38%,#eeeeee 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-
-
-
-
-
-
-/* schnippforms button 
-------------------------------------------------------------------------------*/
-    .schnippforms-form button,
-    .schnippforms-form input[type="submit"], 
-    .schnippforms-form button[type="submit"] {
-            font: 14px Helvetica, Arial, sans-serif;text-decoration: none; letter-spacing:normal; color: #fff;font-weight:bold;
-           
-            padding: 15px 22px ;; margin-right: 10px;
-            position: relative; display: inline-block;
-            text-shadow: 0 1px 0 #666; letter-spacing: normal;
-            -webkit-transition: border-color .218s; -moz-transition: border .218s; -o-transition: border-color .218s; transition: border-color .218s;
-            border: solid 1px #dcdcdc;border-radius: 2px; -webkit-border-radius: 2px;-moz-border-radius: 2px;outline:0;
-            cursor:pointer;
-               background: #79a003; /* Old browsers */
-            background: -moz-linear-gradient(top,  #79a003 0%, #93bf1a 100%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#79a003), color-stop(100%,#93bf1a)); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top,  #79a003 0%,#93bf1a 100%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top,  #79a003 0%,#93bf1a 100%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(top,  #79a003 0%,#93bf1a 100%); /* IE10+ */
-            background: linear-gradient(to bottom,  #79a003 0%,#93bf1a 100%); /* W3C */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#79a003', endColorstr='#93bf1a',GradientType=0 ); /* IE6-9 */
-
-        }
-    .schnippforms-form button.schnippforms-delete,
-    .schnippforms-form input[type="submit"].schnippforms-delete, {display:inline-block; 
-            color: white; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); background-color: #DA4F49;
-            background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
-            background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
-            background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
-            background-image: linear-gradient(to bottom, #EE5F5B, #BD362F);
-        }
-
-    .schnippforms-form button:hover, 
-    .schnippforms-form input[type="submit"]:hover {color: @color-hover; border-color: #999;
-            -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); -webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }

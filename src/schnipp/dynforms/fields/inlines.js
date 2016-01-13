@@ -31,14 +31,14 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
     self.objects = schnipp.models.object_list()
     self.templates.holder = '\
         <div>\
-            <a class="schnippforms-inline-add"><i class="fa fa-plus-circle"></i> Hinzufügen</a>\
+            <a class="schnippforms-inline-add btn btn-default"><i class="fa fa-plus-circle"></i> Hinzufügen</a>\
             <div class="schnippforms-inline-objects"></div>\
         </div>\
     '
     self.templates.action_td = '\
         <td class="schnippforms-inline-actions">\
-            <a class="schnippforms-inlines-edit"><i class="fa fa-pencil"></i></a>\
-            <a class="schnippforms-inlines-delete"><i class="fa fa-trash-o"></i></a>\
+            <a class="schnippforms-inlines-edit btn-warning btn btn-xs"><i class="fa fa-pencil"></i></a>\
+            <a class="schnippforms-inlines-delete btn-warning btn btn-xs"><i class="fa fa-trash-o"></i></a>\
         </td>\
     '
 
@@ -74,7 +74,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
 
     var super_initialize = self.initialize
     self.initialize = function() {
-        super_initialize()
+
         var tbody = self.dom.changelist_table.find('tbody')
         // handle insert
         self.objects.events.bind('insert', function(args) {
@@ -87,30 +87,23 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             $(tbody.children()[args.index]).remove()
         })
 
-
         // make rows sortable
         self.make_sortable()
-
-        // set initial data.
-        if (self.get_initial_data()) {
-            $.each(self.get_initial_data(), function(i, obj) {
-                self.objects.append(obj)
-            })
-        }
-
         self.dom.main.addClass('schnippforms-inlines')
 
         if (field_descriptor.label === undefined || field_descriptor.label === '') {
             self.dom.main.children('label').text('&nbsp;')
             self.dom.main.children('label').css('visibility', 'hidden')
         }
+
+        super_initialize()
     }
 
     /**
     *   Render object row with change buttons.
     */
     self.render_row = function(obj) {
-        var tr = $('<tr><td class="schnippforms-inline-handle"><i class="fa fa-arrows"></i></td></tr>')
+        var tr = $('<tr></tr>')
         var tds = {}
 
         $.each(self.change_list_fields, function(i, field) {
@@ -123,6 +116,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
         var edit = td.find('.schnippforms-inlines-edit')
         var del = td.find('.schnippforms-inlines-delete')
         tr.append(td)
+        tr.append($('<td class="schnippforms-inline-handle"><i class="fa fa-arrows"></i></td>'))
 
         tr.data('obj', obj)
 
@@ -130,9 +124,13 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             var d = schnipp.ui.Dialog().init()
             d.set_title('Element bearbeiten')
             d.set_content(self.render_change_form(d, obj, tds))
+            d.create()
+            d.center()
             d.show()
+
             return false
         })
+
 
         del.click(function() {
             var doit = confirm('Element wirklich löschen?')
