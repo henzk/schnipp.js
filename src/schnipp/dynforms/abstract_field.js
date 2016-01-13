@@ -184,11 +184,10 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
         if ( field_descriptor.fetch_further ) {
             var root_form = self.get_root_form()
             $.each( field_descriptor.fetch_further, function(idx, fieldname) {
-                if ( root_form.fields[fieldname].call_remote ) {
+
+                if ( root_form.fields[fieldname] && root_form.fields[fieldname].call_remote ) {
                     root_form.fields[fieldname].call_remote()
-                } else {
-                    console.error('Log: fetch_further field', fieldname, 'does not provide remote call functionality')
-                }
+                } 
             } )
         }
     }
