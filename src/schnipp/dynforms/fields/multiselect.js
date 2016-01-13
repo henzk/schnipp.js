@@ -41,7 +41,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
 		//self.dom.select.chosen()
 
 		self.dom.select.change(function() {
-			self.set_data($(this).val())
+        	self.set_data($(this).val())
 		})
 
 		self.events.bind('change', function(args) {

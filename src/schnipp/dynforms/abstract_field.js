@@ -286,7 +286,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
      **/
     self.initialize = function() {
 
-        if (self.get_data()) {
+        if (self.get_initial_data()) {
             self.set_data(self.get_initial_data())
         }
     }
