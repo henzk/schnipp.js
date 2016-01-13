@@ -152,6 +152,7 @@ schnipp.ui.BaseDialog = function(config) {
 
         self.dom.main.css({'top': new_top + 'px', 'left': new_left + 'px', position: 'absolute'})
     }
+    self.center = self._center
 
     self.get_new_zindex = function() {
         var zindexes = []
