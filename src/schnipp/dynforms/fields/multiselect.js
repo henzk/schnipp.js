@@ -12,7 +12,7 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
     var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
 
 	self.templates.option = _.template('<option value="<%- opt.value %>"><%- opt.label %></option>')
-	self.dom.select = $('<select multiple></select>')
+	self.dom.select = $('<select multiple style="width:325px"></select>')
 
 	self.data = {
 		selected: []
@@ -44,13 +44,26 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
         	self.set_data($(this).val())
 		})
 
+
+
 		self.events.bind('change', function(args) {
 			$.each(args.value, function(i, value) {
 				self.dom.select.find('option[value="' + value + '"]').attr('selected', true)
 			})
 			//self.dom.select.trigger("chosen:updated")
 		})
+
         self._multiselect_super_initialize()
+
+        // init select 2 if defined
+        if (self.dom.select.select2) {
+            var opts = {
+            }
+            if ( field_descriptor.hide_search_bar )
+                opts.minimumResultsForSearch = -1
+
+            self.dom.select.select2(opts)
+        }
     }
 
     return self
