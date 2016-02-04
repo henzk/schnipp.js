@@ -8,8 +8,8 @@
  * @extends schnipp.dynforms.abstract_field
  * @module schnipp.dynforms
  **/
-schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data)
+schnipp.dynforms.primitive_field = function(field_descriptor, field_data, parent_dynform) {
+    var self = schnipp.dynforms.abstract_field(field_descriptor, field_data, parent_dynform)
     self.dom.input = null /* must be set in subclass */
 
     /**
@@ -44,14 +44,14 @@ schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
     self.render_input = function() {
         return self.dom.input
     }
-    
+
     self.set_focus = function(bool) {
         if (bool)
             self.dom.input.focus()
         else
             self.dom.input.blur()
     }
-    
+
 
     /**
      * initialize the field - must be called after the field has been rendered
@@ -65,7 +65,7 @@ schnipp.dynforms.primitive_field = function(field_descriptor, field_data) {
                 value: self.get_data()
             })
         })
-        
+
         self.dom.input.focus(function() {
             self.events.fire('focus', {field:self})
         })
