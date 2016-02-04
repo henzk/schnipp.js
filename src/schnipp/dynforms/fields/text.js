@@ -7,8 +7,8 @@
  * @class schnipp.dynforms.fields.text
  * @extends schnipp.dynforms.primitive_field
  **/
-schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
-    var self = schnipp.dynforms.primitive_field(field_descriptor, field_data)
+schnipp.dynforms.fields.text = function(field_descriptor, field_data, parent_dynform) {
+    var self = schnipp.dynforms.primitive_field(field_descriptor, field_data, parent_dynform)
 
     self.dom.input = $(
         '<input type="text" name="' +
@@ -23,3 +23,4 @@ schnipp.dynforms.fields.text = function(field_descriptor, field_data) {
 
     return self
 }
+schnipp.dynforms.fields.TextField = schnipp.dynforms.fields.text
