@@ -1,0 +1,25 @@
+
+.schnippforms-field-holder.schn-remote-field label {
+    width: auto;
+    display:inline-block;
+}
+.schn-remote-field .schn-remote-fetch-trigger {
+    display:inline-block;
+    margin-left:12px; cursor:pointer;
+}
+
+
+.schn-remote-field-data-holder {
+    display:none;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 3px;
+    background: #eee;
+    max-width: 300px;
+    overflow: auto;
+    margin-top: 6px;
+}
+
+.schn-remote-field-data-holder a {
+    cursor:pointer;
+}
