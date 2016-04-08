@@ -11,6 +11,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
     self.field_descriptor = field_descriptor
     self.initial_data = field_data
     self.events = schnipp.events.event_support()
+    self.parent_dynform = parent_dynform
 
 
     self.templates = {
