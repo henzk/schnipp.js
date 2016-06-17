@@ -10,6 +10,8 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
         options: field_descriptor.options,
     })
 
+    console.log(field_data)
+
     $.each(field_descriptor.options, function(idx, val) {
         var field = $.extend({}, val)
         field.label = '&nbsp;'
@@ -19,7 +21,7 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
     })
 
     field_descriptor.fields = fields
-    
+
     var self = schnipp.dynforms.fields.form(field_descriptor, field_data, parent_dynform)
 
     self._set = function(data) {
@@ -65,7 +67,7 @@ schnipp.dynforms.fields.xorform = function(field_descriptor, field_data, parent_
         // preselect a xorform value by default_value
         if (self.field_descriptor.default_value)
             self.form.fields._type.set_data(self.field_descriptor.default_value)
-
+        self.set_data(field_data)
         toggle_visibility()
     }
 
