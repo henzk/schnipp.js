@@ -47,9 +47,17 @@ schnipp.dynforms.fields.multiselect = function(field_descriptor, field_data, par
 
 
 		self.events.bind('change', function(args) {
-			$.each(args.value, function(i, value) {
-				self.dom.select.find('option[value="' + value + '"]').attr('selected', true)
-			})
+            if (args.value) {
+                // mark html options as selected
+                $.each(args.value, function(i, value) {
+                    self.dom.select.find('option[value="' + value + '"]').attr('selected', true)
+                })
+            } else {
+                // if none selected remove selected attr from all options
+                self.dom.select.find('option').each(function(i, value) {
+                    $(value).removeAttr('selected')
+                })
+            }
 			//self.dom.select.trigger("chosen:updated")
 		})
 
