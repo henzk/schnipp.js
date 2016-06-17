@@ -1,0 +1,5 @@
+
+/* Dropdowns must always have the highest z-index to avoid being hidden in dialogs */
+.select2-dropdown {
+    z-index:19999!important;
+}
