@@ -11,7 +11,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
     self.field_descriptor = field_descriptor
     self.initial_data = field_data
     self.events = schnipp.events.event_support()
-
+    self.parent_dynform = parent_dynform
 
     self.templates = {
         main: _.template('\
@@ -187,7 +187,7 @@ schnipp.dynforms.abstract_field = function(field_descriptor, field_data, parent_
 
                 if ( root_form.fields[fieldname] && root_form.fields[fieldname].call_remote ) {
                     root_form.fields[fieldname].call_remote()
-                } 
+                }
             } )
         }
     }
