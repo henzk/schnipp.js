@@ -253,7 +253,7 @@ schnipp.dynforms.fields.inlines = function(field_descriptor, field_data, parent_
             if (i == self.get_inline_schema().fields.length - 1)
                 th.attr('colspan', '2')
             if (i == 0)
-                th.attr('colspan', '2')
+                th.attr('colspan', '1')
             tr.append(th)
         })
         thead.append(tr)
